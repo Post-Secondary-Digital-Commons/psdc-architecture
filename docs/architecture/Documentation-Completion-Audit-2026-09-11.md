@@ -64,7 +64,7 @@ documentation pull request.
 
 The workspace provides `scripts/Test-Documentation.ps1` as the repeatable local
 Markdown, Obsidian-link, JSON and unresolved-marker gate. On 2026-09-11 it passed
-against 1,258 Markdown files and 15 JSON files with zero findings; the separate
+against 1,268 Markdown files and 15 JSON files with zero findings; the separate
 open-source YAML parse passed all four YAML files. Final clean-state and fork-
 ancestry checks run after the common changes and institution synchronizations are
 merged.
