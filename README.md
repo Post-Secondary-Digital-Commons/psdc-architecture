@@ -16,6 +16,7 @@ live in the sibling repositories under the workspace root.
 - [Cross-pollination and shared capabilities](./docs/architecture/Cross-Pollination-and-Shared-Capabilities.md)
 - [Repository and Obsidian linking model](./docs/architecture/Repository-and-Obsidian-Linking-Model.md)
 - [Human choices and decisions register](./docs/governance/Human-Choices-and-Decisions-Register.md)
+- [GitHub repository governance](./docs/governance/GitHub-Repository-Governance.md)
 - [Open-source-only policy](./docs/vision/11-Open-Source-Only-Policy.md)
 - [Open-source reference stack](./docs/vision/12-Open-Source-Reference-Stack.md)
 - [Full technology stack and alternatives](./docs/vision/14-Full-Technology-Stack-and-Open-Source-Alternatives.md)
