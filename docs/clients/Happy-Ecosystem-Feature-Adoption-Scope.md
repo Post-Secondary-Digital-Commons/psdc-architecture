@@ -1,6 +1,6 @@
 # Happy Ecosystem Feature Adoption Scope
 
-> Status: Accepted product scope; staged implementation  
+> Status: Accepted product scope; staged implementation
 > Applies to: Happy-derived mobile, OpenWork-derived desktop, Commons Session Host and Relay
 
 ## Adopt first

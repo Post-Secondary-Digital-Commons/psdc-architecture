@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://commons.example/contracts/agent-sessions/permission-decision.schema.json",
+  "$id": "urn:psdc:contracts:agent-sessions:permission-decision:1",
   "title": "Agent Permission Decision",
   "type": "object",
   "additionalProperties": false,
   "required": ["contractVersion", "decisionId", "requestId", "sessionId", "actionDigest", "decision", "actorId", "deviceId", "decidedAt", "expiresAt", "signature"],
   "properties": {
-    "contractVersion": { "const": "0.1-draft" },
+    "contractVersion": { "const": "1.0" },
     "decisionId": { "type": "string", "format": "uuid" },
     "requestId": { "type": "string", "format": "uuid" },
     "sessionId": { "type": "string", "format": "uuid" },
@@ -20,4 +20,3 @@
     "signature": { "type": "string", "contentEncoding": "base64" }
   }
 }
-

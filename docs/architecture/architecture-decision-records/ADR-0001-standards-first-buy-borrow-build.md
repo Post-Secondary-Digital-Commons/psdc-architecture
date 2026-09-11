@@ -1,8 +1,8 @@
 # ADR-0001: Standards-First / Buy-Borrow-Build
 
-> Status: Accepted  
-> Scope: Entire Algonquin Digital Platform  
-> Decision owner: Platform architecture  
+> Status: Accepted
+> Scope: Entire Algonquin Digital Platform
+> Decision owner: Platform architecture
 > Review trigger: A proposal to create a new infrastructure primitive or protocol
 
 ## Context

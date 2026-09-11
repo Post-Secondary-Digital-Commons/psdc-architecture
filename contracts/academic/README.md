@@ -1,6 +1,6 @@
 # Academic Provider Contract
 
-> Status: Architecture contract skeleton  
+> Status: Normative architecture contract
 > Governing decisions: ADR-0007, ADR-0008, ADR-0010
 
 ## Purpose
@@ -50,8 +50,9 @@ idempotency, and a receipt.
 
 ## Implementations
 
-- **Production Algonquin academic features:** College-approved Brightspace API,
-  OAuth and/or LTI 1.3 adapter by use case.
+- **Production institutional academic features:** the institution-approved LMS
+  API, OAuth and/or LTI 1.3 adapter selected by use case; Algonquin's local fork
+  may select Brightspace without making it a common dependency.
 - **Development/CI:** deterministic synthetic fixtures or a local provider with no
   production College data.
 - **Future:** another College-approved LMS adapter conforming to the same contract.
@@ -71,4 +72,3 @@ errors or credentials.
 - never scrape pages or impersonate user credentials;
 - prevent development fixtures from being confused with authoritative records;
 - test adapters separately from provider-independent contract tests.
-

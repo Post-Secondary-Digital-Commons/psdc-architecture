@@ -1,62 +1,59 @@
-# ADR XXXX
+# ADR Authoring Template
 
-> Status: Accepted baseline; specification incomplete  
-> Domain: architecture  
-> Owner: Owning domain team; accountable person pending  
-> Last reviewed: 2026-09-10
+> Status: Authoring template; never normative
 
-## Purpose
+Copy this structure to the next sequential ADR number. Replace the instructional
+text with project evidence and delete sections that are genuinely inapplicable
+only after explaining why. This file records no decision.
 
-Specify ADR XXXX within the Post-Secondary Digital Commons. This outline inherits the
-accepted cross-platform decisions below; its owner must add domain requirements,
-evidence, and institutionally approved choices without weakening those constraints.
+## Context
 
-## Scope
+Describe the problem, affected users and systems, current behaviour, constraints,
+assumptions, evidence, urgency and the consequence of taking no action.
 
-- In scope: requirements, interfaces, dependencies, data, security, operations,
-  validation, and roadmap decisions for ADR XXXX.
-- Out of scope: redefining shared standards or sibling-system responsibilities
-  without an approved cross-platform ADR.
-- Assumptions and constraints: accepted platform ADRs apply; unresolved product,
-  procurement, institutional, and implementation choices remain explicit.
+## Decision drivers
 
-## Architecture content
+List the required outcomes and rank correctness, portability, openness, security,
+privacy, accessibility, reliability, operability, cost and migration concerns.
 
-- Requirements and quality attributes: TODO
-- Interfaces, APIs, events, and contracts: TODO
-- Dependencies and ownership boundaries: TODO
-- Data, state, residency, and retention: TODO
-- Security, privacy, safety, and compliance: TODO
-- Deployment, environments, and configuration: TODO
-- Scaling, capacity, cost, and sustainability: TODO
-- Failure behavior, recovery, and compatibility: TODO
-- Observability, testing, and operational readiness: TODO
-- Standards, upstream projects, and build/adopt/fork decision: TODO
+## Considered options
 
-## Settled architecture constraints
+For every credible option, describe its mechanism, benefits, disadvantages,
+licensing, dependencies, operational burden, security and privacy impact,
+compatibility, migration cost and exit path. Include retaining the current state
+when it is credible.
 
-- System boundaries use versioned standard interfaces and keep implementations replaceable.
-- Institution-specific control-plane composition must not create proprietary data-plane protocols.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+## Decision
 
-## Decision traceability
+State the selected option as a testable rule using normative language. Define its
+scope, owner, affected contracts, effective version and exception authority.
 
-- ADR-0001: Standards-First / Buy-Borrow-Build
-- ADR-0005: Standard Platform Primitives
-- ADR-0012: Tenant-Neutral Post-Secondary Digital Commons
-- ADR-0013: Institution-First Federation Locality
-- ADR-0016: Accepted Project Defaults
-- ADR-0017: OpenTofu Default Infrastructure-as-Code Toolchain
+## Consequences
 
-## Accepted default and alternatives
+Describe positive and negative consequences, new dependencies, work created,
+capabilities removed, compatibility window and maintenance commitment.
 
-Apply [Technology Defaults and Alternatives](../../vision/13-Technology-Defaults-and-Alternatives.md) and the [Human Choices and Decisions Register](../../governance/Human-Choices-and-Decisions-Register.md). The accepted default is authoritative; alternatives are evaluated migration or evidence paths, not co-defaults.
+## Security, privacy and safety
 
-## Decisions and open questions
+Identify changed trust boundaries, data flows, threats, controls, residual risks,
+required reviews and emergency behaviour.
 
-- Accepted project baseline: Inherits the applicable accepted ADRs and the consolidated technology defaults listed above.
-- Remaining specification work: Replace TODO fields with measured requirements, named owners, exact versions, site-specific values, acceptance evidence, and external approvals before the implementation gate.
+## Operations and economics
 
-## References
+Define ownership, observability, capacity, service objectives, failure behaviour,
+recovery, lifecycle, staffing, cost and sustainability effects.
 
-- Related contracts, ADRs, standards, and source material: TODO
+## Migration and rollback
+
+Define prerequisites, sequencing, compatibility, data migration, verification,
+rollback trigger, rollback procedure and irreversible boundaries.
+
+## Validation
+
+List the contract, security, privacy, accessibility, performance, recovery and
+interoperability evidence that demonstrates the decision works.
+
+## References and supersession
+
+Link governing specifications, issues, standards, upstream projects and replaced
+ADRs. State whether this ADR supersedes or is superseded by another decision.

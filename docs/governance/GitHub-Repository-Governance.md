@@ -1,14 +1,14 @@
 # GitHub Repository Governance
 
-> Status: Active bootstrap baseline  
-> Effective: 2026-09-11  
+> Status: Active governance policy
+> Effective: 2026-09-11
 > Applies to: `Post-Secondary-Digital-Commons` and `Algonquin-Digital-Commons`
 
 ## Purpose
 
 Repository settings are part of the platform's control plane. They determine who
 can change protected history, how common work reaches an institution, and which
-evidence must exist before a change merges. This baseline protects all 19 hosted
+evidence must exist before a change merges. This policy protects all 21 hosted
 repositories while the project has one confirmed maintainer and no operational
 self-hosted CI service.
 
@@ -26,7 +26,7 @@ self-hosted CI service.
 | Delete merged topic branches | Yes | Yes |
 | Linear history required | Yes | No |
 | Merge commits enabled | No | Yes |
-| Required status checks | Pending CI | Pending CI |
+| Required status checks | Deferred until Woodpecker emits stable contexts | Deferred until Woodpecker emits stable contexts |
 | Protected `main` push actor | `RedjiJB` only | `RedjiJB` only |
 | Secret scanning and push protection | Enabled | Enabled |
 | Dependency alerts and automated fixes | Enabled | Enabled |
@@ -39,10 +39,9 @@ change, and `RedjiJB` is presently the only confirmed maintainer. Once a second
 authorized maintainer exists, require at least one approval and code-owner review.
 
 Organization membership grants no repository permission by default. Members
-cannot create repositories or GitHub Pages sites. Web commit signoff is required
-by both organizations. The live 2FA audit found no noncompliant members, but the
-organization-wide 2FA requirement remains pending because the API did not enable
-the setting; an owner must confirm it in both GitHub organization settings pages.
+cannot create repositories or GitHub Pages sites. Web commit signoff and
+organization-wide 2FA are required by both organizations. The live API audit on
+2026-09-11 confirmed 2FA enforcement in both organizations.
 
 The `Club Members` team has triage access, which permits issue and pull-request
 coordination without repository writes. The `Maintainers` team has maintain
@@ -94,7 +93,6 @@ For an upstream synchronization into an institution fork:
 Before calling repository governance production-ready:
 
 - appoint at least two maintainers in each governing organization;
-- enable and verify the organization-wide 2FA requirement in GitHub settings;
 - add repository or path-specific CODEOWNERS;
 - require one independent approval and code-owner review;
 - deploy self-hosted Woodpecker CI and require its stable status contexts;

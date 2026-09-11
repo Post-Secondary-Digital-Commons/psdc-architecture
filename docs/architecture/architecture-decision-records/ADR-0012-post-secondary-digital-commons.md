@@ -1,8 +1,8 @@
 # ADR-0012: Build a Tenant-Neutral Post-Secondary Digital Commons
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Entire ecosystem  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Entire ecosystem
 > Decision owner: Project founder
 
 ## Context

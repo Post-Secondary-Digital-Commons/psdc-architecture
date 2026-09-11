@@ -1,7 +1,7 @@
 # Institution-Branded Client Distribution and Access
 
-> Status: Accepted architecture; implementation pending  
-> Applies to: OpenWork-derived desktop, Happy-derived mobile and web companion  
+> Status: Normative distribution architecture; implementation gated
+> Applies to: OpenWork-derived desktop, Happy-derived mobile and web companion
 > Governing decisions: ADR-0002, ADR-0008, ADR-0018, ADR-0019, ADR-0020, ADR-0021
 
 ## Access model

@@ -1,7 +1,7 @@
 # Repository Access and Onboarding Policy
 
-> Status: Active bootstrap policy  
-> Effective: 2026-09-11  
+> Status: Active governance policy
+> Effective: 2026-09-11
 > Applies to: Both PSDC GitHub organizations
 
 ## Principle
@@ -87,14 +87,14 @@ When access is no longer required or an account may be compromised:
 Removing GitHub membership alone does not revoke credentials copied to another
 system. Offboarding is complete only when every trust boundary has been checked.
 
-## Current exceptions and gaps
+## Bootstrap exceptions
 
 - `RedjiJB` is the only accountable maintainer, so an independent approval is not
   yet technically enforceable without blocking owner-authored changes.
-- CODEOWNERS and required code-owner review remain pending a second maintainer and
-  final path ownership assignments.
+- CODEOWNERS enforcement activates when a second accountable maintainer is
+  appointed; activating it sooner would make owner-authored changes unmergeable.
 - Self-hosted CI status checks and signed releases are not implemented.
-- Organization-wide 2FA enforcement must be enabled and verified in the GitHub
-  settings UI even though the current audit found no member with 2FA disabled.
+- Organization-wide 2FA enforcement is active in both organizations and remains
+  a prerequisite for every future member.
 - Protected release-tag and environment-deployment policies remain to be defined
   before publishing executable artifacts.

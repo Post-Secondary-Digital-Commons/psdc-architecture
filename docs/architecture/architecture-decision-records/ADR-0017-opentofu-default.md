@@ -1,8 +1,8 @@
 # ADR-0017: OpenTofu Is the Default Infrastructure-as-Code CLI
 
-> Status: Accepted; supersedes ADR-0011  
-> Date: 2026-09-10  
-> Scope: Infrastructure provisioning toolchain  
+> Status: Accepted; supersedes ADR-0011
+> Date: 2026-09-10
+> Scope: Infrastructure provisioning toolchain
 > Decision owner: Project founder
 
 ## Context

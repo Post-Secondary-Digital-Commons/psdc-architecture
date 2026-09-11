@@ -1,6 +1,6 @@
 # Technology Reference Stack
 
-> Status: Accepted project baseline  
+> Status: Normative open-source reference stack; exact releases are implementation evidence
 > Constraint: Every selection requires license, security, accessibility,
 > operational, and institutional review before production
 
@@ -62,7 +62,7 @@ formats, and data remain portable.
 | AI gateway | Python/FastAPI Commons gateway | Go is the measured-pressure alternative; OpenAI-compatible plus native APIs |
 | Production LLM serving | vLLM | SGLang alternative selected per model and hardware evidence |
 | Local/edge LLM serving | llama.cpp adapter | Portable local inference |
-| Batch and opportunistic compute | HTCondor interoperability | ACF adds campus enrollment, trust, topology, and policy |
+| Batch and opportunistic compute | HTCondor interoperability | Commons Compute Fabric adds campus enrollment, trust, topology, and policy |
 | Distributed Python workloads | None by default; Ray only when measured | Dask |
 | Experimental heterogeneous inference | exo and SwarmLLM adapters | Research tier, never baseline dependency |
 | Model/artifact storage | Ceph RGW plus content-addressed manifests | Weights stay outside Git |
@@ -75,16 +75,16 @@ formats, and data remain portable.
 | Media processing | FFmpeg and GStreamer | Pipelines remain engine-independent |
 | 3D authoring/processing | Blender | glTF-first interchange where suitable |
 | Image/color pipelines | OpenImageIO and OpenColorIO | Preserve provenance and color metadata |
-| Social federation | ActivityPub/ActivityStreams | AC Fediverse owns the public federation edge |
+| Social federation | ActivityPub/ActivityStreams | Commons Social Fabric owns the public federation edge |
 | Social products | Mastodon, Pixelfed, PeerTube, Lemmy, WriteFreely, Owncast | Adopt or thin-fork after interoperability review |
-| AC AI web client | Algonquin AI Web bootstrapped from Open WebUI v0.6.5 BSD source | Frozen provenance-controlled baseline; evolve toward native Study/Work/Code/Campus UX |
+| Web client | Independent `psdc-web` browser/PWA product; verified Open WebUI v0.6.5 BSD source is the eligible bootstrap | Frozen provenance-controlled baseline; evolve toward native Study/Work/Code/Campus UX; AI Fabric remains the API producer |
 | Desktop clients | OpenWork MIT core outside `ee/` | Current upstream React/Electron is accepted only after ADR-0018 gates; Tauri remains the replacement path |
 | Mobile clients | Happy MIT Expo/React Native baseline | Self-hosted E2EE relay required by ADR-0019; Flutter remains an alternative for a distinct product |
 | Documentation | Plain Markdown and Git | Obsidian is optional; Zettlr or other OSS editors remain viable |
 
 Open WebUI v0.6.6 and later is deliberately excluded from this baseline because
 [its branding restriction is not OSI-approved](https://docs.openwebui.com/license/).
-AC AI may test protocol compatibility with it, but cannot require it. ADR-0009
+Commons AI Fabric may test protocol compatibility with it, but cannot require it. ADR-0009
 selects the older BSD-3-Clause v0.6.5 source as a preferred bootstrap, subject to
 legal, provenance, security, accessibility, and maintenance gates.
 

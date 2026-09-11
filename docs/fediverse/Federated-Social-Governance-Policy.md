@@ -1,7 +1,7 @@
 # Federated Social Governance Policy
 
-> Status: Accepted baseline; institutional ratification required before public federation  
-> Scope: Commons Social Fabric and every ActivityPub-enabled social product  
+> Status: Normative common policy; each institution ratifies its local enforcement profile before public federation
+> Scope: Commons Social Fabric and every ActivityPub-enabled social product
 > Governing decisions: ADR-0002, ADR-0008, ADR-0012, ADR-0014, ADR-0020
 
 ## Are the social products federated?
@@ -102,4 +102,3 @@ Before public federation: named policy/moderation/security owners, approved code
 of conduct and privacy notice, allowlist, abuse mailbox, coverage model, threat
 model, key rotation, remote media controls, backups, moderation drills, appeals,
 incident runbook, interoperability tests and a controlled peer exercise.
-

@@ -1,6 +1,6 @@
 # Commercial and Institutional Upstream Contribution Policy
 
-> Status: Accepted project policy; participation agreement language requires legal review  
+> Status: Accepted project policy; participation agreement language requires legal review
 > Governing decision: ADR-0024
 
 PSDC is permissively licensed so institutions, researchers, students and

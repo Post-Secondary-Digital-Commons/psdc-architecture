@@ -1,8 +1,8 @@
 # ADR-0022: Polyrepo Ecosystem with Product-Local Package Workspaces
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Source control, releases, ownership and developer workspace  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Source control, releases, ownership and developer workspace
 > Decision owner: Project founder
 
 ## Context
@@ -30,8 +30,9 @@ The initial repository set is:
 | `psdc-compute` | Commons Compute Fabric |
 | `psdc-media` | Commons Media and Spatial Fabric |
 | `psdc-social` | Commons Social Fabric and ActivityPub integration |
+| `psdc-web` | Browser client, Web BFF, PWA, accessibility, branding contract and web releases |
 | `psdc-desktop` | OpenWork-derived desktop product and Session Host client integration |
-| `psdc-mobile` | Happy-derived mobile/web companion, agent/CLI adapters and wire protocol packages |
+| `psdc-mobile` | Happy-derived mobile companion, agent adapters and wire protocol packages |
 | `psdc-deployment-template` | Neutral institution-deployment composition, branding and policy template |
 | `psdc-workspace` | Repository manifest, bootstrap tooling and Obsidian maps only |
 

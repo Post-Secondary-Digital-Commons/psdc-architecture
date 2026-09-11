@@ -1,7 +1,7 @@
 # Source Decision Import — 2026-09-10
 
-> Status: Complete import record  
-> Source type: User-provided chat excerpt  
+> Status: Complete import record
+> Source type: User-provided chat excerpt
 > Scope: Standards-first architecture decisions
 
 ## Imported principle
@@ -47,7 +47,7 @@ The source does not settle:
 - licensing, data-residency, accessibility, security, and operational approval;
 - quantitative SLOs, quotas, capacity, cost, recovery targets, and rollout dates.
 
-Those remain explicit TODOs in the owning documents. They must not be inferred
+Those were recorded as unresolved items in the owning documents at import time. They must not be inferred
 from a reference technology name.
 
 ## Later constitutional clarification
@@ -63,7 +63,7 @@ product assumptions to override current policy.
 ## Propagation
 
 All 434 Markdown specifications from the master suite contain applicable settled
-constraints and ADR traceability. The OpenAPI YAML placeholder contains equivalent
+constraints and ADR traceability. The OpenAPI normative profile now contains equivalent
 machine-readable decision metadata. The constitutional documents and core
 standards documents were expanded into drafts where the source contained enough
 decision content.

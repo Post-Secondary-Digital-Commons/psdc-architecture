@@ -1,6 +1,6 @@
 # Identity Provider Contract
 
-> Status: Architecture contract skeleton  
+> Status: Normative architecture contract
 > Governing decisions: ADR-0002, ADR-0008, ADR-0010
 
 ## Purpose
@@ -71,4 +71,3 @@ must not silently fall back to local student accounts or weaken assurance.
 - production institutional accounts stored in the development realm;
 - treating public Fediverse identity as institutional identity without explicit,
   revocable linking.
-

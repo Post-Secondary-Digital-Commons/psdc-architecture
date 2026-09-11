@@ -1,7 +1,7 @@
 # Happy Mobile Client Foundation
 
-> Status: Accepted foundation; source import pending  
-> Owner: AC AI mobile team  
+> Status: Normative foundation; source import authorized only at the implementation provenance gate
+> Owner: Commons AI Fabric mobile team
 > Governing decision: ADR-0019
 
 ## Product role

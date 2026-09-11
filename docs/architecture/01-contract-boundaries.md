@@ -4,7 +4,7 @@
 
 Every internal request carries one normalized subject identity plus service
 identity. Human roles originate in the institutional identity system and are
-mapped by AC Cloud's identity broker. Services authorize scopes locally.
+mapped by Commons Cloud's identity broker. Services authorize scopes locally.
 Another institution or federation peer never becomes a local identity authority.
 
 ## Shared events
@@ -22,22 +22,22 @@ federation never receives precise private location by default.
 
 ## ActivityPub contract
 
-AC Fediverse owns HTTP signatures, actor discovery, inbox/outbox processing,
+Commons Social Fabric owns HTTP signatures, actor discovery, inbox/outbox processing,
 delivery, retries, remote-media handling, federation policy, and abuse controls.
 Other ecosystems request publishing or attach approved objects through internal
 APIs; they do not independently expose ActivityPub endpoints.
 
 ## Compute contract
 
-ACF accepts declarative jobs describing resource requirements, artifacts,
+Commons Compute Fabric accepts declarative jobs describing resource requirements, artifacts,
 isolation, preemption, locality, data classification, and result destinations.
 Callers do not select individual worker machines.
 
 ## Academic contract
 
 The Academic Service exposes neutral course, enrolment, content, assessment, and
-authorization shapes. Brightspace is authoritative only through Algonquin's
-approved production adapter; another institution may use an open-source LMS.
+authorization shapes. An LMS is authoritative only through its institution's
+approved production adapter; the common contract does not select a vendor.
 
 ## Commons federation contract
 

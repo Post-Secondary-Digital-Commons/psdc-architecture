@@ -1,7 +1,7 @@
 # Source Decision Import — Web Foundation and Provider Adapters
 
-> Status: Complete import record  
-> Date: 2026-09-10  
+> Status: Complete import record
+> Date: 2026-09-10
 > Source type: Two user-provided chat excerpts
 
 ## Decisions incorporated

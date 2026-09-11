@@ -1,8 +1,8 @@
 # Post-Secondary Digital Commons — Consolidated Architecture
 
-> Status: Accepted architecture; implementation incomplete  
-> Owner: Platform architecture  
-> Governing decisions: ADR-0001 through ADR-0024
+> Status: Normative architecture; implementation gated
+> Owner: Platform architecture
+> Governing decisions: ADR-0001 through ADR-0025
 
 ## Commons system model
 
@@ -54,7 +54,18 @@ invent model serving or container runtimes.
 
 Owns the AI gateway, OpenAI-compatible and native APIs, model aliases, routing,
 policy integration, inference adapters, knowledge/RAG, academic capabilities,
-agents, tools, evaluations, and AI clients. No client bypasses the gateway.
+agents, tools, and evaluations. It exposes product APIs but does not own the
+browser, desktop, or mobile product repositories. No client bypasses the gateway.
+
+### Client products
+
+`psdc-web`, `psdc-desktop`, and `psdc-mobile` own the common browser/PWA,
+desktop, and mobile experiences respectively. Each consumes versioned APIs and
+identity discovery through its institution-signed deployment manifest. Each
+institution maintains a thin, independently releasable fork—such as
+`algonquin-web`—for branding, distribution, approved endpoints, and local policy.
+Clients never own model routing, institutional identity, LMS records, social
+state, or another service's database.
 
 ### Commons Media and Spatial Fabric
 
@@ -99,14 +110,15 @@ justifies a new repository or runtime boundary.
 | Spatial | Umbrella contract; domain implementations | Shared identifiers, provenance, precision, privacy |
 | Federation | Commons Social Fabric | ActivityPub policy, delivery, verification, and abuse controls |
 | Compute | Commons Compute Fabric | Capability-based jobs and lifecycle events |
-| Academic | Umbrella contract plus institution adapter | Provider-neutral academic resources; Brightspace authoritative only for Algonquin production |
+| Academic | Umbrella contract plus institution adapter | Provider-neutral academic resources; Brightspace authoritative only for institution production |
 | Federation trust | Each institution plus consortium governance | Bilateral/consortium profiles, revocation and conformance; no global super-admin |
+| Client discovery | Client product repositories plus institution deployment overlay | Signed deployment manifest, OIDC discovery, API origins, feature policy, branding and support metadata |
 
 ## Core end-to-end flows
 
 ### AI inference
 
-Client → OIDC → Commons Cloud edge → Commons AI policy/routing → local runtime or Commons Compute Fabric →
+Web/desktop/mobile/CLI client → institution deployment discovery → OIDC → Commons Cloud edge → Commons AI policy/routing → local runtime or Commons Compute Fabric →
 streamed response → usage and OpenTelemetry events.
 
 ### Media generation and publication
@@ -153,3 +165,5 @@ silently.
     moderation, keys, state and operational authority.
 13. Federation exchanges approved capabilities and references, not unrestricted
     raw directories, LMS databases, private vector stores, secrets or precise location.
+14. Web, desktop, and mobile remain independent products with separate release
+    trains; they share contracts and design tokens rather than private source imports.

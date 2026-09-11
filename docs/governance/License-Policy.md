@@ -1,6 +1,6 @@
 # License Policy
 
-> Status: Accepted default; legal review required before public release  
+> Status: Accepted default; legal review required before public release
 > Governing decision: ADR-0024
 
 ## Default

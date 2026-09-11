@@ -1,8 +1,8 @@
 # ADR-0009: Bootstrap Algonquin AI Web from the Open WebUI v0.6.5 BSD Baseline
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: AC AI web client  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: AC AI web client
 > Decision owner: Project founder; license plan requires institutional legal review
 
 ## Context

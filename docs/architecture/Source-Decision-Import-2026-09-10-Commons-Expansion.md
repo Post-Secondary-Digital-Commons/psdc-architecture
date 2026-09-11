@@ -1,7 +1,7 @@
 # Source Decision Import — Commons Expansion
 
-> Status: Complete decision extraction  
-> Source: `ChatGPT-AI Club Platform Proposal-20260910-1634.md`  
+> Status: Complete decision extraction
+> Source: `ChatGPT-AI Club Platform Proposal-20260910-1634.md`
 > Imported: 2026-09-10
 
 The source is a conversation export used as design input, not as executable
@@ -22,7 +22,7 @@ current task are imported as project decisions.
 | All proposed defaults in the human choices register are accepted as the project baseline | ADR-0016 |
 | Opportunistic campus compute requires a census and cannot displace primary student use | ADR-0013 and ACF specifications |
 
-## Not imported as accepted facts
+## Excluded from normative decisions
 
 Assistant-generated budget ranges, market-size estimates, enrolment figures,
 profit claims, rollout dates, savings, utilization assumptions and staffing

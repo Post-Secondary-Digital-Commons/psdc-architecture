@@ -1,8 +1,8 @@
 # ADR-0016: Accept the Human-Decision Register Defaults as the Project Baseline
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Human Choices and Decisions Register  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Human Choices and Decisions Register
 > Decision owner: Project founder
 
 ## Decision

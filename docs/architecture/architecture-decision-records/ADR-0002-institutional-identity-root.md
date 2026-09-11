@@ -1,6 +1,6 @@
 # ADR-0002: Institutional Identity Is the Root of Access
 
-> Status: Accepted  
+> Status: Accepted
 > Scope: Institutional users and services
 
 ## Context

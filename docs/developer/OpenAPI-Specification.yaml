@@ -1,23 +1,72 @@
 openapi: 3.1.0
 info:
-  title: Algonquin Digital Platform API
-  version: 0.0.0-placeholder
+  title: Post Secondary Digital Commons API Conventions
+  version: 1.0.0
   description: >-
-    Decision-seeded placeholder. Public REST interfaces use OpenAPI, institutional
-    identity uses OIDC/OAuth, AI compatibility is defined separately from native
-    AC capabilities, and internal implementations remain replaceable.
+    Normative profile inherited by every PSDC HTTP API. Service specifications
+    add domain paths and schemas without weakening these conventions.
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+servers:
+  - url: https://api.deployment.invalid
+    description: The institution manifest supplies the approved service origin.
+security:
+  - institutionalOidc: []
 paths: {}
-components: {}
-x-document-status: decision-seeded-placeholder
+components:
+  securitySchemes:
+    institutionalOidc:
+      type: openIdConnect
+      openIdConnectUrl: https://issuer.deployment.invalid/.well-known/openid-configuration
+      description: The signed institution manifest supplies and pins the issuer.
+  headers:
+    RequestId:
+      description: Caller-generated correlation identifier.
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey:
+      description: Required for retryable mutation requests.
+      schema:
+        type: string
+        minLength: 16
+        maxLength: 200
+  schemas:
+    Problem:
+      type: object
+      additionalProperties: false
+      required: [type, title, status, code, requestId]
+      properties:
+        type: { type: string, format: uri-reference }
+        title: { type: string, minLength: 1, maxLength: 200 }
+        status: { type: integer, minimum: 400, maximum: 599 }
+        code: { type: string, pattern: '^[a-z][a-z0-9._-]{2,100}$' }
+        detail: { type: string, maxLength: 2000 }
+        requestId: { type: string, format: uuid }
+        retryable: { type: boolean, default: false }
+        retryAfterSeconds: { type: integer, minimum: 0, maximum: 86400 }
+    PageMetadata:
+      type: object
+      additionalProperties: false
+      required: [limit]
+      properties:
+        limit: { type: integer, minimum: 1, maximum: 500 }
+        nextCursor: { type: string, maxLength: 2048 }
+        total: { type: integer, minimum: 0 }
+x-document-status: normative-profile
 x-architecture-decisions:
   - ADR-0001-standards-first-buy-borrow-build
   - ADR-0002-institutional-identity-root
   - ADR-0003-openai-compatible-ai-boundary
   - ADR-0005-standard-platform-primitives
+  - ADR-0012-post-secondary-digital-commons
 x-required-conventions:
-  versioning: TBD
-  errors: TBD
-  pagination: TBD
-  idempotency: TBD
-  trace-context: OpenTelemetry-compatible
-  security-schemes: OIDC/OAuth definitions pending institutional approval
+  versioning: Major version in the URL or media type; additive compatible changes remain within a major version.
+  errors: RFC 9457-style problem details using components.schemas.Problem.
+  pagination: Opaque cursor pagination with bounded limit and components.schemas.PageMetadata.
+  idempotency: Mutations are intrinsically idempotent or require Idempotency-Key and retain replay results for the declared retry window.
+  trace-context: W3C Trace Context and OpenTelemetry-compatible correlation.
+  authentication: OIDC issuer and client metadata are supplied by the signed institution deployment manifest.
+  authorization: Deny by default; validate subject, institution, audience, scope, resource and action at the service boundary.
+  compatibility: Current major and one prior major are supported during a documented migration window.
+  time: RFC 3339 UTC timestamps with explicit expiry for temporary resources.
+  content: application/json UTF-8 by default; streaming and binary media types are declared per operation.

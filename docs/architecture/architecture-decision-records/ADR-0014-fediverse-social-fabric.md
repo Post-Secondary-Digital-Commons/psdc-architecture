@@ -1,7 +1,7 @@
 # ADR-0014: The Social Fabric Is Fediverse- and ActivityPub-Based
 
-> Status: Accepted  
-> Date: 2026-09-10  
+> Status: Accepted
+> Date: 2026-09-10
 > Scope: Social, photos, video, communities, blogs, live media, and inter-campus collaboration
 
 ## Decision

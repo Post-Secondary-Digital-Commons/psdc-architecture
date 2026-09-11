@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://commons.example/contracts/agent-sessions/device-pairing.schema.json",
+  "$id": "urn:psdc:contracts:agent-sessions:device-pairing:1",
   "title": "Agent Session Device Pairing Challenge",
   "type": "object",
   "additionalProperties": false,
   "required": ["contractVersion", "pairingId", "hostId", "challenge", "hostPublicKey", "createdAt", "expiresAt", "relayProfile"],
   "properties": {
-    "contractVersion": { "const": "0.1-draft" },
+    "contractVersion": { "const": "1.0" },
     "pairingId": { "type": "string", "format": "uuid" },
     "hostId": { "type": "string", "format": "uuid" },
     "challenge": { "type": "string", "contentEncoding": "base64" },

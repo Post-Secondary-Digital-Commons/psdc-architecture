@@ -1,8 +1,8 @@
 # ADR-0018: OpenWork MIT Core Is the Desktop AI Client Foundation
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: PSDC desktop client  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: PSDC desktop client
 > Decision owner: Project founder; exact-source import requires legal and security review
 
 ## Context

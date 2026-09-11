@@ -1,8 +1,8 @@
 # ADR-0021: Clients Are Institution-Branded and Institution-Authenticated
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Web, desktop, mobile, CLI and client distribution  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Web, desktop, mobile, CLI and client distribution
 > Decision owner: Project founder
 
 ## Context

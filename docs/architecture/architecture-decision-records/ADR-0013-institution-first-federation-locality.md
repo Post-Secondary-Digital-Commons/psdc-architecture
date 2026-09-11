@@ -1,7 +1,7 @@
 # ADR-0013: Institution First, Federation Second, Commercial Infrastructure Last
 
-> Status: Accepted  
-> Date: 2026-09-10  
+> Status: Accepted
+> Date: 2026-09-10
 > Scope: Compute, storage, models, knowledge, agents, services, media, and recovery
 
 ## Context

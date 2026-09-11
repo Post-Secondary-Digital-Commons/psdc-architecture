@@ -1,8 +1,8 @@
 # ADR-0011: Terraform Is the Default IaC CLI with an OpenTofu Exit Path
 
-> Status: Superseded by ADR-0017  
-> Date: 2026-09-10  
-> Scope: Infrastructure provisioning toolchain  
+> Status: Superseded by ADR-0017
+> Date: 2026-09-10
+> Scope: Infrastructure provisioning toolchain
 > Decision owner: Project founder; legal review required before multi-institution distribution
 
 ## Supersession

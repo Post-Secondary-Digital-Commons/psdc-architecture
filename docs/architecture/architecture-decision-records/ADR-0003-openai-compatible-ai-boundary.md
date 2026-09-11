@@ -1,6 +1,6 @@
 # ADR-0003: OpenAI-Compatible External AI Boundary
 
-> Status: Accepted  
+> Status: Accepted
 > Scope: AI clients and model-provider integrations
 
 ## Context

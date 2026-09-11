@@ -1,8 +1,8 @@
 # Open WebUI Baseline and License Boundary
 
-> Status: Accepted supporting policy for ADR-0009  
-> Domain: clients  
-> Owner: AC AI client team and open-source review  
+> Status: Normative supporting policy for ADR-0009
+> Domain: clients
+> Owner: Commons AI Fabric client team and open-source review
 > Last reviewed: 2026-09-10
 
 ## Purpose
@@ -13,11 +13,12 @@ open-source-only policy.
 
 ## Accepted use
 
-- Open WebUI v0.6.5 is the preferred initial source scaffold for `apps/web`.
-- The exact tag and immutable commit must be verified before import.
+- Open WebUI v0.6.5 is the preferred initial source foundation for `psdc-web`.
+- The exact tag, immutable commit and eligible file inventory are verified in the
+  implementation import pull request before source enters repository history.
 - Required BSD notices, copyright, attribution, dependency licenses, and file
   provenance remain preserved.
-- Algonquin AI Web evolves independently and talks only to Commons AI gateway APIs.
+- PSDC Web evolves independently and talks only to Commons AI gateway APIs.
 
 ## Prohibited use
 
@@ -35,7 +36,7 @@ they do not make current source or assets available for reuse.
 
 ## Maintenance implication
 
-The v0.6.5 baseline is frozen. Algonquin owns security fixes, dependency updates,
+The v0.6.5 baseline is frozen. The PSDC Web team owns security fixes, dependency updates,
 browser compatibility, accessibility, and feature work. LibreChat or a native
 client remains the exit path if that burden becomes unsafe or unsustainable.
 
@@ -53,12 +54,11 @@ client remains the exit path if that burden becomes unsafe or unsustainable.
 - ADR-0005: Standard Platform Primitives
 - ADR-0006: Thin, Upstream-Compatible Product Forks
 - ADR-0008: Open-Source, Self-Hosted Core
-- ADR-0009: Algonquin AI Web Foundation
-- ADR-0008: Open-Source, Self-Hosted Core
-- ADR-0009: Algonquin AI Web Foundation
+- ADR-0009: PSDC Web Foundation
 
 ## References
 
-- [Algonquin AI Web Foundation](./Commons-AI-Web-Foundation.md)
+- [PSDC Web Foundation](./PSDC-Web-Foundation.md)
+- `psdc-web:docs/upstream/Open-WebUI-Provenance-Policy.md`
 - [Open WebUI license explanation](https://docs.openwebui.com/license/)
 - [Open WebUI license notice](https://github.com/open-webui/open-webui/blob/main/LICENSE_NOTICE)

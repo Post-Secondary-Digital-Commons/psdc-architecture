@@ -1,7 +1,7 @@
 # Post-Secondary Digital Commons Architecture
 
-> Status: Accepted constitutional direction  
-> Date: 2026-09-10  
+> Status: Accepted constitutional direction
+> Date: 2026-09-10
 > Governing decisions: ADR-0012, ADR-0013, ADR-0014, ADR-0016, ADR-0020
 
 ## Purpose
@@ -33,11 +33,11 @@ social graph, or super-administrator for every institution.
 | AI and agent fabric | Gateway, models, routing, RAG, evaluations, agent tools and AI clients | `psdc-ai` |
 | Media and spatial fabric | Image, audio, video, 3D, 4DGS, spatial assets, provenance, transformation and delivery | `psdc-media` |
 | Social fabric | Fediverse actors, social, photos, video, communities, blogs, moderation and ActivityPub federation | `psdc-social` |
-| Academic fabric | Institution-neutral course, enrolment, content and assessment contracts with local authoritative adapters | Umbrella contracts; domain implementation pending |
+| Academic fabric | Institution-neutral course, enrolment, content and assessment contracts with local authoritative adapters | Normative academic contract profile |
 | Data fabric | Classification, sovereignty, catalogs, lineage, authorized exchange and lifecycle policy | Umbrella contracts plus service-owned stores |
 | Developer fabric | Forge, CI, registry, SDKs, templates, sandbox and service catalog | Cloud plus umbrella standards |
-| Communications fabric | Notifications, messaging and approved institutional communication adapters | Logical fabric; implementation pending |
-| Research and innovation fabric | Reproducible environments, data/model manifests, compute grants and publication lineage | Cross-fabric capability; implementation pending |
+| Communications fabric | Notifications, messaging and approved institutional communication adapters | Normative communications boundary |
+| Research and innovation fabric | Reproducible environments, data/model manifests, compute grants and publication lineage | Normative cross-fabric capability |
 
 These are logical ownership boundaries. They do not require an immediate new
 repository or microservice for every row. A boundary earns extraction only when

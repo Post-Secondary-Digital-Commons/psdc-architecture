@@ -1,8 +1,8 @@
 # ADR-0015: Use CA$30 per Enrolled Student-Month as the Funding Assumption
 
-> Status: Accepted planning assumption  
-> Date: 2026-09-10  
-> Scope: Business-case and capacity scenarios  
+> Status: Accepted planning assumption
+> Date: 2026-09-10
+> Scope: Business-case and capacity scenarios
 > External approval: Not granted
 
 ## Decision

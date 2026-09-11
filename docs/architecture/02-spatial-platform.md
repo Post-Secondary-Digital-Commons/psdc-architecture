@@ -8,11 +8,11 @@ domain behavior and access controls.
 
 | Ecosystem | Spatial use |
 |---|---|
-| AC Cloud | Place/scene identity lookup, access policy, indexing, and events |
-| ACF | Hardware locality, topology, scheduling zones, and data locality |
-| AC AI | Campus graph, place-aware assistance, spatial reasoning, and agents |
-| AC Media Fabric | Captures, cameras, poses, scenes, 3D assets, and 4DGS |
-| AC Fediverse | Place-aware communities, events, media, and federated objects |
+| Commons Cloud | Place/scene identity lookup, access policy, indexing, and events |
+| Commons Compute Fabric | Hardware locality, topology, scheduling zones, and data locality |
+| Commons AI Fabric | Campus graph, place-aware assistance, spatial reasoning, and agents |
+| Commons Media and Spatial Fabric | Captures, cameras, poses, scenes, 3D assets, and 4DGS |
+| Commons Social Fabric | Place-aware communities, events, media, and federated objects |
 
 ## Privacy defaults
 

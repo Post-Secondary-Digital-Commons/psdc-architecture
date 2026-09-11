@@ -1,6 +1,6 @@
 # ADR-0005: Standard Platform Primitives
 
-> Status: Accepted  
+> Status: Accepted
 > Scope: Data, infrastructure, APIs, events, telemetry, security, and artifacts
 
 ## Decision

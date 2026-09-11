@@ -1,8 +1,8 @@
 # ADR-0020: Post-Secondary Digital Commons Is the Shared Platform Name
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Shared architecture, software, contracts, documentation and federation  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Shared architecture, software, contracts, documentation and federation
 > Decision owner: Project founder
 
 ## Context

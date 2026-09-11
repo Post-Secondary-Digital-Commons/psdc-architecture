@@ -1,8 +1,8 @@
 # 07 Build vs Adopt vs Fork
 
-> Status: Accepted sourcing policy  
-> Domain: vision  
-> Owner: Platform architecture and open-source governance  
+> Status: Accepted sourcing policy
+> Domain: vision
+> Owner: Platform architecture and open-source governance
 > Last reviewed: 2026-09-10
 
 ## Purpose
@@ -38,7 +38,7 @@ maintain a temporary downstream patch only when necessary.
 
 ### 4. Maintain a thin compatible fork
 
-Fork only for material Algonquin value that cannot be delivered otherwise. Define
+Fork only for material institution-specific value that cannot be delivered otherwise. Define
 the upstream remote, sync cadence, patch owners, patch budget, compatibility suite,
 security update target, and exit plan.
 
@@ -64,7 +64,7 @@ Before choosing extend, fork, or build, record:
 
 ## Default examples
 
-- Web AI client: bootstrap Algonquin AI Web from the verified Open WebUI v0.6.5
+- Web AI client: bootstrap PSDC Web from the verified Open WebUI v0.6.5
   BSD source under ADR-0009, then evolve independently; treat current Open WebUI
   only as a compatibility target.
 - OpenCode: extend or thin downstream fork while its required release remains
@@ -72,11 +72,11 @@ Before choosing extend, fork, or build, record:
 - Brightspace: supported adapter using D2L mechanisms.
 - Infrastructure as code: adopt OpenTofu and Ansible; do not create a custom IaC
   language, state format, or hosted control plane.
-- Model engines: adopt behind AC AI/ACF adapters.
+- Model engines: adopt behind Commons AI Fabric/Commons Compute Fabric adapters.
 - HTCondor/Kubernetes/GPUStack/Ray: adopt, interoperate, or borrow proven models;
   never recreate by default.
-- Algonquin academic, campus, policy, agent, orchestration, and UX layers: build
-  where they express unique institutional value.
+- Institution academic, campus, policy, agent, orchestration, and UX layers:
+  build only where they express unique local value behind common contracts.
 
 ## Settled architecture constraints
 
@@ -95,10 +95,10 @@ Before choosing extend, fork, or build, record:
 - ADR-0016: Accepted Project Defaults
 - ADR-0017: OpenTofu Default Infrastructure-as-Code Toolchain
 
-## Decisions and open questions
+## Decision status
 
-- Accepted baseline: This decision ladder applies to all platform work.
-- Remaining work: Each implementation records its exact upstream, release,
+- Decision: This decision ladder applies to all platform work.
+- Implementation evidence gate: each implementation records its exact upstream, release,
   license, patch budget, owner, evidence and exit path.
 
 ## References

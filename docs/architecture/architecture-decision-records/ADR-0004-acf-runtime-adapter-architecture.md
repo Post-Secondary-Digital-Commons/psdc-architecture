@@ -1,6 +1,6 @@
 # ADR-0004: ACF Is Runtime-Agnostic
 
-> Status: Accepted  
+> Status: Accepted
 > Scope: Algonquin Compute Fabric
 
 ## Context

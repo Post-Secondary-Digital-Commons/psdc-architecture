@@ -1,8 +1,8 @@
 # 08 Standards Compatibility Matrix
 
-> Status: Accepted compatibility targets; conformance evidence incomplete  
-> Domain: vision  
-> Owner: Platform architecture and quality engineering  
+> Status: Normative compatibility targets; conformance results are implementation evidence
+> Domain: vision
+> Owner: Platform architecture and quality engineering
 > Last reviewed: 2026-09-10
 
 ## Purpose
@@ -33,7 +33,7 @@ claim conformance.
 | Brightspace | Supported D2L OAuth/API/LTI contracts | Sandbox contract tests and vendor-change regression suite |
 | Fediverse | ActivityPub/ActivityStreams profile | Controlled peer interop, signatures, discovery, inbox/outbox, retry, moderation, and abuse tests |
 | Spatial media | Selected open formats/profiles | Multi-viewer fixtures, capability negotiation, fallback, provenance, and privacy tests |
-| ACF runtimes | AC job/runtime adapter contract | Capability negotiation, cancellation, preemption, failure, accounting, and replacement-adapter tests |
+| Commons Compute Fabric runtimes | AC job/runtime adapter contract | Capability negotiation, cancellation, preemption, failure, accounting, and replacement-adapter tests |
 | Infrastructure as code | OpenTofu module/provider/state profile | Format, validate, plan, provider-lock, policy, drift, import, and state-recovery tests |
 | Commons federation | Trust, capability, workload-envelope, artifact, and ledger contracts | Two-institution discovery, authorization, execution, revocation, reconciliation, and exit tests |
 
@@ -64,14 +64,14 @@ behaviors, known deviations, and evidence location.
 - ADR-0016: Accepted Project Defaults
 - ADR-0017: OpenTofu Default Infrastructure-as-Code Toolchain
 
-## Decisions and open questions
+## Decision status
 
 - Accepted targets: The named profiles are approved targets, not claims that
   conformance has already been achieved.
-- Remaining work: Pin versions, build suites, document deviations, and publish
+- Implementation evidence gate: pin versions, build suites, document deviations, and publish
   evidence before using `Compatible` or `Certified` status.
 
 ## References
 
-- [Ecosystem Gap Analysis](../roadmap/Ecosystem-Gap-Analysis-2026-09-10.md)
+- [Ecosystem Implementation Readiness](../roadmap/Ecosystem-Implementation-Readiness-2026-09-11.md)
 - [Full Technology Stack and Open-Source Alternatives](14-Full-Technology-Stack-and-Open-Source-Alternatives.md)

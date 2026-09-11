@@ -2,8 +2,8 @@
 
 ## Purpose
 
-Keep architecture work consistent across AC Cloud, ACF, AC AI, AC Media Fabric,
-AC Fediverse, the extended Commons fabrics, spatial support, clients, sovereign
+Keep architecture work consistent across Commons Cloud, Commons Compute Fabric, Commons AI Fabric, Commons Media and Spatial Fabric,
+Commons Social Fabric, the extended Commons fabrics, spatial support, clients, sovereign
 institution deployments, and federation.
 
 ## Document hierarchy
@@ -28,8 +28,8 @@ normative architecture.
 
 ## Required document metadata
 
-- Status: accepted baseline/incomplete, implementation-ready, approved,
-  deprecated, superseded, or historical
+- Status: normative specification, implementation-gated, approved, deprecated,
+  superseded, or historical
 - Owning team and accountable role
 - Reviewers and approval authority
 - Creation and last-reviewed dates
@@ -55,7 +55,7 @@ Every service or subsystem architecture document addresses:
 13. Build, adopt, fork, or integrate rationale
 14. Testing, validation, and release criteria
 15. Operational ownership and runbooks
-16. Roadmap, unresolved questions, and decision log
+16. Roadmap, decision status, and change log
 
 Sections may state “not applicable” with a reason; they must not be silently
 omitted.
@@ -69,13 +69,14 @@ migration or rollback plan, and links to superseded decisions.
 Use the established sequential identifiers. `ADR-XXXX.md` remains the template
 and never represents an accepted decision.
 
-## Incomplete-specification completion rule
+## Specification completion rule
 
-An accepted-baseline specification becomes implementation-ready only when its
-purpose, scope, accountable owner, dependencies, interfaces, data handling,
-security/privacy implications, failure behavior, exact releases, acceptance tests,
-operations, approvals, and references contain project-specific evidence. Removing
-TODO markers or accepting a project default alone is not sufficient.
+A normative specification authorizes implementation only when its purpose, scope,
+accountable owner, dependencies, interfaces, data handling, security and privacy,
+failure behaviour, release gates, acceptance tests, operations, change authority,
+and references are explicit. Site values and measured implementation evidence are
+supplied later through governed manifests and release evidence; they are not
+architectural blanks. Removing empty markers alone is not sufficient.
 
 ## Naming and links
 

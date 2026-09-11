@@ -1,7 +1,7 @@
 # Repository and Obsidian Linking Model
 
-> Status: Accepted polyrepo and vault model  
-> Governing decisions: ADR-0022, ADR-0023  
+> Status: Normative polyrepo and vault model
+> Governing decisions: ADR-0022, ADR-0023
 > Last reviewed: 2026-09-11
 
 ## Source-of-truth model
@@ -24,7 +24,7 @@ checkout directories and must never commit nested product source.
   dependency rules, governance, human decisions and conformance profiles.
 - Each fabric repository owns its implementation architecture, code,
   infrastructure, security evidence, runbooks and releases.
-- `psdc-desktop` and `psdc-mobile` own their separate upstream
+- `psdc-web`, `psdc-desktop`, and `psdc-mobile` own their separate upstream
   provenance, downstream patches, product releases and store/package pipelines.
 - Each institution deployment repository owns only local configuration, branding,
   policy overlays, environment composition and operational evidence.

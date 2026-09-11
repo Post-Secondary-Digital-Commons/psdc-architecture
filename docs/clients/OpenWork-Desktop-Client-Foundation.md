@@ -1,7 +1,7 @@
 # OpenWork Desktop Client Foundation
 
-> Status: Accepted foundation; source import pending  
-> Owner: AC AI desktop team  
+> Status: Normative foundation; source import authorized only at the implementation provenance gate
+> Owner: Commons AI Fabric desktop team
 > Governing decision: ADR-0018
 
 ## Product role

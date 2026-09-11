@@ -1,8 +1,8 @@
 # ADR-0010: Provider-Neutral Core with Institutional Production Authorities
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Identity and academic integrations  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Identity and academic integrations
 > Decision owner: Project founder; production configuration requires College approval
 
 ## Context

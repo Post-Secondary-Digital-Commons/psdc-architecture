@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://commons.example/contracts/agent-sessions/session-envelope.schema.json",
+  "$id": "urn:psdc:contracts:agent-sessions:session-envelope:1",
   "title": "Agent Session Encrypted Envelope",
   "type": "object",
   "additionalProperties": false,
   "required": ["contractVersion", "envelopeId", "sessionId", "senderDeviceId", "sequence", "createdAt", "expiresAt", "cipherSuite", "nonce", "ciphertext"],
   "properties": {
-    "contractVersion": { "const": "0.1-draft" },
+    "contractVersion": { "const": "1.0" },
     "envelopeId": { "type": "string", "format": "uuid" },
     "sessionId": { "type": "string", "format": "uuid" },
     "senderDeviceId": { "type": "string", "format": "uuid" },
@@ -23,4 +23,3 @@
     "signature": { "type": "string", "contentEncoding": "base64" }
   }
 }
-

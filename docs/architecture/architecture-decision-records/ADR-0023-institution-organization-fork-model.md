@@ -1,8 +1,8 @@
 # ADR-0023: Institution Organizations Use Thin Repository Forks
 
-> Status: Accepted  
-> Date: 2026-09-11  
-> Scope: GitHub organizations, white-labelling and upstream synchronization  
+> Status: Accepted
+> Date: 2026-09-11
+> Scope: GitHub organizations, white-labelling and upstream synchronization
 > Decision owner: Project founder
 
 ## Context

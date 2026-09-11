@@ -1,28 +1,28 @@
 # Standards-First Decision Coverage Matrix
 
-> Status: Accepted coverage baseline; implementation evidence incomplete  
+> Status: Normative coverage matrix; implementation evidence gated
 > Owner: Platform architecture
 > Last reviewed: 2026-09-10
 
 This matrix shows how the accepted standards-first decisions constrain every
 section of the master documentation suite. It prevents a subsystem from treating
-the principle as optional or limited to AC AI.
+the principle as optional or limited to Commons AI Fabric.
 
-| Documentation domain | Adopted boundary/reference | Algonquin-specific value to build |
+| Documentation domain | Adopted boundary/reference | institution-specific value to build |
 |---|---|---|
 | Vision | Open standards and upstream-first sourcing | Mission, principles, institutional outcomes |
 | Architecture | Versioned APIs, events, schemas, capability and contracts | Cross-ecosystem composition and ownership model |
 | Cloud | OpenStack/Kubernetes and mature references | Service broker, institutional policy, coherent control experience |
 | Compute | VM, OCI, batch, Kubernetes and accelerator interfaces | College quotas, catalogs, placement policy |
-| ACF | Runtime adapters; HTCondor model; mature inference engines | Enrollment, trust, topology, idle policy, scheduling and accounting |
+| Commons Compute Fabric | Runtime adapters; HTCondor model; mature inference engines | Enrollment, trust, topology, idle policy, scheduling and accounting |
 | Storage | S3-compatible objects, content addressing, mature storage | Institutional placement, lifecycle and policy |
 | Network | IP, DNS, TLS/mTLS, standard routing and VPN | Campus topology and service policy |
 | Identity | Keycloak, OIDC/OAuth, SCIM where supported; College-authoritative Entra upstream in production | Claim normalization, roles, scopes and identity separation |
 | AI | OpenAI-compatible API; mature model runtimes | Gateway, aliases, routing, academic and agent platform |
 | Academic | Supported D2L APIs, OAuth and LTI | Course contracts, study tools and faculty controls |
 | Student life | Standard APIs, events, workflows and identity | Campus services, consent, planning and agent UX |
-| Clients | OSI-licensed upstreams and platform APIs; verified Open WebUI v0.6.5 BSD scaffold | Algonquin AI Web branding, accessibility, SSO and coherent workflows |
-| Developer | OpenAPI, gRPC/Protobuf, OCI and standard SDK practices | Unified developer portal and Algonquin APIs |
+| Clients | OSI-licensed upstreams and platform APIs; verified Open WebUI v0.6.5 BSD scaffold | PSDC Web branding, accessibility, SSO and coherent workflows |
+| Developer | OpenAPI, gRPC/Protobuf, OCI and standard SDK practices | Unified developer portal and institution-neutral APIs |
 | Infrastructure as code | OpenTofu plus Ansible | Open-source, self-hosted provisioning with institution-controlled state |
 | Integration | CloudEvents, AsyncAPI and standard webhook/RPC patterns | Shared schemas, policy and workflow composition |
 | Fediverse | ActivityPub and mature upstream products | Identity integration, moderation and shared UX |

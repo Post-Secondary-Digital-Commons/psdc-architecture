@@ -1,7 +1,7 @@
 # Technology Defaults and Alternatives
 
-> Status: Accepted project baseline  
-> Date: 2026-09-10  
+> Status: Normative technology baseline; exact releases are implementation evidence
+> Date: 2026-09-10
 > Governing decisions: ADR-0008, ADR-0009, ADR-0016, ADR-0017, ADR-0018, ADR-0019
 
 This matrix turns the architecture's earlier candidate lists into an explicit
@@ -93,7 +93,7 @@ families, see [Full Technology Stack and Open-Source Alternatives](14-Full-Techn
 | Embeddings/reranking | Gateway-managed open model adapters | Text Embeddings Inference; llama.cpp-supported models | Model and license are approved separately |
 | RAG | PostgreSQL + pgvector | Qdrant or Milvus after evidence | Authorized sources and user-visible provenance |
 | Model metadata/tracking | Content-addressed manifests + MLflow | Kubeflow components after need | Weights remain outside Git |
-| Campus batch scheduler | HTCondor interoperability/model | Slurm; Kubernetes Kueue | ACF adds enrollment, trust, idle policy and topology |
+| Campus batch scheduler | HTCondor interoperability/model | Slurm; Kubernetes Kueue | Commons Compute Fabric adds enrollment, trust, idle policy and topology |
 | Distributed Python | Ray only when measured | Dask | Never a baseline dependency for simple inference |
 | Workload isolation | OCI/containerd; gVisor for higher-risk compatible jobs | Kata Containers; dedicated VM | Isolation follows trust and data class |
 | Agent workflows | Temporal-backed deterministic action services | Plain service workflow for simple cases | Models propose; deterministic services authorize and execute |
@@ -103,7 +103,7 @@ families, see [Full Technology Stack and Open-Source Alternatives](14-Full-Techn
 
 | Capability | Accepted default | Alternatives / exit path | Selection note |
 |---|---|---|---|
-| AC AI web bootstrap | Algonquin AI Web from verified Open WebUI v0.6.5 BSD source | LibreChat after exact-release review; native client | Frozen scaffold under ADR-0009, not current Open WebUI |
+| Web client | Independent `psdc-web` browser/PWA product using the verified Open WebUI v0.6.5 BSD source only if its provenance gate passes | LibreChat after exact-release review; clean native client | Ownership under ADR-0025; frozen eligible source boundary under ADR-0009, never current Open WebUI by default |
 | Native web evolution | Svelte/SvelteKit-compatible path | React; Vue | Minimize scaffold rewrite while native modules grow |
 | Coding client | OpenCode thin integration | Continue via standard API/CLI clients | Exact release license is verified before update |
 | Desktop | OpenWork MIT core outside `ee/` (current upstream: React + Electron) | Tauri native client; native web-derived shell | Exact commit/import gate; exclude Den, hosted MCP/inference and all source-available material |

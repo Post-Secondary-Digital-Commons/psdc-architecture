@@ -1,6 +1,6 @@
 # Open-Source-Only Technology Policy
 
-> Status: Adopted baseline implementing ADR-0008 and ADR-0017  
+> Status: Adopted baseline implementing ADR-0008 and ADR-0017
 > Applies to: code, infrastructure, control planes, data stores, clients, build
 > systems, observability, AI runtimes, media pipelines, and federation
 

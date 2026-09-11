@@ -1,6 +1,6 @@
 # ADR-0007: Use Supported Brightspace Integration Mechanisms
 
-> Status: Accepted  
+> Status: Accepted
 > Scope: Academic integrations
 
 ## Context

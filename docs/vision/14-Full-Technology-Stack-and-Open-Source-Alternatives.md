@@ -1,7 +1,7 @@
 # Full Technology Stack and Open-Source Alternatives
 
-> Status: Accepted project catalog; exact-release verification required  
-> Date: 2026-09-10  
+> Status: Accepted project catalog; exact-release verification required
+> Date: 2026-09-10
 > Governing decisions: ADR-0008, ADR-0009, ADR-0010, ADR-0016, ADR-0017, ADR-0018, ADR-0019
 
 This is the readable inventory for the complete Digital Commons stack. It answers
@@ -43,7 +43,7 @@ accessibility, export path and operational ownership.
 | Capability | Accepted default | Default OSS status | Open-source alternatives | Decision posture |
 |---|---|---|---|---|
 | Identity broker | Keycloak | Yes; Apache-2.0 | ZITADEL self-hosted; Kanidm | Broker, not institutional authority |
-| Institutional identity upstream | College-approved IdP, currently Entra | **No; external adapter** | Keycloak, Authentik or another OSS IdP for institutions that operate one | Cannot replace Algonquin's authority without College action |
+| Institutional identity upstream | Institution-approved IdP through a standards adapter | External authority may be proprietary | Keycloak, Authentik or another OSS IdP for institutions that operate one | Common clients and services consume normalized OIDC claims, never vendor APIs |
 | Development identity | Synthetic Keycloak realm | Yes | Deterministic in-process test provider | Never a parallel student directory |
 | Authorization/policy | Open Policy Agent | Yes; Apache-2.0 | Cedar; Casbin; Kyverno for admission policy | Domain rules remain versioned |
 | Secrets service | OpenBao | Yes; MPL-2.0 | SOPS + age for static GitOps secrets | No proprietary hosted dependency |
@@ -86,7 +86,7 @@ accessibility, export path and operational ownership.
 | Embeddings/reranking | Gateway-managed open model adapters | Code is OSS; **model-specific** | Text Embeddings Inference; llama.cpp-compatible models | Approve every model/data license |
 | RAG | PostgreSQL + pgvector | Yes | Qdrant; Milvus | Authorized sources and provenance |
 | Model metadata/tracking | Content-addressed manifests + MLflow | Yes; MLflow Apache-2.0 | Kubeflow components; DVC after review | Weights stay outside Git |
-| Campus batch scheduling | HTCondor interoperability model | Yes | Slurm; Kubernetes Kueue | ACF adds trust/idle/topology policy |
+| Campus batch scheduling | HTCondor interoperability model | Yes | Slurm; Kubernetes Kueue | Commons Compute Fabric adds trust/idle/topology policy |
 | Distributed Python | None until measured; Ray if required | Yes; Apache-2.0 | Dask | Not a baseline for simple inference |
 | Workload isolation | OCI/containerd; gVisor for compatible higher-risk jobs | Yes | Kata Containers; dedicated KVM VM | Follows trust/data class |
 | Agent workflows | Temporal-backed deterministic action services | Yes | Plain application workflow; Argo Workflows for batch | Models propose; services authorize/execute |
@@ -99,7 +99,7 @@ accessibility, export path and operational ownership.
 
 | Capability | Accepted default | Default OSS status | Open-source alternatives | Decision posture |
 |---|---|---|---|---|
-| AC AI web bootstrap | Verified Open WebUI v0.6.5 source only | **Yes for v0.6.5; BSD-3-Clause** | LibreChat after release review; native SvelteKit client | v0.6.6+ is excluded from OSS baseline |
+| Commons AI Fabric web bootstrap | Verified Open WebUI v0.6.5 source only | **Yes for v0.6.5; BSD-3-Clause** | LibreChat after release review; native SvelteKit client | v0.6.6+ is excluded from OSS baseline |
 | Native web framework | Svelte/SvelteKit-compatible evolution | Yes; MIT | React; Vue | Keep gateway as durable boundary |
 | Coding client | OpenCode thin integration | Yes for approved release | Standard API/CLI clients; Continue after exact-release review | Pin provenance and license |
 | Desktop client | OpenWork core outside `ee/` | **Yes for eligible files; MIT** | Tauri native client; native web-derived shell | Current upstream uses React/Electron; exact commit and file inventory govern; Den/EE/hosted services excluded |
@@ -117,7 +117,7 @@ accessibility, export path and operational ownership.
 | Communities | Lemmy | Yes; AGPL-3.0 | Another eligible ActivityPub community server | Controlled federation first |
 | Blogs | WriteFreely | Yes; AGPL-3.0 | Native portable publishing; another healthy ActivityPub project | Preserve exportability |
 | Live media | Owncast | Yes; MIT | PeerTube live capabilities | Media Fabric handles governed processing |
-| Realtime communications | Matrix profile when requirements mature | Open protocol; server choice pending | Matrix Synapse; Dendrite; Prosody/XMPP | No default deployment yet |
+| Realtime communications | Matrix protocol with Synapse as the reference server | Yes; Apache-2.0 server and open protocol | Dendrite; Prosody/XMPP interoperability adapter | Institution-hosted; federation and retention controlled by local policy |
 | Notifications | NATS events + channel adapters | Yes at core | Gotify; ntfy for self-hosted push | Email/SMS vendors remain optional edge adapters |
 | Mobile push wake channel | self-hosted ntfy + UnifiedPush where supported | Yes; GPL/Apache-family components subject to exact-release review | Gotify; optional APNs/FCM OS adapters | Core sync/manual refresh works without vendor push; never place content in wake payloads |
 | Documentation source | UTF-8 Markdown + Git | Open formats/tooling | AsciiDoc; Zettlr as OSS editor | Obsidian is proprietary and optional only |
@@ -125,7 +125,7 @@ accessibility, export path and operational ownership.
 ## Important non-open boundaries
 
 The core has open-source substitutes for every required runtime capability.
-Current Algonquin production may still depend on proprietary Entra and Brightspace
+Current institution production may still depend on proprietary Entra and Brightspace
 because the College controls those authoritative systems. They terminate at
 versioned adapters; another institution may use Keycloak/Authentik and Moodle/
 Sakai/ILIAS without changing Commons business logic.

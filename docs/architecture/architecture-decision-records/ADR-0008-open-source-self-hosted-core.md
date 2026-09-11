@@ -1,8 +1,8 @@
 # ADR-0008: Open-Source, Self-Hosted Core
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: Entire Algonquin Digital Platform  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: Entire Algonquin Digital Platform
 > Decision owner: Project founder; institutional ratification still required
 
 ## Context

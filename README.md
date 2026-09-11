@@ -4,7 +4,8 @@ Umbrella architecture and contract repository for the tenant-neutral
 Post-Secondary Digital Commons and its Algonquin reference deployment. This
 repository contains the system context, ownership boundaries,
 governance, security requirements, and shared contracts used by the Commons
-Cloud, Compute, AI, Media and Spatial, and Social Fabrics.
+Cloud, Compute, AI, Media and Spatial, and Social Fabrics, plus Web, Desktop and
+Mobile clients.
 
 It intentionally contains no deployable product service. Product implementations
 live in the sibling repositories under the workspace root.
@@ -25,11 +26,14 @@ live in the sibling repositories under the workspace root.
 - [Naming and sovereignty](./docs/architecture/Federated-Commons-Naming-and-Sovereignty.md)
 - [Federated social governance](./docs/fediverse/Federated-Social-Governance-Policy.md)
 - [Institution-branded client access](./docs/clients/Institution-Branded-Client-Distribution-and-Access.md)
-- [Ecosystem gap analysis](./docs/roadmap/Ecosystem-Gap-Analysis-2026-09-10.md)
-- [Commons AI Web foundation](./docs/clients/Commons-AI-Web-Foundation.md)
+- [Ecosystem implementation readiness](./docs/roadmap/Ecosystem-Implementation-Readiness-2026-09-11.md)
+- [Documentation completion audit](./docs/architecture/Documentation-Completion-Audit-2026-09-11.md)
+- [Specification completeness standard](./docs/architecture/Specification-Completeness-Standard.md)
+- [PSDC Web foundation](./docs/clients/PSDC-Web-Foundation.md)
 - [ADR-0009: web bootstrap](./docs/architecture/architecture-decision-records/ADR-0009-psdc-ai-web-foundation.md)
 - [ADR-0010: institutional production authorities](./docs/architecture/architecture-decision-records/ADR-0010-provider-neutral-core-institutional-production-authority.md)
 - [ADR-0017: OpenTofu default](./docs/architecture/architecture-decision-records/ADR-0017-opentofu-default.md)
+- [ADR-0025: independent web client](./docs/architecture/architecture-decision-records/ADR-0025-independent-web-client-repository.md)
 
 ## Shared contract domains
 

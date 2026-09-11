@@ -1,22 +1,22 @@
 # Cross-Pollination and Shared Capabilities
 
-> Status: Accepted interaction model; implementation incomplete  
+> Status: Normative interaction model; implementation gated
 > Goal: Encourage reuse and collaboration without collapsing ownership boundaries
 
 ## Shared capability map
 
 | Capability | Primary owner | Contributors/consumers | Cross-pollination outcome |
 |---|---|---|---|
-| Identity and scopes | AC Cloud | Every ecosystem | One login and authorization vocabulary |
-| Policy bundles | AC Cloud + domain teams | AI, ACF, Media, Fediverse | Shared engine; domain-owned rules |
-| Compute jobs | ACF | AI, Media, Fediverse, Cloud | One schedulable workload contract |
-| AI inference and agents | AC AI | Academic, Media, Fediverse, Cloud admin | Reusable intelligence behind one gateway |
+| Identity and scopes | Commons Cloud | Every ecosystem | One login and authorization vocabulary |
+| Policy bundles | Commons Cloud + domain teams | AI, Commons Compute Fabric, Media, Fediverse | Shared engine; domain-owned rules |
+| Compute jobs | Commons Compute Fabric | AI, Media, Fediverse, Cloud | One schedulable workload contract |
+| AI inference and agents | Commons AI Fabric | Academic, Media, Fediverse, Cloud admin | Reusable intelligence behind one gateway |
 | Media assets and provenance | Media Fabric | AI, Fediverse, academic clients | One asset identity and rendition pipeline |
 | ActivityPub publication | Fediverse | Media and AI | One secure federation boundary |
-| Spatial identity | Umbrella contract | Cloud, ACF, AI, Media, Fediverse | Places/scenes connect without shared databases |
-| Events and workflows | AC Cloud | Every ecosystem | Portable asynchronous integration |
-| Observability | AC Cloud | Every ecosystem | End-to-end traces and shared operations |
-| SDK and developer portal | AC Cloud + product teams | Student developers | One discovery and access experience |
+| Spatial identity | Umbrella contract | Cloud, Commons Compute Fabric, AI, Media, Fediverse | Places/scenes connect without shared databases |
+| Events and workflows | Commons Cloud | Every ecosystem | Portable asynchronous integration |
+| Observability | Commons Cloud | Every ecosystem | End-to-end traces and shared operations |
+| SDK and developer portal | Commons Cloud + product teams | Student developers | One discovery and access experience |
 | Academic contracts | Umbrella contract team | AI, agents, clients, institution adapters | One provider-neutral academic vocabulary |
 | Data classification and lineage | Domain data owners | Every fabric | Sovereign handling with portable manifests |
 | Federation conformance | Consortium governance + contract team | Every participating institution | Interoperability without a central super-admin |
@@ -27,27 +27,27 @@
 
 ### Spatial campus story
 
-ACF reports coarse resource locality; Media Fabric stores spatial captures and
-scenes; AC AI reasons over authorized campus/place context; Fediverse publishes
-privacy-reduced place or event objects; AC Cloud supplies shared place identifiers
+Commons Compute Fabric reports coarse resource locality; Media Fabric stores spatial captures and
+scenes; Commons AI Fabric reasons over authorized campus/place context; Fediverse publishes
+privacy-reduced place or event objects; Commons Cloud supplies shared place identifiers
 and policy. Precise location never becomes a universal shared table.
 
 ### Accessible media story
 
-Media Fabric produces renditions and provenance. AC AI generates candidate
+Media Fabric produces renditions and provenance. Commons AI Fabric generates candidate
 captions, transcripts, descriptions, and translations. Human or policy review
 approves them. Fediverse publishes the approved accessible representation.
 
 ### Student project story
 
 The developer portal issues least-privilege scopes. A student application uses AC
-AI, submits a batch job to ACF, stores a result through Media Fabric, and publishes
+AI, submits a batch job to Commons Compute Fabric, stores a result through Media Fabric, and publishes
 through Fediverse without receiving cluster, model-provider, storage, or federation
 credentials.
 
 ### Research workflow
 
-Researchers define a reproducible container and data manifest, ACF schedules it,
+Researchers define a reproducible container and data manifest, Commons Compute Fabric schedules it,
 Media Fabric stores outputs, AI supports analysis, and the platform records lineage,
 usage, consent, retention, and publication policy.
 

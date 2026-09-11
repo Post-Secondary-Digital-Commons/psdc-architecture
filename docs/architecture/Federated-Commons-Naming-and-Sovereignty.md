@@ -1,6 +1,6 @@
 # Federated Commons Naming and Sovereignty
 
-> Status: Accepted  
+> Status: Accepted
 > Governing decision: ADR-0020
 
 ## Canonical names

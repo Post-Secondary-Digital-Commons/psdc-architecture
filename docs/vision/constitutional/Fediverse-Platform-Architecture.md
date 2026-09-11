@@ -1,8 +1,8 @@
 # Fediverse Platform Architecture
 
-> Status: Accepted baseline; implementation and moderation approval incomplete  
-> Domain: vision  
-> Owner: AC Fediverse architecture and trust/safety  
+> Status: Normative federation architecture; local moderation ratification is a deployment gate
+> Domain: vision
+> Owner: Commons Social Fabric architecture and trust/safety
 > Last reviewed: 2026-09-10
 
 ## Purpose
@@ -49,8 +49,8 @@ or activity by default.
 
 ## Shared media and spatial support
 
-AC Media Fabric owns source assets, renditions, provenance, rights, and spatial
-representations. AC Fediverse owns social publication, visibility, moderation, and
+Commons Media and Spatial Fabric owns source assets, renditions, provenance, rights, and spatial
+representations. Commons Social Fabric owns social publication, visibility, moderation, and
 federated representation. Public objects use safe renditions and privacy-reduced
 spatial metadata with capability-negotiated fallbacks.
 
@@ -81,12 +81,12 @@ spatial metadata with capability-negotiated fallbacks.
 - ADR-0016: Accepted Project Defaults
 - ADR-0017: OpenTofu Default Infrastructure-as-Code Toolchain
 
-## Decisions and open questions
+## Decision status
 
-- Accepted baseline: ActivityPub/ActivityStreams is the durable public social
+- Decision: ActivityPub/ActivityStreams is the durable public social
   boundary; Mastodon, Pixelfed, PeerTube, Lemmy, WriteFreely and Owncast are
   replaceable open-source implementations.
-- Remaining work: Select exact releases, domain/actor policy, moderation staffing,
+- Implementation evidence gate: select exact releases, domain/actor policy, moderation staffing,
   legal/privacy controls, conformance evidence, SLOs and incident procedures.
 
 ## References

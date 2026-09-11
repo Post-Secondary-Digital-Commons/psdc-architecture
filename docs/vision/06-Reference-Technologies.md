@@ -1,8 +1,8 @@
 # 06 Reference Technologies
 
-> Status: Accepted reference baseline; exact releases unpinned  
-> Domain: vision  
-> Owner: Platform architecture  
+> Status: Normative reference baseline; exact release selection is an implementation gate
+> Domain: vision
+> Owner: Platform architecture
 > Last reviewed: 2026-09-10
 
 ## Purpose
@@ -34,7 +34,7 @@ product selection; it establishes the comparison baseline and expected boundary.
 | Edge/local inference | Runtime adapter contract | llama.cpp | Adopt behind adapter |
 | Experimental heterogeneous inference | Runtime adapter contract | exo, SwarmLLM | Research tier only until proven |
 | Opportunistic compute | Standard job/capability contract | HTCondor policy model | Reference, interoperate, or adopt components |
-| Stable cluster scheduling | Kubernetes APIs | RKE2 production; K3s edge/dev | Accepted baseline; do not recreate |
+| Stable cluster scheduling | Kubernetes APIs | RKE2 production; K3s edge/dev | Normative default; do not recreate |
 | Distributed application execution | Adapter/job contract | Ray; Dask alternative | No added engine until measured need |
 | Relational data | SQL/PostgreSQL compatibility | PostgreSQL | Default reference |
 | Cache/coordination | Redis-compatible semantics | Valkey | Do not depend on proprietary Redis modules |
@@ -46,7 +46,7 @@ product selection; it establishes the comparison baseline and expected boundary.
 | Transport security | TLS/mTLS and standard PKI | Institutional/approved tooling | No custom cryptography |
 | Secrets | Established secret-management APIs | OpenBao | No secrets in repositories or hosted control-plane requirement |
 | LMS | Supported D2L APIs, OAuth, LTI 1.3 | Brightspace-supported tooling | No scraping |
-| Web AI client | OpenAI-compatible and native Commons APIs | Algonquin AI Web from verified Open WebUI v0.6.5 BSD baseline | Frozen source scaffold under ADR-0009; current releases compatibility-only |
+| Web client | OpenAI-compatible and native Commons APIs | Independent `psdc-web` browser/PWA product; verified Open WebUI v0.6.5 BSD source is the eligible bootstrap | Provenance gate under ADR-0009 and ownership under ADR-0025; current releases are compatibility references only |
 | Coding client | Supported extension/fork surfaces | OpenCode | MIT-licensed candidate; thin downstream strategy |
 | Federation | ActivityPub and related web standards | Mature Fediverse products | Shared governed federation edge |
 
@@ -71,10 +71,10 @@ and why the selected implementation is appropriate for its workload.
 - ADR-0016: Accepted Project Defaults
 - ADR-0017: OpenTofu Default Infrastructure-as-Code Toolchain
 
-## Decisions and open questions
+## Decision status
 
-- Accepted baseline: Project-level defaults are listed in the full stack catalog.
-- Remaining work: Verify exact releases, transitive licenses, security posture,
+- Decision: Project-level defaults are listed in the full stack catalog.
+- Implementation evidence gate: verify exact releases, transitive licenses, security posture,
   owners, capacity fit, accessibility and exit tests before production.
 
 ## References

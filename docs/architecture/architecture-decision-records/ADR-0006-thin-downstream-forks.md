@@ -1,6 +1,6 @@
 # ADR-0006: Thin, Upstream-Compatible Product Forks
 
-> Status: Accepted  
+> Status: Accepted
 > Scope: Adopted user-facing and federated products
 
 ## Context

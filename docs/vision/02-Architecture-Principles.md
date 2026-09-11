@@ -1,8 +1,8 @@
 # 02 Architecture Principles
 
-> Status: Accepted baseline; implementation evidence incomplete  
-> Domain: vision  
-> Owner: Platform architecture  
+> Status: Normative architecture principles
+> Domain: vision
+> Owner: Platform architecture
 > Last reviewed: 2026-09-10
 
 ## Purpose
@@ -50,7 +50,7 @@ internal module, machine, cluster, or deployment topology.
 ### 5. Institutional identity, local authorization
 
 Each institution's approved IdP is its institutional identity root; Entra is the
-expected Algonquin production upstream. Keycloak brokers and normalizes claims
+expected institution production upstream. Keycloak brokers and normalizes claims
 without becoming a second institutional directory. Services perform
 least-privilege authorization using normalized claims, scopes, roles, attributes,
 resource policy, and data classification. Public social identity remains separate.
@@ -128,10 +128,10 @@ never silently become a core dependency.
 - ADR-0017: OpenTofu Default Infrastructure-as-Code Toolchain
 - ADR-0020: Post-Secondary Digital Commons Is the Shared Platform Name
 
-## Decisions and open questions
+## Decision status
 
-- Accepted baseline: The principles and project technology defaults are approved.
-- Remaining work: Add exact releases, measured thresholds, named owners,
+- Decision: The principles and project technology defaults are approved.
+- Implementation evidence gate: add exact releases, measured thresholds, named owners,
   institutional approvals and evidence at each implementation gate.
 
 ## References

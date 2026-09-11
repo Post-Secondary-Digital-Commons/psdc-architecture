@@ -1,8 +1,8 @@
 # Human Choices and Decisions Register
 
-> Status: Living control document  
-> Owner: Platform governance  
-> Last updated: 2026-09-11  
+> Status: Normative decision register; all project-controlled defaults accepted
+> Owner: Platform governance
+> Last updated: 2026-09-11
 > Purpose: Consolidate decisions that cannot be safely inferred or delegated to
 > software, an AI agent, a vendor, or an individual contributor
 
@@ -13,11 +13,16 @@ a decision date, and an ADR or policy link when consequential. On 2026-09-10 the
 project founder accepted every listed default as the working project baseline
 through ADR-0016 and reconfirmed all project-controlled defaults on 2026-09-11.
 
-Acceptance sets direction; it does not invent a missing quantity, appoint an
-unnamed owner, complete implementation, or grant legal, College, consortium, or
-government approval. Where a default says “evaluate,” “define,” or “select after
-evidence,” that method and preference are accepted while the gated result remains
-open.
+Acceptance sets direction; it does not fabricate measured quantities, appoint an
+external institution owner, complete implementation, or grant legal, consortium,
+institutional or government approval. Where a default says “evaluate,” “define,”
+or “select after evidence,” the selection method, preference and rejection
+criteria are decided. The later result is implementation evidence, not an open
+architecture choice.
+
+There are no unaccepted project-controlled defaults in this register. Changes to
+them require an ADR. External approvals and measured site values remain mandatory
+release evidence under the authority named in each row.
 
 Decision states:
 
@@ -33,13 +38,13 @@ Decision states:
 |---|---|---|
 | A-001 | Standards first; adopt → extend → compatible fork → build | ADR-0001 |
 | A-002 | Institutional identity integrates through OIDC/OAuth; no separate AI passwords | ADR-0002, modified by A-008 |
-| A-003 | AC AI exposes OpenAI-compatible and native Commons API boundaries | ADR-0003 |
-| A-004 | ACF is runtime-agnostic and owns campus orchestration | ADR-0004 |
+| A-003 | Commons AI Fabric exposes OpenAI-compatible and native Commons API boundaries | ADR-0003 |
+| A-004 | Commons Compute Fabric is runtime-agnostic and owns campus orchestration | ADR-0004 |
 | A-005 | APIs, events, OCI artifacts, storage, data and telemetry use standard primitives | ADR-0005 |
 | A-006 | Adopted products remain thin, upstream-compatible forks/extensions | ADR-0006 |
 | A-007 | Brightspace uses supported D2L mechanisms; no scraping | ADR-0007 |
 | A-008 | The core is open-source and self-hosted with no mandatory outside vendor | ADR-0008 |
-| A-009 | Algonquin AI Web uses `apps/web` and prefers the frozen Open WebUI v0.6.5 BSD baseline as gated scaffolding | ADR-0009 |
+| A-009 | PSDC Web uses `psdc-web` and prefers the frozen Open WebUI v0.6.5 BSD baseline as gated scaffolding | ADR-0009 |
 | A-010 | The core is provider-neutral while College-approved systems remain authoritative in production | ADR-0010 |
 | A-011 | Superseded Terraform preference retained only as decision history | ADR-0011, superseded by ADR-0017 |
 | A-012 | The reusable architecture is a tenant-neutral Post-Secondary Digital Commons; Algonquin is its first deployment | ADR-0012 |
@@ -48,13 +53,14 @@ Decision states:
 | A-015 | Model funding at CA$30 per participating student per enrolled month | ADR-0015 |
 | A-016 | Every register default is accepted as the working project baseline | ADR-0016 |
 | A-017 | OpenTofu + Ansible is the IaC default; Terraform is not a default or standing exception | ADR-0017 |
-| A-018 | Algonquin AI Desktop uses the verified OpenWork MIT core outside `ee/`; Den and hosted services are excluded | ADR-0018 |
-| A-019 | Algonquin AI Mobile uses the verified Happy MIT Expo baseline with an institution-controlled E2EE relay | ADR-0019 |
+| A-018 | PSDC Desktop uses the verified OpenWork MIT core outside `ee/`; Den and hosted services are excluded | ADR-0018 |
+| A-019 | PSDC Mobile uses the verified Happy MIT Expo baseline with an institution-controlled E2EE relay | ADR-0019 |
 | A-020 | Post-Secondary Digital Commons is the shared platform name; Algonquin names only its reference deployment | ADR-0020 |
 | A-021 | Shared clients are institution-branded, signed and authenticated; no upstream-vendor or global Commons account is required | ADR-0021 |
 | A-022 | Use independent repositories per fabric, client and institution deployment; allow Happy-style package workspaces only inside one cohesive product | ADR-0022 |
 | A-023 | Commons and institution code live in separate GitHub organizations; each institution repository is a thin fork of its Commons counterpart | ADR-0023 |
 | A-024 | New PSDC-authored material defaults to Apache-2.0 with upstream-first institutional and commercial contribution policy | ADR-0024 |
+| A-025 | The browser and PWA product is an independent `psdc-web` repository with a thin institution fork, beginning with `algonquin-web` | ADR-0025 |
 
 ## 1. Mission, governance, and institutional ownership
 
@@ -66,7 +72,7 @@ Decision states:
 | GOV-004 | Club versus institutional decision rights | Club owns roadmap proposals; College owns production risk acceptance | Club + College sponsor | Before pilot |
 | GOV-005 | Service RACI for every ecosystem | One accountable owner per service and contract | Program steering group | Before implementation |
 | GOV-006 | Repository model | Polyrepo by bounded product; a workspace/vault repository coordinates checkouts but contains no product source | Architecture council | Accepted by ADR-0022; verify migration before retiring source checkout |
-| GOV-007 | Naming, domains and trademarks | Algonquin naming remains provisional until institution approves | College communications/legal | Before public branding |
+| GOV-007 | Naming, domains and trademarks | Institution deployment names, domains and marks require local approval | College communications/legal | Before public branding |
 | GOV-008 | Code and documentation license | Apache-2.0 for new PSDC-authored code, configuration and documentation; imported material retains its original approved license | Governance + legal | Accepted by ADR-0024; legal review before first public release |
 | GOV-009 | Contribution governance and code of conduct | Public, documented, student-accessible process | Club governance | Before public repository |
 | GOV-010 | Funding and budget authority | Transparent annual infrastructure and operations budget | Sponsor + finance owner | Before procurement |
@@ -74,7 +80,7 @@ Decision states:
 | GOV-012 | Architecture council composition and quorum | Students, faculty, ITS, security/privacy, accessibility and operations | Institutional sponsor | Before accepting major ADRs |
 | GOV-013 | Conflict-of-interest and vendor-gift policy | Mandatory disclosure; no vendor-driven architecture | Governance + procurement | Before vendor contact |
 | GOV-014 | Project sunset and data-disposition authority | College-approved exit plan for every production service | Service owner + privacy | Before production |
-| GOV-015 | Institution deployment sovereignty | Every post-secondary can operate, upgrade, restore and exit independently; local clubs steward while institutions retain production authority | Each institution + local club | Accepted architecture; local operating agreement before production |
+| GOV-015 | Institution deployment sovereignty | Every post-secondary can operate, upgrade, restore and exit independently; local clubs steward while institutions retain production authority | Each institution + local club | Normative decision; local operating agreement before production |
 
 ## 2. Open-source policy and supply chain
 
@@ -113,12 +119,12 @@ Decision states:
 | ARC-013 | Cross-repository release compatibility | Publish support matrix and contract tests | Release engineering | Before independent releases |
 | ARC-014 | Public versus private API boundary | Explicit allowlist; internal APIs never accidentally exposed | Security + service owners | Before ingress |
 | ARC-015 | Data ownership | One owning service; no cross-service database reads | Architecture council | Accepted principle; enforce before code |
-| ARC-016 | Reusable platform identity | Tenant-neutral Post-Secondary Digital Commons with Algonquin deployment overlay | Architecture council | Accepted by ADR-0012 |
+| ARC-016 | Reusable platform identity | Tenant-neutral Post Secondary Digital Commons with thin institution deployment overlays | Architecture council | Accepted by ADR-0012 |
 | ARC-017 | Federation locality order | Institution → regional/provincial/Canadian federation → Canadian provider → hyperscaler | Architecture + policy | Accepted by ADR-0013 |
 | ARC-018 | Cross-fabric federation model | Federate permitted capabilities/services, never one shared trust or data domain | Federation governance | Before federation contracts |
 | ARC-019 | Neutral resource naming | Institution, Tenant, Subject, Course, ComputeProvider/Node/Cell and Federation | Contract maintainers | Before v1 schemas |
 
-## 4. AC Cloud and core infrastructure
+## 4. Commons Cloud and core infrastructure
 
 | ID | Human choice | Accepted project default | Decision authority | Gate |
 |---|---|---|---|---|
@@ -156,7 +162,7 @@ Decision states:
 | ID-007 | MFA policy | Institutional MFA for privileged and institutional access | Security + ITS | Before pilot |
 | ID-008 | Session and refresh-token lifetimes | Risk-tiered; short privileged sessions | Security | Before login release |
 | ID-009 | Service/workload identity | Short-lived certificates or tokens, no shared static keys | Security + platform | Before service deployment |
-| ID-010 | Device identity and attestation | Separate ACF and client-device profiles | Security + ACF | Before worker enrollment |
+| ID-010 | Device identity and attestation | Separate Commons Compute Fabric and client-device profiles | Security + Commons Compute Fabric | Before worker enrollment |
 | ID-011 | SCIM provisioning | Use only if institution supports required lifecycle safely | ITS + identity team | Before automated provisioning |
 | ID-012 | Guest/affiliate access | Deny by default until sponsor and expiry model exists | Governance + security | Before external users |
 | PRIV-001 | Data classification taxonomy | College taxonomy mapped to platform enforcement | Privacy/security + records | Before real data |
@@ -164,7 +170,7 @@ Decision states:
 | PRIV-003 | Consent and withdrawal UX | Granular, understandable and auditable | Privacy + UX | Before personalization |
 | PRIV-004 | Precise spatial data policy | Private and reduced precision by default | Privacy + spatial group | Before location features |
 
-## 6. AC AI
+## 6. Commons AI Fabric
 
 | ID | Human choice | Accepted project default | Decision authority | Gate |
 |---|---|---|---|---|
@@ -188,38 +194,38 @@ Decision states:
 | AI-018 | Agent memory | User-controlled, scoped, inspectable and deletable | Privacy + product | Before persistent memory |
 | AI-019 | Prompt/system-policy versioning | Versioned, reviewed and rollbackable | AI governance | Before production prompts |
 | AI-020 | Academic integrity behavior | Align with College assessment policy and faculty controls | Academic governance | Before course use |
-| AI-021 | Web AI client basis | `apps/web`, bootstrapped from verified Open WebUI v0.6.5 BSD source and evolved natively | Project founder + architecture | Accepted by ADR-0009 |
+| AI-021 | Web AI client basis | `psdc-web`, bootstrapped from verified Open WebUI v0.6.5 BSD source and evolved natively | Project founder + architecture | Accepted by ADR-0009 |
 | AI-022 | Exact web baseline provenance | Pin verified tag/commit, checksums, file inventory, notices, lockfiles and SBOM | Legal + security + open-source review | Before source import |
 | AI-023 | Legacy web maintenance ownership | Name maintainers and security/accessibility backport targets | AI client owner + security + accessibility | Before source import |
 | AI-024 | Post-v0.6.5 contamination control | Automated license gate plus manual review; no casual copy, merge or cherry-pick | Open-source review + release engineering | Before repository history begins |
 | AI-025 | Native web evolution thresholds | Replace inherited components by product fit, security debt, accessibility and lifecycle cost | Product + client architecture | Before Study/Work/Campus expansion |
 
-## 7. ACF Campus Compute Fabric
+## 7. Commons Compute Fabric Campus Compute Fabric
 
 | ID | Human choice | Accepted project default | Decision authority | Gate |
 |---|---|---|---|---|
-| ACF-001 | Machines eligible for enrollment | Explicitly authorized College/test assets only | ITS + asset owners | Before deployment |
-| ACF-002 | Worker implementation language | Choose for safe cross-platform service operation and maintainability | ACF team | Before coding |
-| ACF-003 | Enrollment and attestation method | Short-lived enrollment plus device identity and revocation | Security + ACF | Before worker pilot |
-| ACF-004 | Hardware/capability schema | Versioned cross-platform schema with sanitized examples | ACF + contracts | Before census |
-| ACF-005 | Idle detection signals | OS-native activity plus institution-approved policy | ITS desktop + privacy | Before opportunistic work |
-| ACF-006 | Interactive-user protection | Immediate preemption/drain target and resource caps | ITS desktop + ACF | Before lab pilot |
-| ACF-007 | Scheduler strategy | Borrow HTCondor policy; build only Algonquin-specific layer | ACF architecture | Before jobs |
-| ACF-008 | Kubernetes relationship | Stable GPU pools may use Kubernetes; opportunistic nodes need separate policy | ACF + cloud | Before GPU jobs |
-| ACF-009 | Trust tiers | Define institutional, managed lab, research and volunteer tiers | Security + resource owners | Before mixed fleet |
-| ACF-010 | Workload sandbox | OCI isolation plus stronger controls by trust/data class | Security + ACF | Before arbitrary jobs |
-| ACF-011 | Network access from jobs | Deny by default; policy-controlled egress | Security + network | Before jobs |
-| ACF-012 | Preemption/checkpoint contract | Capability-based and optional; never assume every runtime supports it | ACF + runtime owners | Before long jobs |
-| ACF-013 | Initial runtime adapters | CPU job runner, then vLLM and llama.cpp; SGLang is the alternative serving adapter | ACF + AI | Before each milestone |
-| ACF-014 | Distributed inference entry criteria | Only after independent replicas, topology and failure tests | ACF research board | Deferred |
-| ACF-015 | exo/SwarmLLM research status | Experimental; no production dependency | ACF research board | Accepted default |
-| ACF-016 | Model-cache placement and eviction | Content-addressed, verified and policy-aware | ACF + storage | Before model distribution |
-| ACF-017 | Volunteer compute | Separate opt-in trust tier with public policy | Governance + security + legal | Deferred |
-| ACF-018 | Power/thermal limits | Hardware-owner policy and automatic protection | Facilities + ITS | Before sustained workloads |
-| ACF-019 | Resource accounting | Transparent CPU/GPU/memory/energy metrics by project | Capacity + governance | Before quotas |
-| ACF-020 | Campus topology confidentiality | Expose abstract zones, not sensitive network/site details | Security + facilities | Before cross-system API |
+| Commons Compute Fabric-001 | Machines eligible for enrollment | Explicitly authorized College/test assets only | ITS + asset owners | Before deployment |
+| Commons Compute Fabric-002 | Worker implementation language | Choose for safe cross-platform service operation and maintainability | Commons Compute Fabric team | Before coding |
+| Commons Compute Fabric-003 | Enrollment and attestation method | Short-lived enrollment plus device identity and revocation | Security + Commons Compute Fabric | Before worker pilot |
+| Commons Compute Fabric-004 | Hardware/capability schema | Versioned cross-platform schema with sanitized examples | Commons Compute Fabric + contracts | Before census |
+| Commons Compute Fabric-005 | Idle detection signals | OS-native activity plus institution-approved policy | ITS desktop + privacy | Before opportunistic work |
+| Commons Compute Fabric-006 | Interactive-user protection | Immediate preemption/drain target and resource caps | ITS desktop + Commons Compute Fabric | Before lab pilot |
+| Commons Compute Fabric-007 | Scheduler strategy | Borrow HTCondor policy; build only institution-specific layer | Commons Compute Fabric architecture | Before jobs |
+| Commons Compute Fabric-008 | Kubernetes relationship | Stable GPU pools may use Kubernetes; opportunistic nodes need separate policy | Commons Compute Fabric + cloud | Before GPU jobs |
+| Commons Compute Fabric-009 | Trust tiers | Define institutional, managed lab, research and volunteer tiers | Security + resource owners | Before mixed fleet |
+| Commons Compute Fabric-010 | Workload sandbox | OCI isolation plus stronger controls by trust/data class | Security + Commons Compute Fabric | Before arbitrary jobs |
+| Commons Compute Fabric-011 | Network access from jobs | Deny by default; policy-controlled egress | Security + network | Before jobs |
+| Commons Compute Fabric-012 | Preemption/checkpoint contract | Capability-based and optional; never assume every runtime supports it | Commons Compute Fabric + runtime owners | Before long jobs |
+| Commons Compute Fabric-013 | Initial runtime adapters | CPU job runner, then vLLM and llama.cpp; SGLang is the alternative serving adapter | Commons Compute Fabric + AI | Before each milestone |
+| Commons Compute Fabric-014 | Distributed inference entry criteria | Only after independent replicas, topology and failure tests | Commons Compute Fabric research board | Deferred |
+| Commons Compute Fabric-015 | exo/SwarmLLM research status | Experimental; no production dependency | Commons Compute Fabric research board | Accepted default |
+| Commons Compute Fabric-016 | Model-cache placement and eviction | Content-addressed, verified and policy-aware | Commons Compute Fabric + storage | Before model distribution |
+| Commons Compute Fabric-017 | Volunteer compute | Separate opt-in trust tier with public policy | Governance + security + legal | Deferred |
+| Commons Compute Fabric-018 | Power/thermal limits | Hardware-owner policy and automatic protection | Facilities + ITS | Before sustained workloads |
+| Commons Compute Fabric-019 | Resource accounting | Transparent CPU/GPU/memory/energy metrics by project | Capacity + governance | Before quotas |
+| Commons Compute Fabric-020 | Campus topology confidentiality | Expose abstract zones, not sensitive network/site details | Security + facilities | Before cross-system API |
 
-## 8. AC Media Fabric and spatial platform
+## 8. Commons Media and Spatial Fabric and spatial platform
 
 | ID | Human choice | Accepted project default | Decision authority | Gate |
 |---|---|---|---|---|
@@ -239,7 +245,7 @@ Decision states:
 | MED-014 | AI-generated media labeling | Provenance metadata and visible disclosure policy | AI/media governance | Before generation |
 | MED-015 | Delivery authorization/CDN | Self-hosted delivery first; no mandatory vendor CDN | Media + network | Before public scale |
 
-## 9. AC Fediverse
+## 9. Commons Social Fabric
 
 | ID | Human choice | Accepted project default | Decision authority | Gate |
 |---|---|---|---|---|
@@ -295,11 +301,11 @@ Decision states:
 | UX-007 | Client update distribution | Self-hosted signed updates and rollback | Release + security | Before desktop/mobile release |
 | UX-008 | Voice/camera permissions | Just-in-time, purpose-specific and revocable | Privacy + UX | Before sensors |
 | UX-009 | Cross-device continuity | Server session refs, not unrestricted device-state replication | Security + product | Before multi-device |
-| UX-010 | Agent session relay | Institution-controlled, content-blind relay with E2EE endpoint payloads | Security + operations | Accepted architecture; crypto and recovery profile before implementation |
+| UX-010 | Agent session relay | Institution-controlled, content-blind relay with E2EE endpoint payloads | Security + operations | Normative decision; implementation must pass the v1 cryptography and recovery profile |
 | UX-011 | Remote permission modes | `allow_once` and `deny` first; no automatic approval or durable mobile grants by default | Security + product | Before remote tool approval |
 | UX-012 | Push notification content | Opaque wake token and coarse event class only | Privacy + mobile + operations | Before push provider integration |
 | UX-013 | Happy ecosystem feature scope | Pairing, continuity, inbox, handoff, offline queue, diffs and artifacts first; voice/collaboration later | Product + security + accessibility | Accepted scope; each later feature needs its listed gate |
-| UX-014 | White-labelled client access | Institution portal, signed deployment manifest/build, institution OIDC and institution endpoints; no OpenWork/Happy account | Client + identity + release teams | Accepted architecture; signing and manifest profile before distribution |
+| UX-014 | White-labelled client access | Institution portal, signed deployment manifest/build, institution OIDC and institution endpoints; no OpenWork/Happy account | Client + identity + release teams | Normative decision; distribution must pass the v1 signed-manifest profile |
 | DEV-001 | Initial SDK languages | Python and TypeScript; CLI alongside | Developer platform | Before public API |
 | DEV-002 | Application registration | Self-service only after review and scope model mature | Security + developer platform | Before third-party apps |
 | DEV-003 | Student developer scopes/quotas | Least privilege with project isolation and transparent limits | Governance + platform | Before SDK pilot |
@@ -341,7 +347,7 @@ Decision states:
 | HW-002 | Accelerator strategy | Prefer hardware with sustainable open driver support | Infrastructure + procurement | Before purchase |
 | HW-003 | NVIDIA/proprietary driver exception | Use only if capability need outweighs lock-in and exit path exists | Architecture + procurement | Before purchase |
 | HW-004 | Storage hardware and redundancy | Size from measured workload and failure objectives | Storage + finance | Before Ceph build |
-| HW-005 | GPU/network fabric | Add specialized interconnect only after workload evidence | ACF/AI + finance | Before scale-out |
+| HW-005 | GPU/network fabric | Add specialized interconnect only after workload evidence | Commons Compute Fabric/AI + finance | Before scale-out |
 | HW-006 | Power, cooling and facilities capacity | Facilities-approved sustained load envelope | Facilities + ITS | Before deployment |
 | HW-007 | Hardware lifecycle and e-waste | Repair, reuse, secure disposal and replacement policy | Sustainability + asset management | Before procurement |
 | FIN-001 | Cost allocation model | Transparent project/service usage without student surprise billing | Governance + finance | Before quotas |
@@ -357,18 +363,18 @@ Decision states:
 | ID | Human choice | Accepted project default | Decision authority | Gate |
 |---|---|---|---|---|
 | ROAD-001 | First integrated MVP | Keycloak + gateway + one local model + basic web client + telemetry | Steering group | Before implementation sprint |
-| ROAD-002 | ACF first milestone | Census and telemetry only | ACF team + ITS | Before worker coding |
+| ROAD-002 | Commons Compute Fabric first milestone | Census and telemetry only | Commons Compute Fabric team + ITS | Before worker coding |
 | ROAD-003 | Media first milestone | Asset manifest + one local processing pipeline | Media team | Before pipeline coding |
 | ROAD-004 | Fediverse first milestone | Local actor/note and controlled test peer | Fediverse + trust/safety | Before federation coding |
 | ROAD-005 | Pilot population and size | Small opt-in club/research cohort | Sponsor + privacy/security | Before pilot |
 | ROAD-006 | Exit criteria by phase | Security, reliability, accessibility, support and user-value evidence | Steering group | Before each phase |
-| ROAD-007 | ACF integration point | After identity, sandboxing, preemption and operational tests | AI/Media/ACF owners | Before routing workloads |
+| ROAD-007 | Commons Compute Fabric integration point | After identity, sandboxing, preemption and operational tests | AI/Media/Commons Compute Fabric owners | Before routing workloads |
 | ROAD-008 | Brightspace integration point | After institutional authorization and core AI stability | Academic owners | Before course pilot |
 | ROAD-009 | Public federation launch | After moderation, abuse, media proxy, privacy and incident tests | Trust/safety + institution | Before public federation |
 | ROAD-010 | Spatial/4DGS public support | After format, fallback, privacy and accessibility profile approval | Spatial/media group | Before publication |
 | ROAD-011 | Production handoff | Named College owner, runbooks, support, backups and recovery evidence | Institutional sponsor | Before production |
 | ROAD-012 | Stop/go authority | Named human body can pause unsafe or unsustainable work | Governance | Before pilot |
-| ROAD-013 | Second-institution gate | Validate tenant neutrality and white-labelling before Ontario federation | Architecture + consortium sponsor | After Algonquin pilot |
+| ROAD-013 | Second-institution gate | Validate tenant neutrality and white-labelling before Ontario federation | Architecture + consortium sponsor | After the first institution pilot |
 | ROAD-014 | Ontario federation gate | Start with 3–5 institutions after trust, settlement and interoperability proofs | Consortium governance | After second-institution pilot |
 | ROAD-015 | Canadian expansion gate | Expand only after provincial sovereignty, operations and economics are proven | Canadian consortium governance | After Ontario production evidence |
 
@@ -393,10 +399,11 @@ ADR/policy/specification links:
 Review date:
 ```
 
-## Immediate human decision queue
+## Implementation authorization evidence queue
 
 The product and technology defaults are accepted. The following evidence and
-external-authority decisions still unblock implementation:
+external-authority actions are required by implementation and release gates; none
+changes the architecture unless its result triggers a new ADR:
 
 1. Appoint governance, sponsor and production owners and ratify operating responsibility for the accepted repository model.
 2. Complete legal review of Apache-2.0, DCO and the separate participant upstream-contribution agreement; automate the open-source admission policy.
@@ -407,10 +414,10 @@ external-authority decisions still unblock implementation:
 6. Implement the accepted gateway baseline and freeze its exact compatibility profile.
 7. Select the first exact local model release from license and hardware evidence.
 8. Approve data classification, prompt retention and telemetry boundaries.
-9. Run the ACF census and approve hardware, worker and enrollment/attestation details.
+9. Run the Commons Compute Fabric census and approve hardware, worker and enrollment/attestation details.
 10. Verify the Open WebUI v0.6.5 tag/commit, licenses, provenance, security state,
     accessibility baseline and maintenance ownership before importing source.
-11. Name accountable owners for Cloud, AI, ACF, Media, Fediverse, security/privacy,
+11. Name accountable owners for Cloud, AI, Commons Compute Fabric, Media, Fediverse, security/privacy,
     accessibility, operations and contracts.
 12. Select the exact OpenTofu release, state backend and provider/module allowlist.
 13. Define the second-institution pilot and federation trust agreement.

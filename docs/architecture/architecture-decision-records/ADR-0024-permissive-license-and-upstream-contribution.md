@@ -1,8 +1,8 @@
 # ADR-0024: Apache-2.0 with Upstream-First Contribution Policy
 
-> Status: Accepted  
-> Date: 2026-09-11  
-> Scope: PSDC-authored code, configuration and documentation  
+> Status: Accepted
+> Date: 2026-09-11
+> Scope: PSDC-authored code, configuration and documentation
 > Decision owner: Project founder; legal review required before public release
 
 ## Context

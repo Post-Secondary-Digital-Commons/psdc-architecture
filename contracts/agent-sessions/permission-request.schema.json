@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://commons.example/contracts/agent-sessions/permission-request.schema.json",
+  "$id": "urn:psdc:contracts:agent-sessions:permission-request:1",
   "title": "Agent Permission Request",
   "type": "object",
   "additionalProperties": false,
   "required": ["contractVersion", "requestId", "sessionId", "actionKind", "actionDigest", "summary", "risk", "requestedAt", "expiresAt", "allowedDecisions"],
   "properties": {
-    "contractVersion": { "const": "0.1-draft" },
+    "contractVersion": { "const": "1.0" },
     "requestId": { "type": "string", "format": "uuid" },
     "sessionId": { "type": "string", "format": "uuid" },
     "workspaceGrantId": { "type": "string", "format": "uuid" },
@@ -25,4 +25,3 @@
     }
   }
 }
-

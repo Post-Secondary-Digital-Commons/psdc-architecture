@@ -1,8 +1,8 @@
 # ADR-0019: Happy Is the Mobile AI Client Foundation
 
-> Status: Accepted  
-> Date: 2026-09-10  
-> Scope: PSDC mobile client and cross-device agent supervision  
+> Status: Accepted
+> Date: 2026-09-10
+> Scope: PSDC mobile client and cross-device agent supervision
 > Decision owner: Project founder; exact-source import requires legal and security review
 
 ## Context

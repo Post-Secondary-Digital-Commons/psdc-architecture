@@ -1,33 +1,36 @@
 # Master Architecture Document Suite
 
-This directory is the documentation source of truth for the tenant-neutral
-Post-Secondary Digital Commons and its Algonquin reference deployment. As of
-2026-09-10 it contains 423 accepted-baseline specifications whose implementation
-detail remains incomplete, ADR-0001 through ADR-0024 (with ADR-0011 superseded),
-constitutional architecture documents, system context and contract pages,
-the full technology catalog, a gap analysis, and documentation governance.
+This directory is the normative documentation source for the institution-neutral
+Post Secondary Digital Commons. institution-specific authority and configuration
+live in the Algonquin institution forks.
+
+As of 2026-09-11, the suite contains 423 completed domain specifications,
+constitutional architecture, ADR-0001 through ADR-0025, ten shared contract
+profiles, security and governance policy, implementation readiness, and explicit
+acceptance gates. A complete specification authorizes implementation; it does not
+claim that code, infrastructure or operational evidence already exists.
 
 ## Reading order
 
 1. `vision/constitutional/Post-Secondary-Digital-Commons-Architecture.md`
-2. The remaining six domain constitutional architecture documents
-3. `vision/00-Vision-and-Mission.md` through the technology catalogs
-4. `architecture/` — system-wide logical, physical, API, event, tenancy,
-   availability, and dependency architecture
-5. The owning subsystem directory: Cloud, Compute, ACF, AI, Media, or Fediverse
-6. Cross-cutting Security, Governance, Operations, Reliability, Testing, and
-   Deployment documents
-7. ADRs for decisions that materially constrain later work
+2. `architecture/Consolidated-Ecosystem-Architecture.md`
+3. `architecture/Ecosystem-Dependency-Contract.md`
+4. `architecture/Specification-Completeness-Standard.md`
+5. `vision/13-Technology-Defaults-and-Alternatives.md`
+6. `governance/Human-Choices-and-Decisions-Register.md`
+7. the relevant domain specification and shared contract profile;
+8. the controlling ADRs;
+9. `roadmap/Ecosystem-Implementation-Readiness-2026-09-11.md`.
 
-## Sections
+## Normative specification inventory
 
-| Section | Accepted-baseline incomplete specifications |
+| Section | Specifications |
 |---|---:|
 | Academic | 13 |
-| ACF | 30 |
+| Commons Compute Fabric | 30 |
 | AI | 27 |
-| Architecture | 16 |
-| Clients | 17 |
+| Architecture | 15 |
+| Clients | 18 |
 | Cloud | 14 |
 | Compute | 12 |
 | Data | 9 |
@@ -39,7 +42,7 @@ the full technology catalog, a gap analysis, and documentation governance.
 | Identity | 13 |
 | Institutional | 9 |
 | Integration | 9 |
-| Media and spatial/4DGS | 26 |
+| Media and spatial | 26 |
 | Network | 15 |
 | Open source | 10 |
 | Operations | 13 |
@@ -51,19 +54,22 @@ the full technology catalog, a gap analysis, and documentation governance.
 | Storage | 13 |
 | Student life | 17 |
 | Testing | 12 |
-| Vision | 7 |
+| Vision | 17 |
 
-The Architecture count includes the incomplete `ADR-XXXX` template. Canonical
-constitutional, policy, catalog, audit, gap-analysis, source-import, and README
-documents are additional to these 423 incomplete specifications.
+Constitutional, catalog, audit, source-history, README and ADR documents are
+additional to the 423 generated domain specifications.
 
-Use `Documentation-Architecture-Standard.md` when converting an accepted-baseline,
-incomplete specification into an implementation-ready or approved document.
+## Completion and change control
 
-Use `architecture/Decision-Traceability-Matrix.md` and
-`architecture/Standards-First-Coverage-Matrix.md` to verify that subsystem work
-conforms to the accepted decisions.
+Every specification defines scope, normative behaviour, interfaces, ownership,
+data, security, deployment separation, capacity, failure behaviour, observability,
+tests, open-source strategy, acceptance criteria and change authority. Site values
+belong in signed institution manifests. Implementation and production evidence is
+collected at the gates defined by the specification.
 
-The current counts and implementation gaps are maintained in
-`roadmap/Ecosystem-Gap-Analysis-2026-09-10.md`; this index does not treat a file's
-existence as implementation completion.
+Use `Documentation-Architecture-Standard.md` and
+`architecture/Specification-Completeness-Standard.md` for new documentation. Use
+`architecture/Decision-Traceability-Matrix.md` and
+`architecture/Standards-First-Coverage-Matrix.md` for conformance. Current
+execution work is tracked in
+`roadmap/Ecosystem-Implementation-Readiness-2026-09-11.md`.
