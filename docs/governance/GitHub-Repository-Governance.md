@@ -27,11 +27,27 @@ self-hosted CI service.
 | Linear history required | Yes | No |
 | Merge commits enabled | No | Yes |
 | Required status checks | Pending CI | Pending CI |
+| Protected `main` push actor | `RedjiJB` only | `RedjiJB` only |
+| Secret scanning and push protection | Enabled | Enabled |
+| Dependency alerts and automated fixes | Enabled | Enabled |
+| Private vulnerability reporting | Enabled | Enabled |
+| Repository wiki | Disabled | Disabled |
 
 Zero required approvals does not mean review is unnecessary. It is a bootstrap
 exception: GitHub does not allow a pull-request author to approve their own
 change, and `RedjiJB` is presently the only confirmed maintainer. Once a second
 authorized maintainer exists, require at least one approval and code-owner review.
+
+Organization membership grants no repository permission by default. Members
+cannot create repositories or GitHub Pages sites. Web commit signoff is required
+by both organizations. The live 2FA audit found no noncompliant members, but the
+organization-wide 2FA requirement remains pending because the API did not enable
+the setting; an owner must confirm it in both GitHub organization settings pages.
+
+The `Club Members` team has triage access, which permits issue and pull-request
+coordination without repository writes. The `Maintainers` team has maintain
+access for trusted operators, but protected `main` remains restricted to
+`RedjiJB` until the promotion gates below are deliberately completed.
 
 ## Why institution forks allow merge commits
 
@@ -78,6 +94,7 @@ For an upstream synchronization into an institution fork:
 Before calling repository governance production-ready:
 
 - appoint at least two maintainers in each governing organization;
+- enable and verify the organization-wide 2FA requirement in GitHub settings;
 - add repository or path-specific CODEOWNERS;
 - require one independent approval and code-owner review;
 - deploy self-hosted Woodpecker CI and require its stable status contexts;

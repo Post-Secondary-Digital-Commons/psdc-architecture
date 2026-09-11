@@ -40,9 +40,14 @@ The repository consistency inspection on 2026-09-11 found:
   hosted `origin` and common `upstream` remotes, verified parent relationships,
   shared ancestry, and synchronized branch heads;
 - protected `main` branches and pull-request controls across all 19 repositories,
-  including no force-push or deletion and a fork-safe history policy;
-- no independent required approval, CODEOWNERS enforcement, repository-local CI,
-  release automation, or tested upstream synchronization pull request yet.
+  including a `RedjiJB`-only main update restriction, no force-push or deletion,
+  and a fork-safe history policy;
+- deny-by-default organization membership, triage-only club teams, maintain-only
+  trusted teams, secret scanning and push protection, dependency alerts and
+  fixes, private vulnerability reporting and disabled repository wikis;
+- no independent required approval, CODEOWNERS enforcement, organization-wide
+  2FA enforcement, repository-local CI or release automation yet; the upstream
+  synchronization pull-request model has been tested successfully.
 
 Counts describe repository maturity, not quality or completion. Re-run them at
 each milestone because this document intentionally does not pretend that seeded
@@ -73,7 +78,7 @@ specifications are implemented.
 
 | Priority | Gap | Why it blocks progress | Required evidence |
 |---|---|---|---|
-| P0 | Staff and automate the hosted fork topology | Branch and pull-request protections are active, but one maintainer means independent approval cannot yet be required and no CI status exists | Appoint a second maintainer, add CODEOWNERS, require one approval, add signed-release policy and self-hosted CI status checks, then test an upstream-sync pull request |
+| P0 | Staff and automate the hosted fork topology | Least-privilege membership, branch protections and security scanning are active and upstream synchronization is tested, but one maintainer means independent approval cannot yet be required and no CI status exists | Enable organization 2FA, appoint a second maintainer, add CODEOWNERS, require one approval, add signed-release policy and self-hosted CI status checks |
 | P0 | Accountable ownership | Defaults cannot become operated services without decision and incident owners | Sponsor, product, architecture, security/privacy, operations and domain RACI |
 | P0 | OpenTofu state/module design | Reproducibility still needs an exact backend and dependency policy | Supported release, provider/module allowlist, encrypted locking backend and recovery test |
 | P0 | Neutral configuration boundary | White-labelling fails if Algonquin assumptions enter core logic | Tenant-neutral naming/schema rules and an Algonquin deployment overlay |
