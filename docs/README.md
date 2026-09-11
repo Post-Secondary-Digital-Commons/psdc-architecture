@@ -54,7 +54,7 @@ claim that code, infrastructure or operational evidence already exists.
 | Storage | 13 |
 | Student life | 17 |
 | Testing | 12 |
-| Vision | 17 |
+| Vision | 7 |
 
 Constitutional, catalog, audit, source-history, README and ADR documents are
 additional to the 423 generated domain specifications.
