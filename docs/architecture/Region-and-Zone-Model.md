@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: architecture-specification
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Architecture Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **Region and Zone Model** as part of the Post Secondary Digital
-Commons. Its required outcome is coherent system boundaries, portable contracts, explicit trust zones, and institution-first federation. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document defines the geographic and failure vocabulary: region, zone, campus class, locality and the placement ladder. It explains how those terms appear in the contracts. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,35 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Model
+
+- **Region:** start with one region (ARC-010).
+- **Zone:** an explicit failure and network boundary inside a region. Contracts carry `locality.zoneId`.
+- **Campus class:** datacentre, lab, edge, hpc or partner, as reported in a capability advertisement ([capability contract](../../contracts/compute/capability.schema.json)).
+- **Country and residency:** each capability states a country, and a workload can restrict `residencyCountries`, allowed zones, allowed providers and a minimum trust tier ([workload contract](../../contracts/compute/workload-manifest.schema.json)).
+- **Institution scope:** a workload is `local_only`, `approved_federation` or `approved_external` (from the classification record).
+
+### Locality ladder
+
+User device, dedicated institution infrastructure, institution campus fabric, approved regional federation, provincial federation, Canadian federation, Canadian commercial provider, and a global provider only as an explicit last resort. If no permitted location exists the platform queues, degrades or fails; it never widens data or trust policy silently ([ADR-0013](architecture-decision-records/ADR-0013-institution-first-federation-locality.md)).
+
+### Rules
+
+- **RZ-1:** Placement uses the narrowest allowed and operationally suitable location.
+- **RZ-2:** Routing moves down the ladder only inside the workload envelope.
+- **RZ-3:** Addresses come from institution IPAM; there is no universal PSDC address block; dual-stack where supported (NET-001, NET-002).
+- **RZ-4:** Disaster-recovery routing uses routed Layer 3, not stretched Layer 2 (NET-024).
+- **RZ-5:** Time is synchronized from redundant institution sources; a node beyond the drift threshold is quarantined before it can hold signed leases (NET-021).
+
+### Gaps
+
+Zone names, prefixes, VLAN or VRF identifiers and the identity of the disaster-recovery site are institution deployment values, decided per institution. Provincial and national federation rungs have no peers yet.
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: versioned synchronous APIs, asynchronous events, identity claims, policy decisions, and repository ownership contracts.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +74,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes architecture decisions, schemas, service metadata, dependency declarations, and institution deployment manifests.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include documented trust boundaries, threat models, least privilege, failure isolation, and no implicit transitive trust.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +90,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes independent component lifecycle, compatibility windows, failure-domain isolation, disaster recovery, and observable control planes.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +98,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: open protocols and replaceable implementations selected through adopt, extend, compatible fork, then build.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- System boundaries use versioned standard interfaces and keep implementations replaceable.
-- Institution-specific control-plane composition must not create proprietary data-plane protocols.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

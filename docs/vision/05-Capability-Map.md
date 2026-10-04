@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: architecture-specification
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Vision Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **05 Capability Map** as part of the Post Secondary Digital
-Commons. Its required outcome is a durable institution-neutral direction, vocabulary, principles, boundaries, and success model for the Commons. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document maps shared capabilities to the fabric that owns them and the fabrics that consume them. It is the quick answer to "who owns this" and "who depends on it". The map is derived from [Cross-Pollination and Shared Capabilities](../architecture/Cross-Pollination-and-Shared-Capabilities.md) and the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md). An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,47 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Ownership map
+
+| Capability | Primary owner | Main consumers |
+|---|---|---|
+| Identity and scopes | Cloud | Every fabric |
+| Policy bundles | Cloud with domain teams | AI, Compute, Media, Social |
+| Compute jobs | Compute | AI, Media, Social, Cloud |
+| AI inference and agents | AI | Academic, Media, Social, Cloud administration |
+| Media assets and provenance | Media | AI, Social, academic clients |
+| ActivityPub publication | Social | Media, AI |
+| Spatial identity | Umbrella contract | Cloud, Compute, AI, Media, Social |
+| Events and workflows | Cloud | Every fabric |
+| Observability | Cloud | Every fabric |
+| SDKs and developer portal | Cloud with product teams | Student developers |
+| Academic contracts | Umbrella contract team | AI, agents, clients, institution adapters |
+| Data classification and lineage | Domain data owners | Every fabric |
+| Federation conformance | Consortium governance and contract team | Every participating institution |
+| Resource ledger | Federation governance | Compute, AI, Media, research, finance |
+| Communications contracts | Cloud with product teams | Academic, social, operations, agents |
+
+### Rules that keep the map honest
+
+- Assign one primary owner even when several teams contribute.
+- Prefer an adapter over importing another subsystem's implementation.
+- A decision that constrains two or more fabrics needs a joint ADR.
+- Cross-pollination cannot expand a user's permissions or data purpose implicitly.
+- Every shared component needs a support and deprecation plan.
+
+### Maturity, honestly stated
+
+Only the compute and economics capabilities have executable contract candidates today (provider, capability, workload, offer, placement, lease, usage receipt, settlement, dispute). They are contract candidates, not running services. The remaining capabilities are specified at architecture level only; many of their detailed specifications are explicit stubs.
+
+### Gaps
+
+No capability in this map has a named production owner, an SLO or a measured capacity; those are implementation-evidence gates in the [decision register](../governance/Human-Choices-and-Decisions-Register.md).
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: constitutional principles, naming rules, capability maps, decision registers, institution adoption contracts, and success measures.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +86,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes principles, definitions, assumptions, decisions, measures, stakeholders, constraints, and supersession history.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include institutional sovereignty, user rights, open protocols, transparent governance, accessibility, privacy, and independence from a single vendor.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +102,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes annual constitutional review, ADR-based amendment, institution ratification, terminology control, and traceability into implementation specifications.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +110,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: open standards, institution-first federation, portable contracts, permissive open-source defaults, and thin deployment forks.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- The platform creates distinctive value in orchestration, integration, policy, user experience, academic intelligence, student services, and campus-resource coordination while keeping its technology open-source.
-- Mature standards and upstream implementations are adopted or extended before a new infrastructure primitive is proposed.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

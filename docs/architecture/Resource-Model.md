@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: architecture-specification
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Architecture Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **Resource Model** as part of the Post Secondary Digital
-Commons. Its required outcome is coherent system boundaries, portable contracts, explicit trust zones, and institution-first federation. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document defines how resources are named, owned and referenced: the hierarchy, the ownership rule, and how a reference differs from the thing it points to. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,42 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Hierarchy and ownership
+
+Resources follow organization, project, environment, resource (ARC-009). Neutral nouns are Institution, Tenant, Subject, Course, ComputeProvider, Node, Cell and Federation (ARC-019). Every record has one owning service; there are no cross-service database reads (ARC-015).
+
+### References
+
+A resource reference is portable and institution-scoped. It does not imply that the object exists or that the caller may access it ([resource-reference contract](../../contracts/common/resource-reference.schema.json)). Records carry references and digests, not embedded copies of other services' data.
+
+### Compute and economics resources
+
+| Resource | Contract | Lifecycle |
+|---|---|---|
+| Provider | [provider](../../contracts/compute/provider.schema.json) | pending, active, suspended, revoked, retired |
+| Capability | [capability](../../contracts/compute/capability.schema.json) | available, draining, unavailable, revoked |
+| Workload | [workload manifest](../../contracts/compute/workload-manifest.schema.json) | submitted and classified; the manifest is immutable |
+| Offer | [offer](../../contracts/compute/offer.schema.json) | submitted, withdrawn, expired, accepted, rejected |
+| Lease | [lease](../../contracts/compute/lease.schema.json) | issued, active, renewal pending, released, expired, revoked, failed |
+| Usage receipt | [usage receipt](../../contracts/compute/usage-receipt.schema.json) | measured, failed, disputed, voided |
+
+Resource use is measured in institutional resource units (IRU), non-transferable accounting units ([ADR-0029](architecture-decision-records/ADR-0029-unified-institutional-resource-metering.md)). Lifecycle tables are executable ([state machines](../../contracts/state-machines/lease.machine.json)).
+
+### Rules
+
+- **RES-1:** A finalized record is corrected by a linked record or compensating entry, never mutated.
+- **RES-2:** Every state change names an authorization action and carries a reason where the table requires one.
+- **RES-3:** Backend-native measurements are preserved even when a common unit is used for accounting.
+
+### Gaps
+
+Organization, project and environment records have no schema yet; only the compute and economics resources do.
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: versioned synchronous APIs, asynchronous events, identity claims, policy decisions, and repository ownership contracts.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +81,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes architecture decisions, schemas, service metadata, dependency declarations, and institution deployment manifests.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include documented trust boundaries, threat models, least privilege, failure isolation, and no implicit transitive trust.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +97,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes independent component lifecycle, compatibility windows, failure-domain isolation, disaster recovery, and observable control planes.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +105,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: open protocols and replaceable implementations selected through adopt, extend, compatible fork, then build.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- System boundaries use versioned standard interfaces and keep implementations replaceable.
-- Institution-specific control-plane composition must not create proprietary data-plane protocols.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

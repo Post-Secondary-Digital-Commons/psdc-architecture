@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: architecture-specification
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Architecture Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **High Availability** as part of the Post Secondary Digital
-Commons. Its required outcome is coherent system boundaries, portable contracts, explicit trust zones, and institution-first federation. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document records the accepted availability approach: which components are made highly available, with which accepted tools, and what must be proven first. No availability target has been measured or committed. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,39 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Approach
+
+Availability follows service criticality instead of one platform-wide number: each service owner defines a tier and its SLO (OPS-001). Production starts Kubernetes-first, adding OpenStack only where virtual-machine or bare-metal demand requires it (CLD-002).
+
+### Accepted defaults
+
+| Concern | Accepted default | Gate |
+|---|---|---|
+| Kubernetes | RKE2 for managed production, K3s for edge and development | Validate before cluster build (CLD-004) |
+| CNI | Cilium, Calico as the open exit path | Validate against campus networking (CLD-005) |
+| Ingress | Envoy Gateway | Threat and performance test before public APIs (CLD-006) |
+| Bare-metal load balancing | MetalLB | Validate before HA ingress (CLD-007) |
+| Storage | Ceph on dedicated storage nodes once production begins | Before persistent pilot data (CLD-008) |
+| PostgreSQL | Open operator or native automation chosen after a recovery test | Before production database (CLD-009) |
+| Valkey | Sentinel versus Cluster by workload | Before distributed cache (CLD-010) |
+| Events | NATS JetStream | Exact release before evented workflows (ARC-003) |
+
+### Rules
+
+- **HA-1:** Redundancy is introduced only for a service that has declared a tier; unmeasured redundancy is not claimed.
+- **HA-2:** Stateless components are replaceable from source, configuration and signed artifacts; stateful components declare RPO and RTO and prove restore before production.
+- **HA-3:** No stretched Layer 2; routed Layer 3 with DNS or service failover (NET-024).
+- **HA-4:** HA procurement waits for RPO and RTO by service (OPS-006).
+
+### Gaps
+
+Service tiers, SLOs, RPO and RTO values, node counts and hardware are all undecided. This document supplies the approach and the tool defaults only.
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: versioned synchronous APIs, asynchronous events, identity claims, policy decisions, and repository ownership contracts.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +78,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes architecture decisions, schemas, service metadata, dependency declarations, and institution deployment manifests.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include documented trust boundaries, threat models, least privilege, failure isolation, and no implicit transitive trust.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +94,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes independent component lifecycle, compatibility windows, failure-domain isolation, disaster recovery, and observable control planes.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +102,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: open protocols and replaceable implementations selected through adopt, extend, compatible fork, then build.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- System boundaries use versioned standard interfaces and keep implementations replaceable.
-- Institution-specific control-plane composition must not create proprietary data-plane protocols.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: architecture-specification
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Vision Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **04 Platform Taxonomy** as part of the Post Secondary Digital
-Commons. Its required outcome is a durable institution-neutral direction, vocabulary, principles, boundaries, and success model for the Commons. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document classifies the platform: fabrics, the cloud service domains inside Commons Cloud, and the rule for deciding where a capability belongs. It follows [Commons Cloud Service Taxonomy v1](constitutional/Commons-Cloud-Service-Taxonomy-v1.md) and the fabric model in the constitutional architecture. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,45 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Fabrics and owners
+
+| Fabric | Primary responsibilities |
+|---|---|
+| Cloud and service | Identity broker, policy, APIs, events, data services, storage, secrets, observability, delivery platform |
+| Compute | Enrollment, trust, capability discovery, scheduling, preemption and accounting for dedicated and opportunistic resources |
+| AI and agent | Gateway, models, routing, RAG, evaluations, agent tools and AI clients |
+| Media and spatial | Image, audio, video, 3D, 4DGS, provenance, transformation and delivery |
+| Social | Fediverse actors, social, photos, video, communities, blogs, moderation and ActivityPub federation |
+| Academic | Provider-neutral course, enrolment, content and assessment contracts with local authoritative adapters |
+| Data | Classification, sovereignty, catalogs, lineage, authorized exchange and lifecycle policy |
+| Developer | Forge, CI, registry, SDKs, templates, sandbox and service catalog |
+| Communications | Notifications, messaging and approved institutional channel adapters |
+| Research and innovation | Reproducible environments, data and model manifests, compute grants and publication lineage |
+
+### Commons Cloud service domains
+
+Access edge; identity; organization (projects, tenants, quotas); catalog; provisioning; compute services (VMs, containers, batch, managed Kubernetes, accelerators, serverless); storage (object, block, file, backup, archive); network; data services (relational, cache, vector, search, lake); integration (events, queues, workflows); security (secrets, KMS, PKI, artifact signing); observability; developer services; and hybrid or federation brokerage. Each domain uses standard interfaces and adopted platforms rather than custom implementations.
+
+### Placement rule
+
+A capability belongs in Commons Cloud only when at least two ecosystems need the same non-domain-specific behavior and centralized operation materially improves security, reliability, governance or efficiency. Shared code alone is not enough; product-specific semantics stay with the owning fabric.
+
+### Classification dimensions used elsewhere
+
+- **Data classification:** public, internal, confidential, restricted, regulated (the values in the shared contract definitions).
+- **Backend kind:** task, kubernetes, openstack, slurm.
+- **Trust tier:** development, pilot, production, federated.
+- **Workload class:** opportunistic task, independent task graph, parameter sweep, container service, VM, HPC MPI, AI inference, AI service, critical service.
+
+### Gaps
+
+The taxonomy defines no service-level tier per service; the register leaves service tiers and SLOs to each service owner (OPS-001).
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: constitutional principles, naming rules, capability maps, decision registers, institution adoption contracts, and success measures.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +84,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes principles, definitions, assumptions, decisions, measures, stakeholders, constraints, and supersession history.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include institutional sovereignty, user rights, open protocols, transparent governance, accessibility, privacy, and independence from a single vendor.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +100,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes annual constitutional review, ADR-based amendment, institution ratification, terminology control, and traceability into implementation specifications.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +108,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: open standards, institution-first federation, portable contracts, permissive open-source defaults, and thin deployment forks.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- The platform creates distinctive value in orchestration, integration, policy, user experience, academic intelligence, student services, and campus-resource coordination while keeping its technology open-source.
-- Mature standards and upstream implementations are adopted or extended before a new infrastructure primitive is proposed.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

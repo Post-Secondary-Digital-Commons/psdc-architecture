@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: architecture-specification
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Vision Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **03 Reference Architecture** as part of the Post Secondary Digital
-Commons. Its required outcome is a durable institution-neutral direction, vocabulary, principles, boundaries, and success model for the Commons. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document is the one-page reference architecture: the layers, the dependency direction, the shared contracts and a representative request flow. It summarizes [PSDC Platform Reference Architecture](constitutional/PSDC-Platform-Reference-Architecture.md); the dependency rules here are binding and the detail lives in the linked documents. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,61 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Layers
+
+| Layer | Responsibility |
+|---|---|
+| Institution experience | Local branding, portals, policy, authoritative adapters, data and operations |
+| Reusable commons | Tenant-neutral software, contracts, SDKs, reference infrastructure and test suites |
+| Federation | Explicit trust, discovery, routing, exchange, settlement and conformance across sovereign deployments |
+
+### Runtime shape
+
+```text
+users, developers, administrators, institutions, federated peers
+                          |
+          web / desktop / mobile / CLI / SDK
+                          |
+   Commons Cloud Fabric: identity | policy | catalog | events | observability
+                          |
+   +----------------------+----------------------+
+   |                      |                      |
+ Compute Fabric       AI Fabric        Media and Spatial Fabric
+   +----------------------+----------------------+
+                          |
+                   Social Fabric (ActivityPub boundary)
+```
+
+Commons Cloud owns common platform capabilities, not product business logic. Each fabric owns one bounded domain and integrates through contracts. The umbrella repository owns cross-system contracts and constitutional decisions and is not a runtime service.
+
+### Shared contracts every integration relies on
+
+Identity references and authorization context; a CloudEvents-compatible event envelope; API versioning, error, idempotency and pagination conventions; AI model aliases and inference requests; compute capabilities, jobs, preemption and accounting; media assets and provenance; ActivityPub profiles; spatial identifiers; and institution-signed client deployment manifests. The compute-fabric subset now exists as executable contract candidates ([Executable Contract Portfolio](../architecture/Executable-Contract-Portfolio.md)).
+
+### Representative request flow
+
+A client authenticates through institutional OIDC. Commons Cloud resolves the route and propagates identity, policy and trace context. The owning product validates authorization and data classification, then runs the work locally or through an adapter to an approved backend. Durable state stays in the owning service and large artifacts go to object storage. Events use the versioned envelope; telemetry follows OpenTelemetry; public federation passes only through the Social Fabric.
+
+### Dependency rules
+
+- No cross-repository private imports or database access.
+- No client-to-model-provider, client-to-directory, client-to-LMS, client-to-worker or client-to-storage bypass.
+- No Compute Fabric dependency until it meets workload-isolation and operational criteria.
+- No public federation before moderation and security readiness.
+- Every optional dependency defines timeout, fallback, queueing and recovery.
+- No federation peer becomes a local identity, LMS, policy, database, secrets or infrastructure-state authority.
+
+The full dependency classes and failure behavior are in the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md).
+
+### Gaps
+
+Physical topology, sizing, final product selection and production approval are deliberately outside this reference architecture ([Physical Architecture](../architecture/Physical-Architecture.md) records what is decided).
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: constitutional principles, naming rules, capability maps, decision registers, institution adoption contracts, and success measures.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +100,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes principles, definitions, assumptions, decisions, measures, stakeholders, constraints, and supersession history.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include institutional sovereignty, user rights, open protocols, transparent governance, accessibility, privacy, and independence from a single vendor.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +116,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes annual constitutional review, ADR-based amendment, institution ratification, terminology control, and traceability into implementation specifications.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +124,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: open standards, institution-first federation, portable contracts, permissive open-source defaults, and thin deployment forks.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- The platform creates distinctive value in orchestration, integration, policy, user experience, academic intelligence, student services, and campus-resource coordination while keeping its technology open-source.
-- Mature standards and upstream implementations are adopted or extended before a new infrastructure primitive is proposed.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 
