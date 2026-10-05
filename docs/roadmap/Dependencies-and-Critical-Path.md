@@ -56,7 +56,7 @@ The roadmap uses two orderings. **Phases 0 to 10** order institution adoption, a
 | B: VS-01, an approved request on an idle lab node settling institutional credits | Yes | 7, for campus operation | Compute owner, sandbox, preemption and safety evidence |
 | C: VS-02 to VS-06 (Kubernetes service, OpenStack VM, Slurm HPC job, private hot object, private content distribution) | Yes | 7 or later | Backend-specific and storage-specific gates |
 | D: VS-07 and VS-08 (governed federation storage, portable student identity) | Yes | 9 | Peer trust, credential, retention, consent and dispute conformance |
-| E: VS-09, client-to-AI session across web, desktop and mobile | Yes | 4 to 5 by client | Identity, gateway, policy and client gates |
+| E: VS-09, client-to-AI session across web, desktop and mobile | Yes | Phase 4 for the minimal web vertical slice; phase 5 for the supported web, desktop and mobile sandbox experience | Identity, gateway, policy and client gates |
 
 This mapping is a proposal for owner review. It resolves the apparent conflict between "AI and web come before compute" (phase order) and "the compute task is the first implementation slice, the cohesive client session the last" (wave order): both are true on their own axis.
 

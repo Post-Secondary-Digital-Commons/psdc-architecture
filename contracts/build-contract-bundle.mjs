@@ -30,12 +30,15 @@ const included = walk(contractRoot)
 for (const rootFile of ["LICENSE", "NOTICE"]) {
   included.push({ source: path.join(repositoryRoot, rootFile), relative: rootFile });
 }
-included.sort((left, right) => left.relative.localeCompare(right.relative));
+// Code-point order, not locale order, so the manifest is identical on every platform.
+included.sort((left, right) => (left.relative < right.relative ? -1 : left.relative > right.relative ? 1 : 0));
 
 fs.mkdirSync(bundleRoot, { recursive: true });
 const files = [];
 for (const entry of included) {
-  const bytes = fs.readFileSync(entry.source);
+  // Every bundled file is UTF-8 text. Normalize CRLF to LF so a Windows checkout with autocrlf
+  // yields the same bytes, digests and content root as a Linux checkout.
+  const bytes = Buffer.from(fs.readFileSync(entry.source, "utf8").replace(/\r\n/g, "\n"), "utf8");
   const target = path.join(bundleRoot, ...entry.relative.split("/"));
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, bytes);
