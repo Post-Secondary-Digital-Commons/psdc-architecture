@@ -10,6 +10,12 @@
 > Governing decisions: Applicable ADRs and repository governance
 > Domain: roadmap
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> the constitutional architecture restate existing authority. Any new rule identifier, ordering
+> or uncited constraint introduced by this draft is a proposal for owner review, not a binding
+> decision. It becomes normative only when the accountable owner accepts it through the decision
+> register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ## Purpose and outcome
 
 This roadmap orders the work from a student-led club to mature multi-institution operation. It fixes the phases, the gate each must pass, and what the evidence so far supports. It is a gate sequence, not a calendar. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).

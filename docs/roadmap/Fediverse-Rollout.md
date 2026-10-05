@@ -10,6 +10,12 @@
 > Governing decisions: Applicable ADRs and repository governance
 > Domain: roadmap
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> the constitutional architecture restate existing authority. Any new rule identifier, ordering
+> or uncited constraint introduced by this draft is a proposal for owner review, not a binding
+> decision. It becomes normative only when the accountable owner accepts it through the decision
+> register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ## Purpose and outcome
 
 This document orders delivery of the social fabric and its federation boundary: local first, then allowlisted peers, then public federation only after readiness. It rests on the accepted federation defaults. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).

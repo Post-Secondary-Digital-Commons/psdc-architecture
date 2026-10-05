@@ -10,6 +10,12 @@
 > Governing decisions: Applicable ADRs and repository governance
 > Domain: roadmap
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> the constitutional architecture restate existing authority. Any new rule identifier, ordering
+> or uncited constraint introduced by this draft is a proposal for owner review, not a binding
+> decision. It becomes normative only when the accountable owner accepts it through the decision
+> register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ## Purpose and outcome
 
 This document describes the move from pilot to College-operated production: what must be true of ownership, recovery and support before the platform is called production. It corresponds to phase 8 in [Master Roadmap](Master-Roadmap.md). An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
