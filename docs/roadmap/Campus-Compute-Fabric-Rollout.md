@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: roadmap
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Roadmap Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **Commons Compute Fabric Rollout** as part of the Post Secondary Digital
-Commons. Its required outcome is dependency-ordered delivery with explicit outcomes, entry and exit criteria, risks, owners, and evidence. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document orders the campus compute fabric's delivery from hardware census to AI and media workloads. The first milestone is census and telemetry, not distributed inference. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,47 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Step 1: census and telemetry (ROAD-002)
+
+The first slice, in order: a worker registers an authorized machine; it reports CPU, RAM, GPU, VRAM, operating system, network and idle state; a control API stores and serves the inventory; a dashboard shows current and aggregate capacity; benchmarks validate reporting overhead and capability. The capability and provider contracts that carry this data exist as candidates ([Compute Census](../campus-compute-fabric/Compute-Census.md), [capability](../../contracts/compute/capability.schema.json)). The census assumes no availability.
+
+### Step 2: the reference slice (VS-01)
+
+An approved request runs on an idle lab node and settles institutional credits. The path is identity, policy and classification, provider and capability registry, task offer, placement and lease, worker sandbox, receipt and evidence, then operational state and settlement ([Vertical Slice Completion Plan](Vertical-Slice-Completion-Plan.md)). It includes node-loss and stale-fence tests.
+
+### Order of enrollment
+
+Dedicated test nodes first, then managed lab machines, then personal machines. Only explicitly authorized College or test assets are eligible (Compute-001); volunteer compute is a separate opt-in tier and is deferred (Compute-017).
+
+### Accepted defaults
+
+| Concern | Default |
+|---|---|
+| Enrollment | Short-lived enrollment with device identity and revocation (Compute-003) |
+| Interactive-user protection | Immediate preemption or drain target with resource caps (Compute-006) |
+| Scheduler | Borrow HTCondor policy; build only the institution-specific layer (Compute-007) |
+| Sandbox | OCI isolation plus stronger controls by trust and data class (Compute-010) |
+| Job network | Deny by default, policy-controlled egress (Compute-011) |
+| Runtime adapters | CPU job runner first, then vLLM and llama.cpp (Compute-013) |
+| Distributed inference | Deferred until independent replicas, topology and failure tests pass (Compute-014) |
+| exo and SwarmLLM | Experimental, no production dependency (Compute-015) |
+
+### Rules
+
+- **CFR-1:** No workload runs without valid policy, artifact and lease evidence.
+- **CFR-2:** Interactive, thermal and physical-safety priority holds before any opportunistic work (see [Preemption and Drain](../campus-compute-fabric/Preemption-and-Drain.md)).
+- **CFR-3:** AI and media do not depend on the compute fabric until it meets isolation and operational criteria (ROAD-007).
+- **CFR-4:** The transactional operational-state foundation is built before any scheduler.
+
+### Gaps
+
+Worker implementation language (Compute-002), pilot hardware, and the sandbox technology are undecided. Power and thermal limits are hardware-owner policy not yet written.
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: milestone records, dependency maps, implementation gates, decision links, evidence packages, and release readiness reports.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +86,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes scope, dependencies, risks, estimates, outcomes, acceptance evidence, decisions, and change history.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include security, privacy, accessibility, licensing, and operational readiness included in every applicable milestone exit gate.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +102,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes quarterly sequencing review, dependency and risk updates, evidence-based gate decisions, and transparent scope change control.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +110,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: repository-native plans linked to ADRs and specifications; dates are forecasts and gates depend on evidence.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- Roadmap work evaluates standards and upstream projects before scheduling custom implementation.
-- Phases prioritize gateway, identity, integration, policy, and user value while experimental infrastructure remains replaceable.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

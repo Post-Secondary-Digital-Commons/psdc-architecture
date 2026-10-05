@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: roadmap
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Roadmap Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **Fediverse Rollout** as part of the Post Secondary Digital
-Commons. Its required outcome is dependency-ordered delivery with explicit outcomes, entry and exit criteria, risks, owners, and evidence. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document orders delivery of the social fabric and its federation boundary: local first, then allowlisted peers, then public federation only after readiness. It rests on the accepted federation defaults. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,46 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Order
+
+1. **Local actor and note, plus a controlled test peer** (ROAD-004). One social domain with moderation ownership.
+2. **Allowlisted federation.** Start local or allowlisted; public federation comes only after a readiness review (FED-005).
+3. **Public federation launch.** After moderation, abuse, media-proxy, privacy and incident tests, and a controlled interoperability certification (ROAD-009, FED-015).
+4. **Wider scopes.** Institution, regional, provincial, Canadian and public scopes each carry separate trust policy (FED-017), following the second-institution and Ontario gates (ROAD-013, ROAD-014).
+
+### Accepted defaults
+
+| Concern | Default |
+|---|---|
+| Protocol | ActivityPub and ActivityStreams ([ADR-0014](../architecture/architecture-decision-records/ADR-0014-fediverse-social-fabric.md)) |
+| Products | Mastodon, Pixelfed, PeerTube, Lemmy, WriteFreely, Owncast, each only when its capability enters scope (FED-001) |
+| Identity | Institutional link optional and revocable; public persona separate by default (FED-004) |
+| Moderation | Independent roles, escalation, appeals and audit before users; human-authored, appealable rules (FED-006, FED-007) |
+| Blocking | Graduated controls with emergency authority (FED-008) |
+| Remote media | SSRF-safe proxy with bounded cache (FED-009) |
+| Messaging | State the limits; no end-to-end encryption promise without it (FED-011) |
+| Spatial attachments | Public place or reduced precision; exact location needs consent (FED-012) |
+| Upstreams | Thin extensions with an explicit patch budget (FED-014) |
+
+### Phase 7 exit evidence for social
+
+A social peer can be suspended without local service loss; abuse reports, replay, blocks, deletion, suspension and recovery are tested; institutional and public identities remain separable ([Exit Criteria by Phase](Exit-Criteria-by-Phase.md)).
+
+### Rules
+
+- **FRR-1:** Public federation never bypasses moderation and security.
+- **FRR-2:** Text-only social use continues when AI or media is unavailable.
+- **FRR-3:** Removing every peer leaves local capabilities operational.
+
+### Gaps
+
+Instance rules, age and access policy, moderation staffing, and the choice of one domain versus product subdomains (FED-002) are undecided. The spatial extension is a draft with no standards proposal (FED-013).
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: milestone records, dependency maps, implementation gates, decision links, evidence packages, and release readiness reports.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +85,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes scope, dependencies, risks, estimates, outcomes, acceptance evidence, decisions, and change history.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include security, privacy, accessibility, licensing, and operational readiness included in every applicable milestone exit gate.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +101,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes quarterly sequencing review, dependency and risk updates, evidence-based gate decisions, and transparent scope change control.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +109,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: repository-native plans linked to ADRs and specifications; dates are forecasts and gates depend on evidence.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- Roadmap work evaluates standards and upstream projects before scheduling custom implementation.
-- Phases prioritize gateway, identity, integration, policy, and user value while experimental infrastructure remains replaceable.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 

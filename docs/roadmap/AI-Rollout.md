@@ -3,7 +3,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: roadmap
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Roadmap Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
@@ -12,10 +12,7 @@
 
 ## Purpose and outcome
 
-This specification defines **AI Rollout** as part of the Post Secondary Digital
-Commons. Its required outcome is dependency-ordered delivery with explicit outcomes, entry and exit criteria, risks, owners, and evidence. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document orders the AI fabric's delivery: the first integrated MVP, what follows it, and the decisions each step waits on. It rests on the accepted AI defaults in the decision register. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +38,42 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### First step: the integrated MVP
+
+The accepted first MVP is identity (Keycloak), the gateway, one local model, a basic web client and telemetry (ROAD-001). It maps to phase 4: an authorized user receives a streamed response, an unauthorized user or stale token is denied with no model execution, and outages produce specified fail-closed or degraded behavior ([Exit Criteria by Phase](Exit-Criteria-by-Phase.md)).
+
+### Accepted defaults the rollout builds on
+
+| Concern | Default | Gate |
+|---|---|---|
+| Gateway | Python and FastAPI for the MVP; Go only after measured data-plane pressure | Exact release before coding (AI-001) |
+| API surface | Publish exact OpenAI-compatible endpoints, fields, streaming and errors; native Commons API starts with identity, usage, projects, policies and tools | Before client integration and API lock (AI-002, AI-003) |
+| Inference engines | vLLM for production, SGLang as alternative, llama.cpp for local and edge | Exact releases before the model pilot (AI-004) |
+| Model aliases | AC Fast, General, Reasoning and Code, with models chosen by open license, evaluation, hardware, safety and cost | Before the user pilot (AI-005, AI-006) |
+| Routing | Local-preferred, sensitive classes local-only; proprietary cloud inference disabled | Before a second backend (AI-008, AI-009) |
+| Content retention | Prompts and responses off or minimized; telemetry without prompt content | Before logging content (AI-011, AI-012) |
+| Knowledge | PostgreSQL with pgvector first, with authorized sources and visible citations | Before the knowledge service and RAG pilot (AI-013, AI-014) |
+| Agents and tools | Reviewed tool registry; read, propose, confirm, execute tiers; user-controlled memory | Before agents (AI-016 to AI-018) |
+| Academic use | Aligned with College assessment policy and faculty controls | Before course use (AI-020) |
+| Web client | `psdc-web`, gated bootstrap from verified Open WebUI v0.6.5 source | ADR-0009 |
+
+### Order after the MVP
+
+1. Evaluation framework and release thresholds, before alias changes (AI-015).
+2. Quotas based on evidence (AI-010).
+3. Knowledge and RAG, then the tool registry, then agents with confirmation tiers.
+4. Academic and campus adapters after institutional authorization (ROAD-008); AI does not scrape the learning system.
+5. Compute-fabric routing only after identity, sandboxing, preemption and operational tests (ROAD-007).
+
+### Gaps
+
+No model has been selected: the first exact openly licensed release comes from hardware evidence (decision queue item 7). Latency, concurrency and quota figures are unmeasured. Model license rules (AI-007) are undecided.
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: milestone records, dependency maps, implementation gates, decision links, evidence packages, and release readiness reports.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +81,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes scope, dependencies, risks, estimates, outcomes, acceptance evidence, decisions, and change history.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include security, privacy, accessibility, licensing, and operational readiness included in every applicable milestone exit gate.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +97,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes quarterly sequencing review, dependency and risk updates, evidence-based gate decisions, and transparent scope change control.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +105,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: repository-native plans linked to ADRs and specifications; dates are forecasts and gates depend on evidence.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- Roadmap work evaluates standards and upstream projects before scheduling custom implementation.
-- Phases prioritize gateway, identity, integration, policy, and user value while experimental infrastructure remains replaceable.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 
