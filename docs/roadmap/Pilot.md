@@ -52,10 +52,12 @@ Run a limited cohort on approved infrastructure, using institutional identity, a
 
 ### Entry conditions
 
-- A College sponsor and a pilot service owner are named.
+- An institution sponsor and a pilot service owner are named.
+- An institution unit owns production identity, infrastructure, secrets and continuity (GOV-003).
+- A named data steward exists for each domain whose real data the pilot will use: identity, academic, media, social or telemetry (GOV-011).
 - Security, privacy and accessibility reviews approve the bounded scope.
 - Institutional identity and integration owners authorize test access.
-- Pilot success, stop and rollback criteria are signed.
+- Pilot success, stop and rollback criteria are signed and include every global stop condition in [Master Roadmap](Master-Roadmap.md).
 - Support and incident coverage exists, with a named incident commander and privacy and legal paths (SEC-008).
 
 ### Required work
@@ -65,9 +67,10 @@ Institutional OIDC and role mapping with lifecycle tests (join, role change, wit
 ### Rules
 
 - **PIL-1:** The pilot uses data classes explicitly accepted for it; protected student data is excluded until its controls are proven.
-- **PIL-2:** A named human body can pause unsafe or unsustainable work (ROAD-012); missing a stop criterion triggers rollback, not silent expansion.
+- **PIL-1a:** If the service authority or a required data steward is absent, the pilot is synthetic-only. A synthetic-only pilot does not become a real-participant pilot without a new entry review.
+- **PIL-2:** A named human body can pause unsafe or unsustainable work (ROAD-012); a missed stop criterion or a global stop condition triggers suspension and rollback or remediation, not silent expansion.
 - **PIL-3:** Pilot data is exportable and deletable under policy.
-- **PIL-4:** Exit evidence is the phase 6 row in [Exit Criteria by Phase](Exit-Criteria-by-Phase.md).
+- **PIL-4:** Exit evidence and decision owners are in the phase 6 row of [Exit Criteria by Phase](Exit-Criteria-by-Phase.md).
 
 ### Gaps
 

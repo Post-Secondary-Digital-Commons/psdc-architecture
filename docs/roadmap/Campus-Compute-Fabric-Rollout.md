@@ -56,20 +56,20 @@ An approved request runs on an idle lab node and settles institutional credits. 
 
 ### Order of enrollment
 
-Dedicated test nodes first, then managed lab machines, then personal machines. Only explicitly authorized College or test assets are eligible (Compute-001); volunteer compute is a separate opt-in tier and is deferred (Compute-017).
+Dedicated test nodes first, then managed lab machines, then personal machines. Only explicitly authorized institution or test assets are eligible (Commons Compute Fabric-001); volunteer compute is a separate opt-in tier and is deferred (Commons Compute Fabric-017).
 
 ### Accepted defaults
 
 | Concern | Default |
 |---|---|
-| Enrollment | Short-lived enrollment with device identity and revocation (Compute-003) |
-| Interactive-user protection | Immediate preemption or drain target with resource caps (Compute-006) |
-| Scheduler | Borrow HTCondor policy; build only the institution-specific layer (Compute-007) |
-| Sandbox | OCI isolation plus stronger controls by trust and data class (Compute-010) |
-| Job network | Deny by default, policy-controlled egress (Compute-011) |
-| Runtime adapters | CPU job runner first, then vLLM and llama.cpp (Compute-013) |
-| Distributed inference | Deferred until independent replicas, topology and failure tests pass (Compute-014) |
-| exo and SwarmLLM | Experimental, no production dependency (Compute-015) |
+| Enrollment | Short-lived enrollment with device identity and revocation (Commons Compute Fabric-003) |
+| Interactive-user protection | Immediate preemption or drain target with resource caps (Commons Compute Fabric-006) |
+| Scheduler | Borrow HTCondor policy; build only the institution-specific layer (Commons Compute Fabric-007) |
+| Sandbox | OCI isolation plus stronger controls by trust and data class (Commons Compute Fabric-010) |
+| Job network | Deny by default, policy-controlled egress (Commons Compute Fabric-011) |
+| Runtime adapters | CPU job runner first, then vLLM and llama.cpp (Commons Compute Fabric-013) |
+| Distributed inference | Deferred until independent replicas, topology and failure tests pass (Commons Compute Fabric-014) |
+| exo and SwarmLLM | Experimental, no production dependency (Commons Compute Fabric-015) |
 
 ### Rules
 
@@ -80,7 +80,7 @@ Dedicated test nodes first, then managed lab machines, then personal machines. O
 
 ### Gaps
 
-Worker implementation language (Compute-002), pilot hardware, and the sandbox technology are undecided. Power and thermal limits are hardware-owner policy not yet written.
+Worker implementation language (Commons Compute Fabric-002), pilot hardware, and the sandbox technology are undecided. Power and thermal limits are hardware-owner policy not yet written.
 
 ## Interfaces, APIs, events, and contracts
 

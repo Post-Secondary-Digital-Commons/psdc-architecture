@@ -52,17 +52,21 @@ This roadmap orders the work from a student-led club to mature multi-institution
 |---|---|---|
 | 0 | Club formation and legitimacy | A recognized, safe, sustainable student organization |
 | 1 | Governed contribution environment | Many members can contribute without uncontrolled access to branches, releases, settings or secrets |
-| 2 | Architecture and institution alignment | Common versus institution authority, scope and College partnership made explicit |
+| 2 | Architecture and institution alignment | Common versus institution authority, scope and institution partnership made explicit |
 | 3 | Local development platform and contract foundation | Reproducible environments, automated quality controls, no production dependency |
 | 4 | Identity, policy and AI vertical slice | One end-to-end path: discovery, authentication, authorization, AI routing, local inference, usage, observability |
 | 5 | Club sandbox and client experience | A bounded learning service for approved participants across web, desktop and mobile |
-| 6 | Institution pilot and approved integrations | A time-bounded College-sponsored pilot with approved participants and data classes |
+| 6 | Institution pilot and approved integrations | A time-bounded institution-sponsored pilot with approved participants and data classes |
 | 7 | Multi-fabric and applied-innovation pilots | Bounded compute, media and spatial, social and applied-innovation verticals |
-| 8 | College production transition | College-operated production with sustainable ownership, support and recovery |
+| 8 | Institution production transition | Institution-operated production with sustainable ownership, support and recovery |
 | 9 | Cross-institution federation | Exchange of permitted capabilities with a second sovereign institution |
 | 10 | Mature ecosystem operation | Sustained operation, upstream contribution, succession and controlled expansion |
 
-The sequence is modelled on the Algonquin reference deployment, whose detailed roadmap controls its own phase claims. This document carries the institution-neutral version.
+The sequence is modelled on the Algonquin reference deployment, whose detailed roadmap controls its own phase claims. This document carries the institution-neutral version; institution-specific bodies and names bind in each institution's deployment profile.
+
+### Two ordering axes
+
+Two sequences appear in the roadmap documents and they answer different questions. The **phases** above order institution adoption, authorization and operational readiness. The **waves A to E** of the [Vertical Slice Completion Plan](Vertical-Slice-Completion-Plan.md) order common implementation work, which may proceed on synthetic data before an institution operates anything. [Dependencies and Critical Path](Dependencies-and-Critical-Path.md) gives the interaction matrix. Neither sequence replaces the other.
 
 ### Gate control
 
@@ -72,18 +76,40 @@ Each phase has one recorded state: not entered, active, gate review, accepted, r
 - **MR-2:** A rejected or expired prerequisite returns dependent work to a safe earlier state; it is not waived informally.
 - **MR-3:** Exploratory work in a later phase uses synthetic or explicitly approved data and creates no irreversible production dependency.
 - **MR-4:** Security, privacy, accessibility, documentation, supply-chain integrity, operations, sustainability and succession apply in every phase.
+- **MR-5:** A phase is accepted only by its named decision owners ([Exit Criteria by Phase](Exit-Criteria-by-Phase.md)). Complete evidence handed to anyone else does not accept a gate, and a club cannot authorize institution production.
+
+### Global stop conditions
+
+Any phase MUST suspend the affected work when:
+
+- authority or funding is withdrawn;
+- a critical vulnerability lacks a safe mitigation;
+- protected data is processed outside its approved purpose or locality;
+- required identity or policy enforcement cannot fail closed;
+- recovery evidence fails for authoritative state;
+- accessibility blocks an essential user journey;
+- the service depends on one departing person or an inaccessible credential;
+- a federation peer violates its trust profile; or
+- evidence shows likely harm exceeds the approved residual risk.
+
+Suspension preserves evidence, communicates impact, revokes unsafe access, and selects rollback, remediation or retirement through the owning authority. Every pilot, production and federation plan inherits these conditions and may add to them; none may omit one.
 
 ### Registered launch gates
 
-The decision register fixes: first integrated MVP (identity, gateway, one local model, basic web client, telemetry), compute first milestone (census and telemetry only), media first milestone (asset manifest and one local pipeline), social first milestone (local actor and controlled test peer), a small opt-in pilot cohort, security, reliability, accessibility, support and user-value evidence per phase, compute integration only after identity, sandboxing, preemption and operational tests, Brightspace only after institutional authorization, public federation only after moderation, abuse, media proxy, privacy and incident tests, a named stop and go authority, a second-institution gate before Ontario federation, then three to five institutions, then Canadian expansion (ROAD-001 to ROAD-015 in the [decision register](../governance/Human-Choices-and-Decisions-Register.md)).
+The decision register fixes: first integrated MVP (identity, gateway, one local model, basic web client, telemetry), compute first milestone (census and telemetry only), media first milestone (asset manifest and one local pipeline), social first milestone (local actor and controlled test peer), a small opt-in pilot cohort, security, reliability, accessibility, support and user-value evidence per phase, compute integration only after identity, sandboxing, preemption and operational tests, learning-system (LMS) integration only after institutional authorization, public federation only after moderation, abuse, media proxy, privacy and incident tests, a named stop and go authority, a second-institution gate before Ontario federation, then three to five institutions, then Canadian expansion (ROAD-001 to ROAD-015 in the [decision register](../governance/Human-Choices-and-Decisions-Register.md)).
 
 ### Where the evidence stands
 
-The most recent snapshot for the reference deployment (2026-09-14) records phases 1 and 2 as active and every later phase as not entered. Architecture documentation and contract candidates are extensive, but no self-hosted CI, running service, pilot or College production authorization is recorded. A snapshot reports evidence; it is not a gate approval.
+Latest supplied reference-deployment snapshot: dated 2026-09-14, taken from the Algonquin architecture repository file `docs/roadmap/Algonquin-Club-to-Mature-Ecosystem-Roadmap.md`, an uncommitted working file with SHA-256 `e6424203af0c6a106a0b625a42885f55f8d43ddbb226882caa4ba98ec6a5892a`; reviewed for this document on 2026-10-04. It records phases 1 and 2 as active and every later phase as not entered. It is a report of repository evidence, not a gate approval, and it does not establish institutional evidence outside that repository. Architecture documentation and contract candidates are extensive; no self-hosted CI, running service, pilot or institution production authorization is recorded.
+
+### Scope notes
+
+- Applied innovation is the fourth phase 7 vertical. It is institution-bound: the common work is a project contract adopted before an institution binds it, and its intake, data-use, IP and access-closure rules are defined in the institution's roadmap. It has no common rollout document; see the phase 7 row of [Exit Criteria by Phase](Exit-Criteria-by-Phase.md).
+- Storage (VS-05 to VS-07) is covered in the [Cloud Service Rollout](Cloud-Service-Rollout.md).
 
 ### Gaps
 
-No dates, owners or budgets are set. Phase 10 has no exit evidence defined. The second accountable maintainer, a precondition for production, is not yet appointed.
+No dates, owners or budgets are set. Who may invoke a suspension, and who may authorize resumption, are not defined beyond "the owning authority" and the register's named stop and go body (ROAD-012). The second accountable maintainer, a precondition for production, is not yet appointed.
 
 ## Interfaces, APIs, events, and contracts
 
