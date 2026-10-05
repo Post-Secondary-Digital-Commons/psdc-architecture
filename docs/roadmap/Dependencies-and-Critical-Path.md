@@ -46,7 +46,21 @@ This document states what must come before what. Dependencies are gates: if one 
 
 ## Subject-specific specification
 
-### Critical path
+### Two axes, not one path
+
+The roadmap uses two orderings. **Phases 0 to 10** order institution adoption, authorization and operational readiness ([Master Roadmap](Master-Roadmap.md)). **Waves A to E** order common implementation work, which may proceed with synthetic data before any institution operates it. A wave can be built early and operated late.
+
+| Common wave | Developed with synthetic data | Earliest phase that may operate it | Deployment gate |
+|---|---|---|---|
+| A: executable contracts, source admission, minimal identity and policy, network lab profile, development KMS profile, operational database with outbox, reproducible environments | Yes | 3 | Contract and development controls |
+| B: VS-01, an approved request on an idle lab node settling institutional credits | Yes | 7, for campus operation | Compute owner, sandbox, preemption and safety evidence |
+| C: VS-02 to VS-06 (Kubernetes service, OpenStack VM, Slurm HPC job, private hot object, private content distribution) | Yes | 7 or later | Backend-specific and storage-specific gates |
+| D: VS-07 and VS-08 (governed federation storage, portable student identity) | Yes | 9 | Peer trust, credential, retention, consent and dispute conformance |
+| E: VS-09, client-to-AI session across web, desktop and mobile | Yes | 4 to 5 by client | Identity, gateway, policy and client gates |
+
+This mapping is a proposal for owner review. It resolves the apparent conflict between "AI and web come before compute" (phase order) and "the compute task is the first implementation slice, the cohesive client session the last" (wave order): both are true on their own axis.
+
+### Critical path for institution readiness
 
 ```text
 governance and self-hosted CI
@@ -61,20 +75,12 @@ desktop host + mobile relay
         |
 academic and campus adapters
         |
-compute, media and social pilots
+storage, compute, media and social pilots
         |
 cross-institution conformance and federation
 ```
 
-### Waves for the vertical slices
-
-| Wave | Content | Why here |
-|---|---|---|
-| A | Executable contracts, source-admission records, minimal identity and policy, network lab profile, development KMS profile, operational PostgreSQL with outbox, reproducible environments | Authority and boundaries before any feature |
-| B | VS-01, an approved request running on an idle lab node and settling institutional credits | Exercises the platform's distinctive value (sovereign provider registration, placement, opportunistic execution, metering, settlement) without production Kubernetes, OpenStack, Slurm or protected student data |
-| C | VS-02 to VS-06: long-running Kubernetes service, OpenStack VM, Slurm HPC job, private hot object, private content distribution | Reuse the lease, receipt, evidence and settlement contracts; adapters cannot bypass classification or policy |
-| D | VS-07 and VS-08: governed federation storage, portable student identity | Begin only after trust, credential, gateway, retention and dispute contracts pass independent conformance |
-| E | VS-09: client-to-AI session across web, desktop and mobile | Consumes stable identity, gateway, policy and session contracts; creates no second authority |
+Storage is on the path because AI, media and federation evidence depend on encryption, placement, custody, repair, retention and verified deletion (VS-05 to VS-07, covered in [Cloud Service Rollout](Cloud-Service-Rollout.md)). Applied innovation is an institution-bound phase 7 vertical and is not a common dependency.
 
 ### Rules
 
@@ -83,6 +89,7 @@ cross-institution conformance and federation
 - **DEP-3:** No public federation before moderation, abuse, media-proxy, privacy and incident tests (ROAD-009).
 - **DEP-4:** Backend APIs never become common contracts; the shared contracts stay implementation-neutral.
 - **DEP-5:** Child implementation issues cannot change a contract or security boundary without returning to the contract owner ([Implementation Handoff Standard](../standards/Implementation-Handoff-Standard.md)).
+- **DEP-6:** A wave built early on synthetic data is never evidence that a phase gate has passed.
 
 ### Contract readiness behind the path
 
@@ -90,7 +97,7 @@ The compute and economics boundaries needed by VS-01 exist as contract candidate
 
 ### Gaps
 
-No owner is named for any gate, and no calendar exists. VS-02 to VS-09 have outcomes and exit evidence defined but no handoff packets yet.
+No owner is named for any gate, and no calendar exists. VS-02 to VS-09 have outcomes and exit evidence defined but no handoff packets yet. The wave-to-phase mapping above has no owner approval.
 
 ## Interfaces, APIs, events, and contracts
 

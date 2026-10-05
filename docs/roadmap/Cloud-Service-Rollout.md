@@ -48,11 +48,24 @@ This document orders delivery of the shared cloud services the other fabrics rel
 
 ### Order
 
-1. **Governance and self-hosted CI.** Protected branches, deny-by-default membership and mandatory two-factor are active; a self-hosted Woodpecker server with isolated agents is the planned CI engine (CLD-017). No required CI checks exist yet.
-2. **Identity, policy and contracts.** Keycloak identity broker with a College-approved upstream in production and a local or test provider elsewhere, and an OPA-compatible policy service (CLD-013). Contract candidates for the compute slice already exist.
-3. **Core data and platform services.** PostgreSQL, Valkey, S3-compatible object storage, OpenTelemetry, and an operational database with a transactional outbox.
-4. **Delivery platform.** Forgejo, Harbor, Argo CD with OpenTofu and Ansible (CLD-015, CLD-016, CLD-018, CLD-019).
-5. **Secrets and keys.** OpenBao and an internal PKI before any real secret or mutual TLS (CLD-012, CLD-014, SEC-006).
+1. **Governance and self-hosted CI.** Protected branches, deny-by-default membership and mandatory two-factor are active; a self-hosted Woodpecker server with isolated agents is the planned CI engine (CLD-017). No required CI checks exist yet. Early environments use only synthetic bootstrap secrets.
+2. **Development key and certificate profile.** A development KMS and certificate profile with synthetic roots, clearly separated from production, so the services below are not run with ad hoc credentials.
+3. **Identity, policy and contracts.** Keycloak identity broker with an institution-approved upstream in production and a local or test provider elsewhere, and an OPA-compatible policy service (CLD-013). Contract candidates for the compute slice already exist.
+4. **Core data and platform services.** PostgreSQL, Valkey, S3-compatible object storage, OpenTelemetry, and an operational database with a transactional outbox, all in development form.
+5. **Delivery platform.** Forgejo, Harbor, Argo CD with OpenTofu and Ansible (CLD-015, CLD-016, CLD-018, CLD-019).
+6. **Production secrets, keys and PKI.** OpenBao, an offline institution root, issuing intermediates and a recovery ceremony (CLD-012, CLD-014, NET-008, SEC-006). These come before any real secret, protected data or production mutual TLS identity; production credentials are never promoted from the development profile.
+
+### Storage slices
+
+Storage evidence gates AI, media and federation, so it is sequenced here ([ADR-0028](../architecture/architecture-decision-records/ADR-0028-private-content-and-storage-fabric.md)).
+
+| Slice | Outcome | Gate |
+|---|---|---|
+| VS-05 | A protected object is encrypted, erasure-coded, placed, read, repaired and deleted, with S3-compatible access | Confidentiality, custody, repair and deletion evidence; Ceph topology and failure domains settled before persistent pilot data (CLD-008) |
+| VS-06 | An approved immutable artifact moves through a private content-addressed swarm with no public discovery | Unauthorized-peer and digest-verification tests; custody and cache expiry |
+| VS-07 | One institution transfers an authorized encrypted object to another sovereign institution | Transfer authority and consent, peer trust, retention and dispute contracts passing conformance; this is wave D and phase 9 work |
+
+Retention and deletion for these slices follow the Retention and Consent governance policies. Private or deletion-eligible data never enters the public permanent archive tier.
 
 ### Scope rule
 
@@ -63,11 +76,12 @@ Commons Cloud starts Kubernetes-first and adds OpenStack only where virtual-mach
 - **CSR-1:** Commons Cloud has no runtime dependency on any product fabric.
 - **CSR-2:** Every service has an owner, a tier and an SLO before it is promoted (OPS-001).
 - **CSR-3:** Infrastructure is declared as code and reproducible from reviewed source; a clean workstation can rebuild the development environment (phase 3 evidence).
-- **CSR-4:** No real secret or protected data until the key architecture and a restore test are proven.
+- **CSR-4:** No real secret or protected data until the production key architecture and a restore test are proven.
+- **CSR-5:** Synthetic bootstrap credentials never carry into production.
 
 ### Gaps
 
-Exact releases of every component, hardware, networking values and the PostgreSQL high-availability choice are decided later at their gates (CLD-009). There is no deployed environment.
+Exact releases of every component, hardware, networking values and the PostgreSQL high-availability choice are decided later at their gates (CLD-009). There is no deployed environment. The Storage slices have no handoff packets and no named owner.
 
 ## Interfaces, APIs, events, and contracts
 

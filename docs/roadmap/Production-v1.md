@@ -18,7 +18,7 @@
 
 ## Purpose and outcome
 
-This document describes the move from pilot to College-operated production: what must be true of ownership, recovery and support before the platform is called production. It corresponds to phase 8 in [Master Roadmap](Master-Roadmap.md). An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This document describes the move from pilot to institution-operated production: what must be true of ownership, recovery and support before the platform is called production. It corresponds to phase 8 in [Master Roadmap](Master-Roadmap.md). An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -49,7 +49,7 @@ This document describes the move from pilot to College-operated production: what
 ### Entry conditions
 
 - The production scope has successful pilot evidence.
-- A College service owner, product owner and technical operator are named (GOV-003).
+- An institution service owner, product owner and technical operator are named (GOV-003).
 - A second accountable maintainer is appointed; today there is one.
 - Funding, staffing, support and infrastructure are approved.
 - Production security, privacy, accessibility and legal conditions are accepted.
@@ -58,7 +58,7 @@ This document describes the move from pilot to College-operated production: what
 
 ### Ownership and support
 
-The College unit owns production identity, infrastructure, secrets and continuity; students are not the sole responders (GOV-003, OPS-004). Every ecosystem has one accountable owner per service and contract (GOV-005). The institution authorizes production and holds risk acceptance; the club owns roadmap proposals (GOV-004).
+An institution unit owns production identity, infrastructure, secrets and continuity; students are not the sole responders (GOV-003, OPS-004). Every ecosystem has one accountable owner per service and contract (GOV-005). The institution authorizes production and holds risk acceptance; the club owns roadmap proposals (GOV-004).
 
 ### Rules
 
@@ -66,8 +66,9 @@ The College unit owns production identity, infrastructure, secrets and continuit
 - **PRO-2:** Restore meets the approved RPO and RTO and has been demonstrated, including key-material recovery ([Disaster Recovery](../architecture/Disaster-Recovery.md)).
 - **PRO-3:** Production secrets are absent from source and personal devices.
 - **PRO-4:** Rollback is rehearsed with the exact release; releases are signed with provenance and SBOM.
-- **PRO-5:** Every production service has an owner, SLO, backup, upgrade and exit plan, and a College-approved sunset and data-disposition plan (GOV-014).
+- **PRO-5:** Every production service has an owner, SLO, backup, upgrade and exit plan, and an institution-approved sunset and data-disposition plan (GOV-014).
 - **PRO-6:** Critical services run only in prequalified reserved pools (OPS-011).
+- **PRO-7:** The global stop conditions in [Master Roadmap](Master-Roadmap.md) apply to production; operators can invoke suspension without waiting for a scheduled review.
 
 ### Exit evidence
 

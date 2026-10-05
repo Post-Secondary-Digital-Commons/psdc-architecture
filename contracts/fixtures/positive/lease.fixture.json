@@ -4,7 +4,12 @@
   "category": "positive",
   "schemaId": "urn:psdc:contracts:compute:lease:1",
   "description": "Active fenced resource lease.",
-  "expected": { "schemaValid": true, "semanticOutcome": "accept", "statusPath": "/status", "expectedStatus": "active" },
+  "expected": {
+    "schemaValid": true,
+    "semanticOutcome": "accept",
+    "statusPath": "/status",
+    "expectedStatus": "active"
+  },
   "instance": {
     "contractVersion": "1.0",
     "leaseId": "66666666-6666-4666-8666-666666666666",
@@ -19,10 +24,32 @@
     "activatedAt": "2026-09-27T14:04:20Z",
     "renewalDeadline": "2026-09-27T14:17:00Z",
     "expiresAt": "2026-09-27T14:19:20Z",
-    "allocatedResources": { "cpuMillis": 2000, "memoryBytes": 4294967296, "gpuCount": 0, "ephemeralStorageBytes": 10737418240, "nodeCount": 1 },
-    "creditReservation": { "unit": "IRU", "amount": "1.500" },
-    "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.compute.admission", "policyVersion": "1.0.0", "outcome": "allow" },
+    "allocatedResources": {
+      "cpuMillis": 2000,
+      "memoryBytes": 4294967296,
+      "gpuCount": 0,
+      "ephemeralStorageBytes": 10737418240,
+      "nodeCount": 1
+    },
+    "creditReservation": {
+      "unit": "IRU",
+      "amount": "1.500"
+    },
+    "policyDecision": {
+      "decisionId": "33333333-3333-4333-8333-333333333333",
+      "policyId": "policy.compute.admission",
+      "policyVersion": "1.0.0",
+      "outcome": "allow"
+    },
     "manifestDigest": "1212121212121212121212121212121212121212121212121212121212121212",
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#lease-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:04:05Z", "value": "bGVhc2Utc2lnbmF0dXJlLTAx" }
+    "signature": {
+      "algorithm": "Ed25519",
+      "keyId": "did:web:algonquin.example#lease-1",
+      "canonicalization": "RFC8785",
+      "signedAt": "2026-09-27T14:04:05Z",
+      "value": "bGVhc2Utc2lnbmF0dXJlLTAx"
+    },
+    "leaseDurationSeconds": 600,
+    "maximumDisconnectedSeconds": 60
   }
 }

@@ -52,6 +52,8 @@
       "signedAt": "2026-09-27T13:05:00Z",
       "value": "ZXhwaXJlZC1sZWFzZS1zaWduYXR1cmU"
     },
-    "activatedAt": "2026-09-27T13:00:30Z"
+    "activatedAt": "2026-09-27T13:00:30Z",
+    "leaseDurationSeconds": 600,
+    "maximumDisconnectedSeconds": 60
   }
 }

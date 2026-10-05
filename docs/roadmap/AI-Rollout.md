@@ -57,12 +57,12 @@ The accepted first MVP is identity (Keycloak), the gateway, one local model, a b
 | Gateway | Python and FastAPI for the MVP; Go only after measured data-plane pressure | Exact release before coding (AI-001) |
 | API surface | Publish exact OpenAI-compatible endpoints, fields, streaming and errors; native Commons API starts with identity, usage, projects, policies and tools | Before client integration and API lock (AI-002, AI-003) |
 | Inference engines | vLLM for production, SGLang as alternative, llama.cpp for local and edge | Exact releases before the model pilot (AI-004) |
-| Model aliases | AC Fast, General, Reasoning and Code, with models chosen by open license, evaluation, hardware, safety and cost | Before the user pilot (AI-005, AI-006) |
+| Model aliases | Four alias roles: fast, general, reasoning and code. The register names them with the Algonquin `AC` prefix; common documents use the roles and each institution binds its own names. Models are chosen by open license, evaluation, hardware, safety and cost | Before the user pilot (AI-005, AI-006) |
 | Routing | Local-preferred, sensitive classes local-only; proprietary cloud inference disabled | Before a second backend (AI-008, AI-009) |
 | Content retention | Prompts and responses off or minimized; telemetry without prompt content | Before logging content (AI-011, AI-012) |
 | Knowledge | PostgreSQL with pgvector first, with authorized sources and visible citations | Before the knowledge service and RAG pilot (AI-013, AI-014) |
 | Agents and tools | Reviewed tool registry; read, propose, confirm, execute tiers; user-controlled memory | Before agents (AI-016 to AI-018) |
-| Academic use | Aligned with College assessment policy and faculty controls | Before course use (AI-020) |
+| Academic use | Aligned with the institution's assessment policy and faculty controls | Before course use (AI-020) |
 | Web client | `psdc-web`, gated bootstrap from verified Open WebUI v0.6.5 source | ADR-0009 |
 
 ### Order after the MVP

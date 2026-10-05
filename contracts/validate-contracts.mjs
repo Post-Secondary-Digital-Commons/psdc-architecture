@@ -132,6 +132,11 @@ function validateReasonRules(schemaId, instance, relativePath, failures) {
     if (entry?.usageOutcomes && !entry.usageOutcomes.includes(instance.outcome)) failures.push(`${relativePath}: reason code ${code} is inconsistent with outcome ${instance.outcome}`);
     if (instance.outcome === "preempted" && !(entry && preemptionCategories.has(entry.category))) failures.push(`${relativePath}: outcome preempted requires a registered owner_reclaim, capacity_reclaim or drain_deadline reason code`);
   }
+  if (schemaId === "urn:psdc:contracts:compute:lease:1") {
+    const windowSeconds = (Date.parse(instance.expiresAt) - Date.parse(instance.issuedAt)) / 1000;
+    if (instance.leaseDurationSeconds > windowSeconds) failures.push(`${relativePath}: leaseDurationSeconds exceeds the window between issuedAt and expiresAt`);
+    if (instance.maximumDisconnectedSeconds > instance.leaseDurationSeconds) failures.push(`${relativePath}: maximumDisconnectedSeconds exceeds leaseDurationSeconds`);
+  }
   if (schemaId === "urn:psdc:contracts:compute:capability:1" && instance.drain) {
     const entry = reasonsByCode.get(instance.drain.reasonCode);
     if (!entry || !entry.appliesTo.includes("capability:draining")) failures.push(`${relativePath}: drain.reasonCode ${instance.drain.reasonCode} is not a registered capability drain reason`);
@@ -366,10 +371,30 @@ for (const filePath of openApiFiles) {
   if (!document.info?.title || !document.info?.version) failures.push(`${relativePath}: info.title and info.version are required`);
   if (!document.paths || Object.keys(document.paths).length === 0) failures.push(`${relativePath}: at least one path is required`);
   if (path.basename(filePath) === "compute-control-plane.openapi.json") {
-    const leaseTransitionSchema = document.components?.requestBodies?.LeaseTransitionRequest?.content?.["application/json"]?.schema;
-    if (!leaseTransitionSchema?.required?.includes("expectedGeneration")) {
-      failures.push(`${relativePath}: LeaseTransitionRequest must require expectedGeneration for stale-controller fencing`);
+    const registry = readJson(path.join(contractsRoot, "compute", "lease-commands.registry.json"));
+    const machine = readJson(path.join(contractsRoot, "state-machines", "lease.machine.json"));
+    const machineActions = new Set(machine.transitions.map((transition) => transition.action));
+    const registered = new Map();
+    for (const command of registry.commands) {
+      if (registered.has(command.action)) failures.push(`lease-commands.registry.json: duplicate action ${command.action}`);
+      registered.set(command.action, command);
+      if (!registry.classifications.includes(command.classification)) failures.push(`lease-commands.registry.json: ${command.action} has unknown classification ${command.classification}`);
+      if (!machineActions.has(command.action)) failures.push(`lease-commands.registry.json: ${command.action} is not a lease state-machine action`);
+      if ((command.classification === "external_command") !== (command.apiAction !== undefined)) failures.push(`lease-commands.registry.json: ${command.action} must declare apiAction exactly when it is an external_command`);
+      if (command.requiresExpectedGeneration !== true) failures.push(`lease-commands.registry.json: ${command.action} must require expectedGeneration`);
     }
+    for (const action of machineActions) if (!registered.has(action)) failures.push(`lease-commands.registry.json: state-machine action ${action} is not classified`);
+    const leasePath = document.paths?.[registry.openApi.path]?.post;
+    const apiActions = document.paths?.[registry.openApi.path]?.parameters?.find((parameter) => parameter.name === "action")?.schema?.enum ?? [];
+    const externalActions = registry.commands.filter((command) => command.classification === "external_command").map((command) => command.apiAction);
+    if (leasePath?.operationId !== registry.openApi.operationId) failures.push(`${relativePath}: ${registry.openApi.path} must use operationId ${registry.openApi.operationId}`);
+    for (const apiAction of apiActions) if (!externalActions.includes(apiAction)) failures.push(`${relativePath}: API action ${apiAction} is not a registered external lease command`);
+    for (const apiAction of externalActions) if (!apiActions.includes(apiAction)) failures.push(`${relativePath}: registered external command ${apiAction} is missing from the API action enum`);
+    const leaseTransitionSchema = document.components?.requestBodies?.[registry.openApi.requestBody]?.content?.["application/json"]?.schema;
+    for (const field of ["authorizationDecisionId", "reason", "expectedGeneration"]) {
+      if (!leaseTransitionSchema?.required?.includes(field)) failures.push(`${relativePath}: ${registry.openApi.requestBody} must require ${field}`);
+    }
+    if (leaseTransitionSchema?.properties?.expectedGeneration?.minimum !== 1) failures.push(`${relativePath}: expectedGeneration must be an integer with minimum 1`);
   }
   try {
     await SwaggerParser.validate(filePath, { resolve: { external: false } });

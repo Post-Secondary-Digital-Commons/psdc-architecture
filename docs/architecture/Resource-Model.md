@@ -74,8 +74,10 @@ Resource use is measured in institutional resource units (IRU), non-transferable
 - **RES-3:** Backend-native measurements are preserved even when a common unit is used for accounting.
 - **RES-4:** JSON Schema validates record shape, not global uniqueness. The operational store
   enforces one canonical response per idempotency key, one lease lineage per placement decision,
-  at most one non-terminal lease per workload attempt, unique receipt sequence per lease attempt,
-  non-overlapping receipt intervals and one settlement consumption per accepted receipt.
+  at most one non-terminal lease per workload attempt, a gap-free unique receipt sequence per
+  chain `(leaseId, attempt, meterId)`, a prior digest that names the preceding accepted receipt of
+  the same chain, non-overlapping receipt intervals and one settlement consumption per accepted
+  receipt.
 
 ### Gaps
 
