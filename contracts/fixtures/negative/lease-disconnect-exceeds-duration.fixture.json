@@ -1,31 +1,27 @@
 {
   "fixtureVersion": "1.0",
-  "fixtureId": "negative.compute.lease-unregistered-reason",
+  "fixtureId": "negative.compute.lease-disconnect-exceeds-duration",
   "category": "negative",
   "schemaId": "urn:psdc:contracts:compute:lease:1",
-  "description": "Terminal lease whose reason code is not in the registry must be rejected.",
+  "description": "A maximum disconnected time longer than the lease duration must be rejected.",
   "expected": {
     "schemaValid": true,
     "semanticOutcome": "reject",
-    "statusPath": "/status",
-    "expectedStatus": "revoked",
-    "reasonPath": "/reason/code",
-    "expectedReasonCode": "EVICTED_BECAUSE",
-    "semanticViolation": "not in the reason-code registry"
+    "semanticViolation": "maximumDisconnectedSeconds exceeds"
   },
   "instance": {
     "contractVersion": "1.0",
-    "leaseId": "74ae6536-c59d-4501-8ad1-153fd336c728",
+    "leaseId": "63636363-6363-4363-8363-636363636363",
     "decisionId": "55555555-5555-4555-8555-555555555555",
     "offerId": "44444444-4444-4444-8444-444444444444",
     "workloadId": "11111111-1111-4111-8111-111111111111",
     "providerId": "provider.algonquin.lab-a",
-    "status": "revoked",
-    "generation": 3,
+    "status": "expired",
+    "generation": 2,
     "issuedAt": "2026-09-27T13:00:00Z",
     "activateBy": "2026-09-27T13:01:00Z",
     "expiresAt": "2026-09-27T13:10:00Z",
-    "terminalAt": "2026-09-27T13:05:00Z",
+    "terminalAt": "2026-09-27T13:10:01Z",
     "allocatedResources": {
       "cpuMillis": 1000,
       "memoryBytes": 1073741824
@@ -42,19 +38,18 @@
     },
     "manifestDigest": "6060606060606060606060606060606060606060606060606060606060606060",
     "reason": {
-      "code": "EVICTED_BECAUSE",
-      "message": "Free-form code.",
-      "retryable": true
+      "code": "LEASE_EXPIRED",
+      "message": "Lease reached its authoritative expiry.",
+      "retryable": false
     },
     "signature": {
       "algorithm": "Ed25519",
       "keyId": "did:web:algonquin.example#lease-1",
       "canonicalization": "RFC8785",
-      "signedAt": "2026-09-27T13:05:00Z",
+      "signedAt": "2026-09-27T13:10:01Z",
       "value": "ZXhwaXJlZC1sZWFzZS1zaWduYXR1cmU"
     },
-    "activatedAt": "2026-09-27T13:00:30Z",
     "leaseDurationSeconds": 600,
-    "maximumDisconnectedSeconds": 60
+    "maximumDisconnectedSeconds": 630
   }
 }

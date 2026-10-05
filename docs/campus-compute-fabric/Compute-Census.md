@@ -50,7 +50,7 @@ The census is the fabric's authoritative answer to "what compute exists, who vou
 
 - **CCF-CENSUS-010:** A capability advertisement SHALL be treated as `unavailable` for scheduling once `expiresAt` has passed, without waiting for an explicit transition.
 - **CCF-CENSUS-011:** A consumer SHALL ignore an advertisement whose `sequence` is not greater than the latest accepted sequence for the same `resourceId`; replays and reordered deliveries must not roll the census back.
-- **CCF-CENSUS-012:** A revoked provider or capability SHALL be removed from placement eligibility immediately, and existing leases on it are handled by the lease revocation path in [Preemption and Drain](Preemption-and-Drain.md).
+- **CCF-CENSUS-012:** A revoked provider or capability SHALL be removed from placement eligibility immediately, and existing leases on it are not silently rewritten; the lease authority appends an explicit, signed terminal transition for each, as described in [Preemption and Drain](Preemption-and-Drain.md).
 - **CCF-CENSUS-013:** `interactiveUserPresent` and `pressure` are advisory inputs to the idle policy; the census reports them and does not itself decide to evict work.
 - **CCF-CENSUS-014:** The census is a derived view of signed advertisements and SHALL be rebuildable from the event stream ([compute-fabric.asyncapi.json](../../contracts/events/compute-fabric.asyncapi.json)).
 

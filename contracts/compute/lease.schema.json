@@ -4,7 +4,7 @@
   "title": "PSDC Resource Lease",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contractVersion", "leaseId", "decisionId", "offerId", "workloadId", "providerId", "status", "generation", "issuedAt", "activateBy", "expiresAt", "allocatedResources", "creditReservation", "policyDecision", "manifestDigest", "signature"],
+  "required": ["contractVersion", "leaseId", "decisionId", "offerId", "workloadId", "providerId", "status", "generation", "issuedAt", "activateBy", "expiresAt", "leaseDurationSeconds", "maximumDisconnectedSeconds", "allocatedResources", "creditReservation", "policyDecision", "manifestDigest", "signature"],
   "properties": {
     "contractVersion": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/contractVersion" },
     "leaseId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
@@ -19,6 +19,8 @@
     "activatedAt": { "type": "string", "format": "date-time" },
     "renewalDeadline": { "type": "string", "format": "date-time" },
     "expiresAt": { "type": "string", "format": "date-time" },
+    "leaseDurationSeconds": { "type": "integer", "minimum": 1, "maximum": 604800, "description": "Signed running time the worker enforces from its local monotonic start on acceptance. Never longer than expiresAt minus issuedAt." },
+    "maximumDisconnectedSeconds": { "type": "integer", "minimum": 0, "maximum": 86400, "description": "Longest the worker may keep running without authenticated contact before it fail-stops. Not greater than leaseDurationSeconds." },
     "terminalAt": { "type": "string", "format": "date-time" },
     "allocatedResources": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/resourceQuantity" },
     "networkReservationIds": { "type": "array", "uniqueItems": true, "items": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" } },
