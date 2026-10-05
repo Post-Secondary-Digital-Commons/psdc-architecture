@@ -68,6 +68,10 @@ is a transport artifact, not evidence or authority, and must be regenerated afte
 4. Approve service tiers, SLO ownership and the process that sets RPO/RTO before procurement.
 5. Approve the site-profile ownership model for DNS, IPAM, zones, time, trust roots and DR routing.
 
+## Owner reversal
+
+The review softened the High Availability storage row so that dedicated Ceph storage nodes depended on later evidence. That contradicted accepted register item CLD-008 ("Dedicated storage nodes when production begins"). The project founder directed that the register wording stand, and the row was restored. Accepted register decisions are changed only by ADR; a review finding is not one.
+
 ## Validation and stale-data warning
 
 This record is valid only for PR 7 at commit `9678695` plus the remediations committed after this

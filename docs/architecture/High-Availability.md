@@ -58,7 +58,7 @@ Availability follows service criticality instead of one platform-wide number: ea
 | CNI | Cilium, Calico as the open exit path | Validate against campus networking (CLD-005) |
 | Ingress | Envoy Gateway | Threat and performance test before public APIs (CLD-006) |
 | Bare-metal load balancing | MetalLB | Validate before HA ingress (CLD-007) |
-| Storage | Ceph is the accepted production default; dedicated failure-domain-aware nodes are used only after capacity, recovery and operational evidence justify them | Before persistent production data (CLD-008) |
+| Storage | Ceph on dedicated storage nodes once production begins | Before persistent pilot data (CLD-008) |
 | PostgreSQL | Open operator or native automation chosen after a recovery test | Before production database (CLD-009) |
 | Valkey | Sentinel versus Cluster by workload | Before distributed cache (CLD-010) |
 | Events | NATS JetStream | Exact release before evented workflows (ARC-003) |
