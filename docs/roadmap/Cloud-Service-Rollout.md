@@ -65,7 +65,7 @@ Storage evidence gates AI, media and federation, so it is sequenced here ([ADR-0
 | VS-06 | An approved immutable artifact moves through a private content-addressed swarm with no public discovery | Unauthorized-peer and digest-verification tests; custody and cache expiry |
 | VS-07 | One institution transfers an authorized encrypted object to another sovereign institution | Transfer authority and consent, peer trust, retention and dispute contracts passing conformance; this is wave D and phase 9 work |
 
-Retention and deletion for these slices follow the Retention and Consent governance policies. Private or deletion-eligible data never enters the public permanent archive tier.
+Retention and deletion for these slices follow the [Retention](../governance/Retention.md) and [Consent](../governance/Consent.md) policies. Private or deletion-eligible data never enters the public permanent archive tier.
 
 ### Scope rule
 

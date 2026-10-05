@@ -50,7 +50,7 @@ This policy states when the platform needs a person's consent, what a valid cons
 
 - Consent is one way to authorize processing. The institution's legal basis for each processing purpose is set by the institution and binding law; this policy does not choose it ([Data Handling](Data-Handling.md), [Data Classification](Data-Classification.md)).
 - Consent is not authorization. A person who consents to processing still needs an authorization decision to access anything; a successful consent never grants a role or scope.
-- Machine owners consent differently: a machine joins the compute fabric only as an explicitly authorized asset, through short-lived enrollment with device identity and revocation (Compute-001 and Compute-003 in the [decision register](Human-Choices-and-Decisions-Register.md)).
+- Machine owners consent differently: a machine joins the compute fabric only as an explicitly authorized asset, through short-lived enrollment with device identity and revocation (Commons Compute Fabric-001 and -003 in the [decision register](Human-Choices-and-Decisions-Register.md)).
 
 ### Where the architecture already requires explicit consent or opt-in
 
@@ -65,7 +65,7 @@ This policy states when the platform needs a person's consent, what a valid cons
 | Precise location | Private and reduced precision by default; exact location only with consent | PRIV-004, FED-012 |
 | Voice, camera and other sensors | Just-in-time, purpose-specific, revocable permission | UX-008 |
 | Notifications | Consent-aware delivery through the communications boundary | [Cross-Pollination](../architecture/Cross-Pollination-and-Shared-Capabilities.md) |
-| Volunteer compute | Separate opt-in trust tier with a public policy (deferred) | Compute-017 |
+| Volunteer compute | Separate opt-in trust tier with a public policy (deferred) | Commons Compute Fabric-017 |
 | Pilot participation | Small opt-in cohort | ROAD-005 |
 | Sending an object to another institution | Transfer authority and consent recorded before the transfer | VS-07 |
 
