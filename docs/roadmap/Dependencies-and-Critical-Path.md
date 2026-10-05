@@ -58,7 +58,7 @@ The roadmap uses two orderings. **Phases 0 to 10** order institution adoption, a
 | D: VS-07 and VS-08 (governed federation storage, portable student identity) | Yes | 9 | Peer trust, credential, retention, consent and dispute conformance |
 | E: VS-09, client-to-AI session across web, desktop and mobile | Yes | Phase 4 for the minimal web vertical slice; phase 5 for the supported web, desktop and mobile sandbox experience | Identity, gateway, policy and client gates |
 
-This mapping is a proposal for owner review. It resolves the apparent conflict between "AI and web come before compute" (phase order) and "the compute task is the first implementation slice, the cohesive client session the last" (wave order): both are true on their own axis.
+This mapping was accepted by the project founder on 2026-10-05 ([ADR-0032](../architecture/architecture-decision-records/ADR-0032-data-plane-gateway-and-two-axis-roadmap.md), register item ROAD-016). It resolves the apparent conflict between "AI and web come before compute" (phase order) and "the compute task is the first implementation slice, the cohesive client session the last" (wave order): both are true on their own axis.
 
 ### Critical path for institution readiness
 
@@ -97,7 +97,7 @@ The compute and economics boundaries needed by VS-01 exist as contract candidate
 
 ### Gaps
 
-No owner is named for any gate, and no calendar exists. VS-02 to VS-09 have outcomes and exit evidence defined but no handoff packets yet. The wave-to-phase mapping above has no owner approval.
+No owner is named for any gate, and no calendar exists. VS-02 to VS-09 have outcomes and exit evidence defined but no handoff packets yet. Changing the wave-to-phase mapping requires a superseding ADR.
 
 ## Interfaces, APIs, events, and contracts
 

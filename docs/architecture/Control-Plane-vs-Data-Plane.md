@@ -62,7 +62,8 @@ The data plane does the work and moves the bytes: workers executing a leased wor
   no-bypass rule in the [reference architecture](../vision/constitutional/PSDC-Platform-Reference-Architecture.md)
   and the [Ecosystem Dependency Contract](Ecosystem-Dependency-Contract.md). The gateway moves
   bulk data without routing payloads through the control-plane decision service. Direct
-  signed-URL or token access to a backend would need a superseding ADR first.
+  signed-URL or token access to a backend would need a superseding ADR first (accepted as
+  [ADR-0032](architecture-decision-records/ADR-0032-data-plane-gateway-and-two-axis-roadmap.md)).
 - **CP-2:** Workers connect outbound to a cell gateway over mutual TLS; there is no unsolicited inbound connection to a lab machine (NET-004 in the [decision register](../governance/Human-Choices-and-Decisions-Register.md)).
 - **CP-3:** Leases are time-bounded. A lease carries absolute timestamps for audit and federation
   plus signed relative bounds, `leaseDurationSeconds` and `maximumDisconnectedSeconds`. On
