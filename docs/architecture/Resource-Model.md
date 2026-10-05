@@ -40,6 +40,12 @@ This document defines how resources are named, owned and referenced: the hierarc
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Hierarchy and ownership
 
 Resources follow organization, project, environment, resource (ARC-009). Neutral nouns are Institution, Tenant, Subject, Course, ComputeProvider, Node, Cell and Federation (ARC-019). Every record has one owning service; there are no cross-service database reads (ARC-015).
@@ -66,10 +72,16 @@ Resource use is measured in institutional resource units (IRU), non-transferable
 - **RES-1:** A finalized record is corrected by a linked record or compensating entry, never mutated.
 - **RES-2:** Every state change names an authorization action and carries a reason where the table requires one.
 - **RES-3:** Backend-native measurements are preserved even when a common unit is used for accounting.
+- **RES-4:** JSON Schema validates record shape, not global uniqueness. The operational store
+  enforces one canonical response per idempotency key, one lease lineage per placement decision,
+  at most one non-terminal lease per workload attempt, unique receipt sequence per lease attempt,
+  non-overlapping receipt intervals and one settlement consumption per accepted receipt.
 
 ### Gaps
 
-Organization, project and environment records have no schema yet; only the compute and economics resources do.
+Organization, project and environment records have no schema yet; only the compute and economics
+resources do. The database keys, uniqueness indexes, transaction boundaries and correction links
+needed to enforce RES-4 remain H-004 design work.
 
 ## Interfaces, APIs, events, and contracts
 

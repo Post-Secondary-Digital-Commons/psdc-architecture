@@ -40,6 +40,12 @@ This document describes the logical building blocks and their ownership: the lay
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Layers and fabrics
 
 Institution experience, reusable neutral core and federation sit above Commons Cloud, which provides identity, policy, APIs, events, data, storage and observability to the Compute, AI, Media and Spatial, and Social fabrics. Client products consume versioned APIs; they never own model routing, institutional identity, LMS records, social state or another service's database ([Consolidated Ecosystem Architecture](Consolidated-Ecosystem-Architecture.md)).

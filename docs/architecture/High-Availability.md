@@ -40,6 +40,12 @@ This document records the accepted availability approach: which components are m
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Approach
 
 Availability follows service criticality instead of one platform-wide number: each service owner defines a tier and its SLO (OPS-001). Production starts Kubernetes-first, adding OpenStack only where virtual-machine or bare-metal demand requires it (CLD-002).
@@ -52,7 +58,7 @@ Availability follows service criticality instead of one platform-wide number: ea
 | CNI | Cilium, Calico as the open exit path | Validate against campus networking (CLD-005) |
 | Ingress | Envoy Gateway | Threat and performance test before public APIs (CLD-006) |
 | Bare-metal load balancing | MetalLB | Validate before HA ingress (CLD-007) |
-| Storage | Ceph on dedicated storage nodes once production begins | Before persistent pilot data (CLD-008) |
+| Storage | Ceph is the accepted production default; dedicated failure-domain-aware nodes are used only after capacity, recovery and operational evidence justify them | Before persistent production data (CLD-008) |
 | PostgreSQL | Open operator or native automation chosen after a recovery test | Before production database (CLD-009) |
 | Valkey | Sentinel versus Cluster by workload | Before distributed cache (CLD-010) |
 | Events | NATS JetStream | Exact release before evented workflows (ARC-003) |

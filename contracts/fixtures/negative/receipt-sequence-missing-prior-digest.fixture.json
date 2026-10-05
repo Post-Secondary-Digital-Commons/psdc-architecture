@@ -1,0 +1,25 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.compute.receipt-sequence-missing-prior-digest",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:compute:usage-receipt:1",
+  "description": "Reject a sequence-two receipt that is not cryptographically linked to the prior accepted receipt.",
+  "expected": { "schemaValid": false, "semanticOutcome": "reject" },
+  "instance": {
+    "contractVersion": "1.0",
+    "receiptId": "24242424-2424-4242-8242-242424242424",
+    "leaseId": "66666666-6666-4666-8666-666666666666",
+    "workloadId": "11111111-1111-4111-8111-111111111111",
+    "providerId": "provider.institution.lab-a",
+    "meterId": "meter.lab-a.v1",
+    "sequence": 2,
+    "attempt": 1,
+    "interval": { "startedAt": "2026-09-27T14:04:20Z", "endedAt": "2026-09-27T14:05:00Z" },
+    "status": "measured",
+    "measurements": [{ "metric": "cpu_seconds", "quantity": "38.5", "unit": "second", "source": "meter.lab-a.v1" }],
+    "outcome": "succeeded",
+    "evidence": [{ "uri": "s3://evidence/negative/missing-prior", "digest": "2424242424242424242424242424242424242424242424242424242424242424", "classification": "internal", "retentionClass": "retention.audit.7y" }],
+    "recordedAt": "2026-09-27T14:05:05Z",
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#meter-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:05:05Z", "value": "bWlzc2luZy1wcmlvci1kaWdlc3Qtc2ln" }
+  }
+}

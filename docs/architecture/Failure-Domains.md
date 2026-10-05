@@ -40,6 +40,12 @@ This document names the failure domains the architecture reasons about and the a
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Domains
 
 | Domain | Accepted default | Source |
@@ -55,13 +61,22 @@ This document names the failure domains the architecture reasons about and the a
 - **FD-1:** A cross-zone failure closes the affected path; cells isolate; accepted critical paths continue; unsafe new placement pauses (NET-022).
 - **FD-2:** Authorization, identity and policy failures fail closed for privileged actions.
 - **FD-3:** Optional enrichment (AI, media, federation) failure degrades the feature, not the platform; the fallback is deterministic and documented.
-- **FD-4:** A resource whose capability advertisement has expired is unavailable for placement; a provider or capability can be revoked, ending its leases for cause.
+- **FD-4:** A resource whose capability advertisement has expired is unavailable for new
+  placement. Provider or capability revocation does not silently mutate leases: the lease
+  authority evaluates each affected lease and appends an explicit, signed, reason-coded terminal
+  transition, subject to the offline-revocation bound in CP-3.
 - **FD-5:** Critical services are placed only inside prequalified reserved pools with failure-domain, data, network, restore and stable-fallback gates (OPS-011).
+- **FD-6:** A provider-supplied reason code is an assertion, not settlement or reputation
+  authority. Owner reclaim, capacity reclaim and provider-fault treatment require evidence from
+  the authoritative lease service, cell controller, meter or policy/trust authority. Ambiguous
+  cases remain unattributed or disputed rather than defaulting in the provider's favor.
 
 ### Gaps
 
 - No failure-domain map of real hardware exists; there is no inventory yet ([Physical Architecture](Physical-Architecture.md)).
 - Failure exercises (chaos and recovery) are scheduled work before production certification (OPS-010), not completed evidence.
+- The reason-code registry does not yet encode which actor may assert each code, the required
+  evidence type, clock tolerance, or billing/reputation treatment. That is a D2 contract blocker.
 
 ## Interfaces, APIs, events, and contracts
 

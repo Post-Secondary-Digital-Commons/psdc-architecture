@@ -40,6 +40,12 @@ This document draws the boundary of the platform: which capabilities are in scop
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### In scope
 
 The platform covers ten logical fabrics. Five are the immediate delivery units, each with its own repository; five are recognized logical boundaries that compose existing services until independent ownership or deployment evidence justifies a new repository ([Consolidated Ecosystem Architecture](../architecture/Consolidated-Ecosystem-Architecture.md)).

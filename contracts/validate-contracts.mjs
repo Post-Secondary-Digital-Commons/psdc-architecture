@@ -365,6 +365,12 @@ for (const filePath of openApiFiles) {
   if (!/^3\.1\./.test(document.openapi ?? "")) failures.push(`${relativePath}: OpenAPI version must be 3.1.x`);
   if (!document.info?.title || !document.info?.version) failures.push(`${relativePath}: info.title and info.version are required`);
   if (!document.paths || Object.keys(document.paths).length === 0) failures.push(`${relativePath}: at least one path is required`);
+  if (path.basename(filePath) === "compute-control-plane.openapi.json") {
+    const leaseTransitionSchema = document.components?.requestBodies?.LeaseTransitionRequest?.content?.["application/json"]?.schema;
+    if (!leaseTransitionSchema?.required?.includes("expectedGeneration")) {
+      failures.push(`${relativePath}: LeaseTransitionRequest must require expectedGeneration for stale-controller fencing`);
+    }
+  }
   try {
     await SwaggerParser.validate(filePath, { resolve: { external: false } });
   } catch (error) {

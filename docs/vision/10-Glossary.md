@@ -40,6 +40,12 @@ This glossary defines the terms the architecture uses with a specific meaning. W
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 | Term | Meaning |
 |---|---|
 | Commons / PSDC | The tenant-neutral Post-Secondary Digital Commons framework; Algonquin is its first deployment |

@@ -40,6 +40,12 @@ This document describes how clients, services and peers find each other: DNS nam
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Four discovery paths
 
 1. **Clients find an institution** through a signed deployment manifest covering identity discovery, API origins, enabled capabilities, branding, release channels and support. Clients reject unsigned, expired or institution-mismatched configuration ([Ecosystem Dependency Contract](Ecosystem-Dependency-Contract.md)).
@@ -49,7 +55,10 @@ This document describes how clients, services and peers find each other: DNS nam
 
 ### Rules
 
-- **SD-1:** Contracts bind to names, never IP addresses.
+- **SD-1:** Application and federation contracts bind to stable logical resource IDs and service
+  names rather than embedding site addresses. Institution deployment profiles, IPAM, network-path
+  controllers and firewall policy MAY contain governed IP prefixes and addresses; those values do
+  not become portable common-contract identifiers.
 - **SD-2:** A catalog entry is not authorization; a caller still needs an authorization decision.
 - **SD-3:** Trust is denied by default and does not spread transitively from one peer to another.
 - **SD-4:** Federation peers declare identity, trust anchors, supported contract versions, data and geographic envelope, timeouts, revocation, audit fields, incident contacts and exit behavior.

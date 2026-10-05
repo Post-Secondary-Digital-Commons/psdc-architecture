@@ -40,6 +40,12 @@ This document defines the geographic and failure vocabulary: region, zone, campu
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Model
 
 - **Region:** start with one region (ARC-010).
@@ -58,7 +64,10 @@ User device, dedicated institution infrastructure, institution campus fabric, ap
 - **RZ-2:** Routing moves down the ladder only inside the workload envelope.
 - **RZ-3:** Addresses come from institution IPAM; there is no universal PSDC address block; dual-stack where supported (NET-001, NET-002).
 - **RZ-4:** Disaster-recovery routing uses routed Layer 3, not stretched Layer 2 (NET-024).
-- **RZ-5:** Time is synchronized from redundant institution sources; a node beyond the drift threshold is quarantined before it can hold signed leases (NET-021).
+- **RZ-5:** Time is synchronized from redundant institution sources. A node beyond the accepted
+  drift threshold is quarantined from new placement and renewal; an existing lease remains bounded
+  by its locally computed monotonic expiry and is reconciled before the node returns to service
+  (NET-021). The numeric drift and uncertainty thresholds remain institution-profile values.
 
 ### Gaps
 

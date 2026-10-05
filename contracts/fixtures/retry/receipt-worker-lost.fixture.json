@@ -14,6 +14,7 @@
     "meterId": "meter.lab-a.v1",
     "sequence": 2,
     "attempt": 1,
+    "priorReceiptDigest": "6060606060606060606060606060606060606060606060606060606060606060",
     "interval": { "startedAt": "2026-09-27T14:04:20Z", "endedAt": "2026-09-27T14:05:00Z" },
     "status": "failed",
     "measurements": [{ "metric": "cpu_seconds", "quantity": "38.5", "unit": "second", "source": "meter.lab-a.v1" }],

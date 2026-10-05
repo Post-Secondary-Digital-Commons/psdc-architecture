@@ -10,7 +10,7 @@
 > Governing decisions: ADR-0001, ADR-0031
 
 Asynchronous integration uses `event-envelope.schema.json`, a CloudEvents 1.0-compatible
-envelope, and `compute-fabric.asyncapi.json`, the candidate AsyncAPI 3.0 channel/message
+envelope, and `compute-fabric.asyncapi.json`, the candidate AsyncAPI 3.1 channel/message
 surface. Required metadata includes institution, classification, schema version, correlation,
 causation where applicable, ordering scope, sequence, idempotency key, and expiry where the
 event has a bounded useful lifetime. Event data identifies its versioned domain schema; event

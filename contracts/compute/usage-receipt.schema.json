@@ -31,6 +31,8 @@
     "signature": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/signature" }
   },
   "allOf": [
-    { "if": { "properties": { "status": { "enum": ["failed", "disputed", "voided"] } }, "required": ["status"] }, "then": { "required": ["reason"] } }
+    { "if": { "properties": { "status": { "enum": ["failed", "disputed", "voided"] } }, "required": ["status"] }, "then": { "required": ["reason"] } },
+    { "if": { "properties": { "sequence": { "type": "integer", "minimum": 2 } }, "required": ["sequence"] }, "then": { "required": ["priorReceiptDigest"] } },
+    { "if": { "properties": { "sequence": { "type": "integer", "const": 1 } }, "required": ["sequence"] }, "then": { "not": { "required": ["priorReceiptDigest"] } } }
   ]
 }

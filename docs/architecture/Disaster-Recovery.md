@@ -40,6 +40,12 @@ This document records the accepted disaster-recovery approach and the evidence r
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Accepted approach
 
 - **Site and topology:** an independent routed Layer-3 site with DNS and service failover and no stretched Layer 2. The exact site follows failure-domain and residency evidence (OPS-009, NET-024).
@@ -52,8 +58,15 @@ This document records the accepted disaster-recovery approach and the evidence r
 
 - **DR-1:** Nothing holding protected data goes to production until a restore has been demonstrated (NET-023, OPS-005).
 - **DR-2:** Failback is exercised, not just failover (OPS-009).
-- **DR-3:** Compute-fabric state is recoverable from signed records and events; a worker that loses contact keeps its results and retries upload.
-- **DR-4:** Backups are encrypted and retention-aware; deletion propagates to backups according to the declared retention policy.
+- **DR-3:** Authoritative compute state is recovered from tested PostgreSQL backup/WAL and
+  governed evidence. A durable committed outbox/event log can rebuild disposable projections but
+  is not a substitute for operational-state backup. A disconnected worker MAY retain encrypted
+  results for a bounded local TTL and retry upload; loss of that worker remains a declared data-
+  loss case unless the workload has another durable checkpoint.
+- **DR-4:** Backups are encrypted and retention-aware. A deletion request removes live copies,
+  records a tombstone and deletion evidence, destroys eligible envelope keys, and prevents
+  restoration after the retention boundary. Immutable backups expire through their retention
+  schedule; the architecture does not claim that every historical backup is mutated immediately.
 
 ### Gaps
 

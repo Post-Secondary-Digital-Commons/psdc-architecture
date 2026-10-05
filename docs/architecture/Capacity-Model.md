@@ -40,6 +40,12 @@ This document records how capacity is meant to be modelled and protected: what i
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### What the model rests on
 
 - **Census first.** The first compute milestone is census and telemetry only (ROAD-002). Capacity is what resources currently advertise, not what hardware is assumed to exist ([Compute Census](../campus-compute-fabric/Compute-Census.md)).

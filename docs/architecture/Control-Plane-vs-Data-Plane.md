@@ -40,6 +40,12 @@ This document separates the control plane (decisions, records, state transitions
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Control plane
 
 The control plane decides and records. In the compute fabric that is the candidate OpenAPI boundary ([compute-control-plane.openapi.json](../../contracts/compute/compute-control-plane.openapi.json)) over providers, capabilities, workload manifests and classification records, offers, placement decisions, leases and usage receipts, plus the AsyncAPI event surface ([compute-fabric.asyncapi.json](../../contracts/events/compute-fabric.asyncapi.json)). Every state change is an authorized, idempotent, generation-fenced transition on a signed record.
@@ -50,19 +56,50 @@ The data plane does the work and moves the bytes: workers executing a leased wor
 
 ### Rules
 
-- **CP-1:** A client talks to the control plane, never to a worker, storage backend or model runtime directly.
+- **CP-1:** A client obtains identity, authorization, policy and a bounded capability from the
+  control plane before using a data-plane endpoint. A client MAY then transfer bytes directly to
+  an approved storage, media or inference endpoint through a short-lived scoped token, signed URL
+  or mutually authenticated session; it never bypasses the control plane to invent authority.
 - **CP-2:** Workers connect outbound to a cell gateway over mutual TLS; there is no unsolicited inbound connection to a lab machine (NET-004 in the [decision register](../governance/Human-Choices-and-Decisions-Register.md)).
-- **CP-3:** Leases are time-bounded. A data-plane workload loses its right to run when its lease expires or is revoked, even if the control plane cannot reach it.
-- **CP-4:** Control-plane events are delivered at least once and consumed idempotently, with a durable outbox so a component can replay after an outage ([Event-Driven Architecture](Event-Driven-Architecture.md)).
+- **CP-3:** Leases are time-bounded. A worker MUST self-enforce the signed expiry using a
+  monotonic deadline and MUST NOT renew offline. Revocation takes effect when authenticated
+  revocation evidence reaches the worker; workloads whose maximum disconnected exposure is too
+  high require shorter leases, heartbeats or fail-stop execution rather than an impossible claim
+  of instantaneous offline revocation.
+- **CP-4:** Control-plane events are delivered at least once. Exactly-once effective handling
+  requires a unique inbox key, atomic business-state and inbox commit, a transactional outbox,
+  monotonic ordering within the declared scope, and deterministic duplicate responses. Envelope
+  fields alone do not provide those guarantees ([Event-Driven Architecture](Event-Driven-Architecture.md)).
 - **CP-5:** Authorization and security failures fail closed; low-risk reads may use a documented safe cache.
 
 ### Behavior when the control plane is unavailable
 
-New placements pause rather than guess. Already-running leases continue until their expiry and then end; they are not renewed. Workers hold results locally and retry upload, and a job that lacks verified inputs does not start ([Ecosystem Dependency Contract](Ecosystem-Dependency-Contract.md)).
+New placements pause rather than guess. Already-running leases continue only inside their signed
+offline-execution envelope and end no later than expiry; they are not renewed. A worker that has
+already received a verified revocation stops according to the revocation policy. Workers retain
+encrypted results only for a bounded local TTL and retry upload; local retention is not a durable
+recovery guarantee. A job that lacks verified inputs does not start
+([Ecosystem Dependency Contract](Ecosystem-Dependency-Contract.md)).
+
+### Transactional invariants required before implementation
+
+- One idempotency key maps to one canonical request digest and one recorded response; reuse with
+  different bytes is rejected.
+- A placement decision may issue at most one lease lineage. At most one non-terminal lease may
+  exist for a workload attempt, enforced transactionally rather than inferred from JSON Schema.
+- A state transition compares the expected generation, appends the state change and outbox event,
+  and records the idempotency result in one database transaction.
+- A usage receipt is unique by `(leaseId, attempt, sequence)`, receipt intervals do not overlap,
+  sequence greater than one links the prior receipt digest, and a settlement batch consumes each
+  accepted receipt exactly once.
+- Projectors are disposable views. Rebuilding a projector cannot reissue a lease, rerun a command,
+  duplicate a receipt or submit a second settlement commitment.
 
 ### Gaps
 
-The recovery behavior after a control-plane restart (reconciling leases against workers) depends on the operational-state database and transactional outbox, which are the next planned implementation work (backlog item H-004) and are not yet designed in detail.
+The operational schema, uniqueness indexes, isolation level, inbox/outbox transaction, worker
+reconciliation protocol, clock-skew envelope and crash/race fixtures are H-004 work and are not
+yet designed in detail. The contracts name the invariants but do not currently prove them.
 
 ## Interfaces, APIs, events, and contracts
 

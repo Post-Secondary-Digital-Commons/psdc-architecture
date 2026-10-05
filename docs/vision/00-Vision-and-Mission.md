@@ -40,6 +40,12 @@ This document states what the Post-Secondary Digital Commons is for, who it serv
 
 ## Subject-specific specification
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> constitutional architecture restate existing authority. Any new rule identifier or uncited
+> implementation constraint introduced by this draft is a proposal for owner review, not a
+> binding decision. It becomes normative only when the accountable owner accepts it through the
+> decision register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ### Mission
 
 Create an open, standards-based Commons through which post-secondary learners, educators, researchers, staff, clubs and developers can safely use and build AI, compute, media, spatial, social and campus-integrated services, without buying fragmented vendor access and without surrendering institutional governance. Algonquin College is the first reference deployment, not a hard-coded tenant ([ADR-0012](../architecture/architecture-decision-records/ADR-0012-post-secondary-digital-commons.md)).
