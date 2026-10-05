@@ -74,6 +74,7 @@ Decision states:
 | A-029 | Compute, storage and network use non-transferable institutional resource units, leases and receipts with policy-gated market placement | ADR-0029 |
 | A-030 | PSDC network services target AGPL, interoperability contracts remain permissive, and recognized commercial/institutional participants must offer reusable improvements upstream | ADR-0030 |
 | A-031 | PostgreSQL/outbox owns live operational state, governed object storage owns evidence, and the Cosmos-derived ledger owns finalized settlement commitments | ADR-0031 |
+| A-032 | Clients reach storage, inference and workers only through an institution-owned data-plane gateway, and common implementation waves and institution phases are separate roadmap axes with an accepted mapping | ADR-0032 |
 
 ## 1. Mission, governance, and institutional ownership
 
@@ -136,6 +137,7 @@ Decision states:
 | ARC-017 | Federation locality order | Institution → regional/provincial/Canadian federation → Canadian provider → hyperscaler | Architecture + policy | Accepted by ADR-0013 |
 | ARC-018 | Cross-fabric federation model | Federate permitted capabilities/services, never one shared trust or data domain | Federation governance | Before federation contracts |
 | ARC-019 | Neutral resource naming | Institution, Tenant, Subject, Course, ComputeProvider/Node/Cell and Federation | Contract maintainers | Before v1 schemas |
+| ARC-020 | Client access to backends | Clients reach storage, inference and workers only through an institution-owned, policy-enforcing data-plane gateway; direct signed or tokenised backend access needs a superseding ADR | Architecture council | Accepted by ADR-0032 |
 
 ## 4. Commons Cloud and core infrastructure
 
@@ -427,6 +429,7 @@ architecture choices.
 | ROAD-013 | Second-institution gate | Validate tenant neutrality and white-labelling before Ontario federation | Architecture + consortium sponsor | After the first institution pilot |
 | ROAD-014 | Ontario federation gate | Start with 3–5 institutions after trust, settlement and interoperability proofs | Consortium governance | After second-institution pilot |
 | ROAD-015 | Canadian expansion gate | Expand only after provincial sovereignty, operations and economics are proven | Canadian consortium governance | After Ontario production evidence |
+| ROAD-016 | Roadmap ordering model | Phases 0 to 10 order institution adoption; waves A to E order common implementation; the wave-to-phase mapping in ADR-0032 applies; an early build on synthetic data never passes a phase gate | Steering group | Accepted by ADR-0032 |
 
 ## Decision record template
 
