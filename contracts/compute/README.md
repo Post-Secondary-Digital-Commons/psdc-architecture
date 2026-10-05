@@ -42,6 +42,14 @@ reason code). A capability with status `draining` MUST carry `drain`. The grace 
 running leases may continue before the controller revokes them with `DRAIN_DEADLINE`; the lease expiry still
 applies if it comes first.
 
+## Lease timing, receipt chains and command parity
+
+A lease carries absolute timestamps for audit plus two signed relative bounds. `leaseDurationSeconds` is the running time the worker enforces from its own monotonic start on acceptance and never exceeds the window between `issuedAt` and `expiresAt`. `maximumDisconnectedSeconds` is the longest the worker may run without authenticated contact and never exceeds the duration. A monotonic clock cannot interpret a UTC expiry, which is why durations are signed. The values themselves are set by policy per workload risk class; the contract only bounds them.
+
+A usage-receipt chain is identified by `(leaseId, attempt, meterId)` unless a single canonical aggregator owns the whole lease attempt. Sequence one has no prior digest; later receipts name the preceding accepted receipt of the same chain. Uniqueness, gap-freedom, non-overlap and fork handling are operational-store invariants, not schema checks.
+
+`lease-commands.registry.json` classifies every lease state-machine action as an external command, internal command, timer trigger, backend outcome or administrative override, and ties the external commands to the OpenAPI operation. The validator fails if the registry, the state machine and the OpenAPI action enum disagree, or if the request body stops requiring `expectedGeneration`. Provider transitions are not yet covered by an equivalent registry.
+
 ## Allowed and prohibited contents
 
 Provider-neutral compute shapes and synthetic fixtures are allowed. Backend-private database

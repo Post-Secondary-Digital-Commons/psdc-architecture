@@ -56,16 +56,23 @@ The data plane does the work and moves the bytes: workers executing a leased wor
 
 ### Rules
 
-- **CP-1:** A client obtains identity, authorization, policy and a bounded capability from the
-  control plane before using a data-plane endpoint. A client MAY then transfer bytes directly to
-  an approved storage, media or inference endpoint through a short-lived scoped token, signed URL
-  or mutually authenticated session; it never bypasses the control plane to invent authority.
+- **CP-1:** A client talks to the control plane for identity, authorization, policy and bounded
+  capability, and moves bytes through an institution-owned, policy-enforcing data-plane gateway.
+  It never reaches a worker, storage backend or model runtime directly. This is the accepted
+  no-bypass rule in the [reference architecture](../vision/constitutional/PSDC-Platform-Reference-Architecture.md)
+  and the [Ecosystem Dependency Contract](Ecosystem-Dependency-Contract.md). The gateway moves
+  bulk data without routing payloads through the control-plane decision service. Direct
+  signed-URL or token access to a backend would need a superseding ADR first.
 - **CP-2:** Workers connect outbound to a cell gateway over mutual TLS; there is no unsolicited inbound connection to a lab machine (NET-004 in the [decision register](../governance/Human-Choices-and-Decisions-Register.md)).
-- **CP-3:** Leases are time-bounded. A worker MUST self-enforce the signed expiry using a
-  monotonic deadline and MUST NOT renew offline. Revocation takes effect when authenticated
-  revocation evidence reaches the worker; workloads whose maximum disconnected exposure is too
-  high require shorter leases, heartbeats or fail-stop execution rather than an impossible claim
-  of instantaneous offline revocation.
+- **CP-3:** Leases are time-bounded. A lease carries absolute timestamps for audit and federation
+  plus signed relative bounds, `leaseDurationSeconds` and `maximumDisconnectedSeconds`. On
+  acceptance the worker records a local monotonic start and enforces the signed duration from
+  it; a monotonic clock measures elapsed time and cannot interpret a UTC expiry on its own. The
+  worker MUST NOT renew offline and MUST shorten, never extend, its authorization when its clock
+  uncertainty is high. Reboot, suspend and resume end the local authorization unless the lease
+  defines otherwise. Revocation takes effect when authenticated revocation evidence reaches the
+  worker, so the maximum permitted exposure is `maximumDisconnectedSeconds`, not an impossible
+  instantaneous offline revocation.
 - **CP-4:** Control-plane events are delivered at least once. Exactly-once effective handling
   requires a unique inbox key, atomic business-state and inbox commit, a transactional outbox,
   monotonic ordering within the declared scope, and deterministic duplicate responses. Envelope
@@ -89,8 +96,10 @@ recovery guarantee. A job that lacks verified inputs does not start
   exist for a workload attempt, enforced transactionally rather than inferred from JSON Schema.
 - A state transition compares the expected generation, appends the state change and outbox event,
   and records the idempotency result in one database transaction.
-- A usage receipt is unique by `(leaseId, attempt, sequence)`, receipt intervals do not overlap,
-  sequence greater than one links the prior receipt digest, and a settlement batch consumes each
+- A receipt chain is identified by `(leaseId, attempt, meterId)` unless one canonical aggregator
+  owns the whole lease attempt. Within a chain the sequence starts at one, is unique and gap-free,
+  each prior digest names the immediately preceding accepted receipt of the same chain, intervals
+  do not overlap, and a fork enters dispute or quarantine. A settlement batch consumes each
   accepted receipt exactly once.
 - Projectors are disposable views. Rebuilding a projector cannot reissue a lease, rerun a command,
   duplicate a receipt or submit a second settlement commitment.

@@ -1,0 +1,18 @@
+{
+  "$comment": "Classifies every transition action of the lease state machine and ties public commands to the OpenAPI operation. The validator checks that this registry, state-machines/lease.machine.json and compute-control-plane.openapi.json agree. Which actor may issue an action is not decided here; that remains an authorization-policy question.",
+  "registryVersion": "1.0",
+  "machineId": "compute.lease.v1",
+  "openApi": { "operationId": "transitionLease", "path": "/leases/{leaseId}/{action}", "requestBody": "LeaseTransitionRequest" },
+  "classifications": ["external_command", "internal_command", "timer_trigger", "backend_outcome", "administrative_override"],
+  "commands": [
+    { "action": "lease.activate", "classification": "external_command", "apiAction": "activate", "requiresExpectedGeneration": true, "idempotencyScope": "idempotency-key+leaseId" },
+    { "action": "lease.renew", "classification": "external_command", "apiAction": "renew", "requiresExpectedGeneration": true, "idempotencyScope": "idempotency-key+leaseId" },
+    { "action": "lease.release", "classification": "external_command", "apiAction": "release", "requiresExpectedGeneration": true, "idempotencyScope": "idempotency-key+leaseId" },
+    { "action": "lease.revoke", "classification": "external_command", "apiAction": "revoke", "requiresExpectedGeneration": true, "idempotencyScope": "idempotency-key+leaseId" },
+    { "action": "lease.request-renewal", "classification": "internal_command", "requiresExpectedGeneration": true, "idempotencyScope": "leaseId+generation" },
+    { "action": "lease.fail", "classification": "backend_outcome", "requiresExpectedGeneration": true, "idempotencyScope": "leaseId+generation" },
+    { "action": "lease.expire", "classification": "timer_trigger", "requiresExpectedGeneration": true, "idempotencyScope": "leaseId+generation" },
+    { "action": "lease.activation-timeout", "classification": "timer_trigger", "requiresExpectedGeneration": true, "idempotencyScope": "leaseId+generation" },
+    { "action": "lease.renewal-timeout", "classification": "timer_trigger", "requiresExpectedGeneration": true, "idempotencyScope": "leaseId+generation" }
+  ]
+}

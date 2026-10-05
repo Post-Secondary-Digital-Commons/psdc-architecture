@@ -34,7 +34,7 @@ is a transport artifact, not evidence or authority, and must be regenerated afte
 | High | `expectedGeneration` was optional in the shared transition request. A stale controller could submit an otherwise valid lease transition without fencing. | Split provider and lease request bodies; lease transitions now require `expectedGeneration`; validator asserts that requirement. | H-004 compare-and-swap transaction and stale-generation race tests. |
 | High | The contracts did not state the operational uniqueness rules that prevent two leases or double settlement. JSON Schema cannot enforce cross-record uniqueness. | Added explicit idempotency, lease-lineage, receipt, interval, settlement-consumption and projector invariants to Control Plane and Resource Model. | PostgreSQL indexes, isolation model, inbox/outbox and crash/replay tests. |
 | High | CP-3 implied an unreachable controller could revoke a disconnected worker instantly. | Replaced the claim with monotonic self-expiry, no offline renewal, bounded disconnected exposure and authenticated revocation delivery. | Clock-skew profile, heartbeat policy and worker fail-stop tests. |
-| High | CP-1 prohibited all direct data-plane access, contradicting efficient signed-URL/object/media transfers and the document's own bulk-data rule. | Clients may use an approved data-plane endpoint only after receiving a short-lived scoped capability from the control plane. | Capability format, audience binding, expiry and revocation tests. |
+| High | CP-1 prohibited all direct data-plane access, which the first review judged too strict. | Superseded by the cross-review below: the loosening conflicted with accepted authority and was reverted. CP-1 again forbids direct client access to workers, storage backends and model runtimes and routes bulk transfer through an institution-owned data-plane gateway. | Gateway design, or a superseding ADR if direct signed access is ever wanted. |
 | High | Usage receipts after sequence one did not require a prior digest, leaving a chain gap that aids omission or reordering. | Sequence greater than one now requires `priorReceiptDigest`; sequence one prohibits it; positive and negative fixtures cover the rule. | Transactional uniqueness and non-overlap enforcement; forked-chain dispute tests. |
 | High | Event fields could be mistaken for an exactly-once guarantee. A duplicate delivered after a crash could repeat a lease or settlement action. | CP-4 now requires unique inbox state, atomic business/inbox commit, transactional outbox, scoped ordering and deterministic duplicate response. | H-004 implementation and fault-injection evidence. |
 | Medium | Provider/capability revocation text implied leases end automatically, bypassing lease authority and reason evidence. | FD-4 now requires an explicit signed lease transition by the lease authority. | Bulk-reconciliation and partial-delivery tests. |
@@ -72,10 +72,22 @@ is a transport artifact, not evidence or authority, and must be regenerated afte
 
 The review softened the High Availability storage row so that dedicated Ceph storage nodes depended on later evidence. That contradicted accepted register item CLD-008 ("Dedicated storage nodes when production begins"). The project founder directed that the register wording stand, and the row was restored. Accepted register decisions are changed only by ADR; a review finding is not one.
 
+## Cross-review dispositions
+
+A second reviewer found five defects in the first remediation. All were valid.
+
+| Finding | Disposition |
+|---|---|
+| CP-1 allowed direct signed-URL or token access to storage and inference, contradicting the accepted no-bypass rule in the reference architecture and the Ecosystem Dependency Contract | Reverted to the accepted rule; gateway pattern recorded; direct access needs a superseding ADR |
+| Compute documents still treated reason codes as authoritative and let provider revocation end leases implicitly | Preemption and Drain and Compute Census now treat codes as assertions and require explicit lease-authority transitions |
+| Monotonic self-expiry cannot interpret an absolute UTC expiry | Lease gains signed `leaseDurationSeconds` and `maximumDisconnectedSeconds`, with semantic checks and fixtures; CP-3 rewritten |
+| Receipt-chain scope was undefined | Chain defined as `(leaseId, attempt, meterId)` with ordering and fork rules |
+| Lease API and state machine were not checked against each other | Lease command registry plus validator parity check |
+
 ## Validation and stale-data warning
 
 This record is valid only for PR 7 at commit `9678695` plus the remediations committed after this
-review. The generated review bundle predates the remediations and is stale until rebuilt. Future
+review and the cross-review dispositions above. The generated review bundle predates the remediations and is stale until rebuilt. Future
 contract or source-document changes require rerunning the validators and updating this record or
 marking it superseded.
 

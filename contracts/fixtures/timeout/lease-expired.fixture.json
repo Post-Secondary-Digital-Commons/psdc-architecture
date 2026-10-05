@@ -4,7 +4,14 @@
   "category": "timeout",
   "schemaId": "urn:psdc:contracts:compute:lease:1",
   "description": "Expired fenced lease that cannot be reactivated by a stale worker.",
-  "expected": { "schemaValid": true, "semanticOutcome": "timeout", "statusPath": "/status", "expectedStatus": "expired", "reasonPath": "/reason/code", "expectedReasonCode": "LEASE_EXPIRED" },
+  "expected": {
+    "schemaValid": true,
+    "semanticOutcome": "timeout",
+    "statusPath": "/status",
+    "expectedStatus": "expired",
+    "reasonPath": "/reason/code",
+    "expectedReasonCode": "LEASE_EXPIRED"
+  },
   "instance": {
     "contractVersion": "1.0",
     "leaseId": "60606060-6060-4060-8060-606060606060",
@@ -18,11 +25,34 @@
     "activateBy": "2026-09-27T13:01:00Z",
     "expiresAt": "2026-09-27T13:10:00Z",
     "terminalAt": "2026-09-27T13:10:01Z",
-    "allocatedResources": { "cpuMillis": 1000, "memoryBytes": 1073741824 },
-    "creditReservation": { "unit": "IRU", "amount": "0.100" },
-    "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.compute.admission", "policyVersion": "1.0.0", "outcome": "allow" },
+    "allocatedResources": {
+      "cpuMillis": 1000,
+      "memoryBytes": 1073741824
+    },
+    "creditReservation": {
+      "unit": "IRU",
+      "amount": "0.100"
+    },
+    "policyDecision": {
+      "decisionId": "33333333-3333-4333-8333-333333333333",
+      "policyId": "policy.compute.admission",
+      "policyVersion": "1.0.0",
+      "outcome": "allow"
+    },
     "manifestDigest": "6060606060606060606060606060606060606060606060606060606060606060",
-    "reason": { "code": "LEASE_EXPIRED", "message": "Lease reached its authoritative expiry.", "retryable": false },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#lease-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T13:10:01Z", "value": "ZXhwaXJlZC1sZWFzZS1zaWduYXR1cmU" }
+    "reason": {
+      "code": "LEASE_EXPIRED",
+      "message": "Lease reached its authoritative expiry.",
+      "retryable": false
+    },
+    "signature": {
+      "algorithm": "Ed25519",
+      "keyId": "did:web:algonquin.example#lease-1",
+      "canonicalization": "RFC8785",
+      "signedAt": "2026-09-27T13:10:01Z",
+      "value": "ZXhwaXJlZC1sZWFzZS1zaWduYXR1cmU"
+    },
+    "leaseDurationSeconds": 600,
+    "maximumDisconnectedSeconds": 60
   }
 }
