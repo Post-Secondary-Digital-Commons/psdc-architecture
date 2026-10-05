@@ -3,19 +3,22 @@
 
 > Standard: PSDC-DOC-001
 > Document type: policy-standard
-> Status: Normative
+> Status: Draft for owner review; sourced from accepted decisions, open gaps listed
 > Owner: PSDC Governance Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-09-11
 > Governing decisions: Applicable ADRs and repository governance
 > Domain: governance
 
+> **Decision status:** Statements directly traced to accepted ADRs, the decision register, or
+> the constitutional architecture restate existing authority. Any new rule identifier, ordering
+> or uncited constraint introduced by this draft is a proposal for owner review, not a binding
+> decision. It becomes normative only when the accountable owner accepts it through the decision
+> register, an ADR, or a released contract. The Gaps section remains explicitly open.
+
 ## Purpose and outcome
 
-This specification defines **Retention** as part of the Post Secondary Digital
-Commons. Its required outcome is accountable decision rights, repository control, safety, audit, contribution, and institution participation. An implementation conforms
-only when it satisfies this document, the linked ADRs, and the common
-[Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
+This policy states how long data may be kept, how deletion happens, and what the platform can and cannot promise about it. It records the retention values that are already accepted and leaves every other value to the institution, declared before any data is stored. An implementation conforms only when it satisfies this document, the linked ADRs and the common [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md).
 
 ## Scope
 
@@ -41,18 +44,52 @@ only when it satisfies this document, the linked ADRs, and the common
 - Institution deployments SHALL be independently operable and SHALL remain
   compatible with the common contract and conformance suite.
 
+## Subject-specific specification
+
+### Principle
+
+Minimize, and delete automatically (PRIV-002 in the [decision register](Human-Choices-and-Decisions-Register.md)). Retention is declared per data class before anything is persisted; telemetry must not become an undeclared record system ([Privacy by Design](Privacy-by-Design.md), [Data Handling](Data-Handling.md)).
+
+### Values already accepted
+
+| Data | Retention | Register item |
+|---|---|---|
+| Raw network flow and security metadata | 30 days; no payload by default; approval before collection | NET-020 |
+| Access-controlled aggregate capacity data | Up to 13 months | NET-020 |
+| Prompts and responses | Off or minimized; kept only for a feature-specific purpose | AI-011 |
+| Model telemetry | Operational metadata without prompt content | AI-012 |
+| Remote media cache | Bounded cache | FED-009 |
+| Logs, traces, metrics | Data-class-aware minimums set by SRE with privacy | OPS-003 |
+
+Every other retention period is an institution value, supplied in its deployment manifest and approved by the data steward for that domain (GOV-011). This document sets none of them.
+
+### Deletion must reach every copy
+
+- Expiry propagates to indexes, replicas, caches, derivatives and keys, records deletion evidence, and records any copy it cannot verify ([ADR-0028](../architecture/architecture-decision-records/ADR-0028-private-content-and-storage-fabric.md), STORE-ADR-ACC-005).
+- A deletion request removes live copies, records a tombstone and deletion evidence, destroys eligible envelope keys, and prevents restoration after the retention boundary. Immutable backups expire on their own schedule; the platform does not claim to rewrite them ([Disaster Recovery](../architecture/Disaster-Recovery.md)).
+- Deletion can be proven only for controlled copies and keys, not for disclosure that already happened (ADR-0028).
+- Content that is public and permanent by design is deletion-ineligible; private or deletion-eligible data never enters that tier (STORE-ADR-ACC-006).
+
+### Rules
+
+- **RET-1:** No data class is stored until its owner, purpose, classification, residency, retention, export and deletion rule are declared.
+- **RET-2:** Retention jobs run automatically and leave evidence of what was deleted, when and under which rule.
+- **RET-3:** Withdrawal of consent, departure of a participant, closure of a pilot and sunset of a service each trigger deletion or export under the declared rule ([Consent](Consent.md), GOV-014).
+- **RET-4:** A restore never resurrects deleted data: restored systems reapply tombstones before serving.
+- **RET-5:** The resource ledger and event streams carry commitments, digests and references, never personal data or workload content, so that immutable records do not outlive a deletion obligation.
+- **RET-6:** Finalized settlement and dispute evidence is corrected by linked records, not edited; its retention period is set by finance and audit, not by the product team.
+- **RET-7:** Suspending deletion requires a documented hold from the accountable institution authority, with scope and expiry.
+
+### Gaps
+
+- Beyond the accepted network and AI values, no retention period is set. The contract field `retentionClass` on evidence objects names a class but no class list exists; the value in the fixtures is a synthetic example, not policy.
+- Finance, audit and legal minimums for receipts, disputes and incident records are undecided.
+- Legal hold, e-discovery and records-law obligations are for institutional counsel to define.
+- Backup retention schedules and the backup-expiry window for immutable media are open until recovery objectives are set.
+
 ## Interfaces, APIs, events, and contracts
 
-- Required interoperability boundary: ADRs, policy records, membership roles, approval workflows, exception records, audit exports, and escalation channels.
-- HTTP interfaces SHALL use OpenAPI 3.1, explicit request and response schemas,
-  documented error codes, pagination for collections, and bounded timeouts.
-- Asynchronous interfaces SHALL use versioned schemas and CloudEvents envelopes;
-  delivery semantics, ordering, replay, deduplication, and dead-letter behaviour
-  SHALL be declared per event.
-- Mutations SHALL be idempotent or accept an idempotency key. Long-running work
-  SHALL expose status, cancellation, expiry, and result retrieval.
-- Consumers SHALL depend on contracts rather than another service's database,
-  internal queue, filesystem, or implementation-specific API.
+See the [Ecosystem Dependency Contract](../architecture/Ecosystem-Dependency-Contract.md); local extensions remain normative.
 
 ## Dependencies and ownership boundaries
 
@@ -60,30 +97,11 @@ Inherits [baseline ownership controls](../architecture/Cross-Cutting-Architectur
 
 ## Data, state, residency, and retention
 
-- Governed information includes decisions, approvals, membership, incidents, exceptions, audits, contribution provenance, and policy versions.
-- Every data class SHALL declare an authoritative owner, purpose, classification,
-  residency, retention, export, correction, archival, and deletion rule in the
-  institution manifest before production activation.
-- Services SHALL minimize copied data, preserve provenance, encrypt protected
-  state and backups, and prevent telemetry from becoming an undeclared secondary
-  record system.
-- Cache and derived data SHALL be rebuildable or explicitly protected by backup
-  and recovery objectives. Deletion SHALL propagate to indexes, caches,
-  derivatives, replicas, and backups according to the declared retention policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Security, privacy, safety, and compliance
 
-- Domain controls SHALL include two-person control when maintainers permit, protected branches, mandatory 2FA, least privilege, conflict disclosure, and immutable audit history.
-- Authentication SHALL use the institution-approved identity issuer;
-  authorization SHALL be deny-by-default, least-privilege, policy-driven, and
-  enforced at every trust boundary.
-- Secrets SHALL use institution-controlled secret storage, short-lived credentials
-  where possible, documented rotation, and immediate revocation procedures.
-- Threat modelling SHALL cover misuse, compromised identities, malicious inputs,
-  dependency compromise, data exfiltration, denial of service, and unsafe
-  automation. High-impact actions require explicit confirmation and audit.
-- Logs, traces, diagnostics, and model context SHALL exclude protected content
-  unless explicitly required, minimized, access-controlled, and retained by policy.
+Inherits [baseline data controls](../architecture/Cross-Cutting-Architecture-Requirements.md#security-privacy-and-data); local extensions remain normative.
 
 ## Deployment, environments, and configuration
 
@@ -95,16 +113,7 @@ Inherits [baseline capacity controls](../architecture/Cross-Cutting-Architecture
 
 ## Failure, recovery, and compatibility
 
-- Required lifecycle behaviour includes scheduled review, expiry and renewal, succession, incident escalation, member offboarding, exception closure, and policy publication.
-- Dependencies SHALL have timeouts, bounded retries with jitter, circuit breakers,
-  health reporting, and documented degraded modes. Security and authorization
-  failures SHALL fail closed.
-- Stateful implementations SHALL meet manifest-declared RPO and RTO values and
-  prove backup restoration before production. Stateless components SHALL be
-  replaceable from source, configuration, and signed artifacts.
-- Releases SHALL support rollback and a compatibility window covering the current
-  major contract version and one prior major version unless an ADR documents a
-  safer domain-specific migration.
+Inherits [baseline reliability controls](../architecture/Cross-Cutting-Architecture-Requirements.md#reliability-and-compatibility); local extensions remain normative.
 
 ## Observability, testing, and operational readiness
 
@@ -112,19 +121,11 @@ Inherits [baseline evidence controls](../architecture/Cross-Cutting-Architecture
 
 ## Standards and implementation strategy
 
-- Adopted boundary and strategy: transparent open governance, documented authority, repository-native change control, and institution-local legal authority.
-- Implementations SHALL follow **adopt → extend → compatible fork → build**.
-  Building a new primitive requires an ADR demonstrating that mature alternatives
-  fail the requirements and that long-term maintenance is funded.
-- Product selection is replaceable behind the contract. Product-specific APIs
-  SHALL remain inside adapters and SHALL NOT leak into portable clients or domain
-  contracts.
+Follows adopt, extend, fork, then build ([ADR-0001](../architecture/architecture-decision-records/ADR-0001-standards-first-buy-borrow-build.md)).
 
 ## Settled architecture constraints
 
-- A new proprietary primitive requires evidence that standards, mature implementations, extensions, and compatible forks are inadequate.
-- Institutional identity, infrastructure, secrets, policies, and production data remain College-controlled.
-- Any exception follows the adopt → extend → compatible fork → build hierarchy and requires an ADR with evidence.
+The accepted constraints are the ADRs listed below and the precedence rules in [Architecture Authority and Precedence](../architecture/Architecture-Authority-and-Precedence.md).
 
 ## Decision traceability
 
@@ -161,7 +162,7 @@ The requirements in this document are normative. Owners MUST implement them, SHO
 
 ## Acceptance and review
 
-Acceptance requires the documented controls, tests, operator ownership, and evidence to be complete. The owner reviews this policy on material architecture change and at least once per release cycle.
+Acceptance requires, for each stored data class, a declared retention value, an automated deletion job with evidence, a deletion-propagation test across indexes, caches and replicas, and a restore test showing deleted data is not resurrected. The owner reviews this policy at least annually and whenever law, institutional policy, backup practice or a data flow changes.
 
 ## References
 
