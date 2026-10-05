@@ -73,6 +73,8 @@ These are constraints or profiles still to be given values, not retention period
 | Remote media cache | Bounded cache | FED-009 |
 | Logs, traces, metrics | Data-class-aware minimums set by SRE with privacy | OPS-003 |
 
+### Institution values still required
+
 Every other retention period is an institution value, supplied through its retention authority records and approved by the data steward for that domain (GOV-011).
 
 ### Deletion must reach every copy
