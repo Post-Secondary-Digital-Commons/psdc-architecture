@@ -1,0 +1,20 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "positive.ai.presentation-state",
+  "category": "positive",
+  "schemaId": "urn:psdc:contracts:ai:presentation-state:1",
+  "description": "Response is ready while paced presentation remains in progress and immediate reveal is available.",
+  "expected": { "schemaValid": true, "semanticOutcome": "accept" },
+  "instance": {
+    "contractVersion": "1.0",
+    "sessionId": "22222222-2222-4222-8222-222222222222",
+    "responseId": "66666666-6666-4666-8666-666666666666",
+    "generationState": "ready",
+    "presentationState": "presenting",
+    "pacedPresentation": true,
+    "immediateRevealAvailable": true,
+    "reducedMotion": false,
+    "updatedAt": "2026-10-07T14:00:04Z"
+  }
+}
+

@@ -431,6 +431,21 @@ architecture choices.
 | ROAD-015 | Canadian expansion gate | Expand only after provincial sovereignty, operations and economics are proven | Canadian consortium governance | After Ontario production evidence |
 | ROAD-016 | Roadmap ordering model | Phases 0 to 10 order institution adoption; waves A to E order common implementation; the wave-to-phase mapping in ADR-0032 applies; an early build on synthetic data never passes a phase gate | Steering group | Accepted by ADR-0032 |
 
+## 15. Adaptive AI sessions and governed agent workspace
+
+| ID | Human choice | Accepted project default | Decision authority | Gate |
+|---|---|---|---|---|
+| AI-020 | Constrained-compute interaction architecture | Dual-lane adaptive session with fast interaction, asynchronous deliberation, verifier and versioned context package | Founder + AI architecture | Accepted by ADR-0033 |
+| AI-021 | Per-session adaptation | Context, retrieval, preferences and governed memory; no ordinary live weight fine-tuning | AI architecture + privacy | Accepted by ADR-0033 |
+| AI-022 | Draft and typing telemetry | Local and untransmitted by default; optional consented debounced anticipatory mode; raw timing never leaves device | Founder + privacy | Accepted by ADR-0033 |
+| AI-023 | Cache semantics | UI state, semantic result, context package and KV/prefix cache are separate classes with separate isolation and retention | AI + storage + privacy | Accepted by ADR-0033 |
+| AI-024 | Minimal AI interface | Calm canvas with semantic input, progressive disclosure, explicit state, conventional accessible fallback and developer mode | Founder + product + accessibility | Accepted by ADR-0033 |
+| AI-025 | Response pacing | Presentation is independent of generation; immediate reveal and reduced-motion controls are mandatory | Product + accessibility | Accepted by ADR-0033 |
+| AI-026 | AI capacity degradation | Preserve policy; reserve fast-lane capacity; disclose degraded route; use approved local/federated ladder only | AI + compute + governance | Accepted by ADR-0033 |
+| DEV-008 | Workspace knowledge plane | PSDC root remains Obsidian-compatible command and knowledge plane over independent repositories | Founder + developer experience | Accepted by ADR-0034 |
+| DEV-009 | Agent skills strategy | Governed common skill pack, pinned upstream, PSDC adaptations and thin institution overlays | Founder + developer experience | Accepted by ADR-0034; import review open |
+| DEV-010 | Matt Pocock skills candidates | Adopt selected planning/domain/research/writing patterns after immutable provenance and security review; implementation skills remain disabled | Developer experience + security | Provenance gate before import |
+
 ## Decision record template
 
 For each open/proposed row, record:

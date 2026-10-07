@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:psdc:contracts:ai:session-context-package:1",
+  "title": "PSDC AI Session Context Package",
+  "description": "Model-independent, derived session context. It conveys no authorization and contains no hidden chain-of-thought or model KV state.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "packageId", "institutionId", "sessionId", "subjectId", "generation", "status", "purpose", "dataClassification", "producer", "policyVersion", "createdAt", "expiresAt", "goal", "allowedTaskClasses", "facts", "assumptions", "openQuestions", "evidence", "signature"],
+  "properties": {
+    "contractVersion": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/contractVersion" },
+    "packageId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "institutionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/institutionId" },
+    "sessionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "subjectId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" },
+    "generation": { "type": "integer", "minimum": 1 },
+    "supersedesPackageId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "status": { "enum": ["proposed", "accepted", "superseded", "revoked", "expired"] },
+    "purpose": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" },
+    "dataClassification": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/dataClassification" },
+    "producer": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" },
+    "policyVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "goal": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "outputPreferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "style": { "type": "string", "maxLength": 128 },
+        "detail": { "enum": ["brief", "standard", "deep"] },
+        "language": { "type": "string", "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$" },
+        "pacedPresentation": { "type": "boolean" }
+      }
+    },
+    "allowedTaskClasses": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" } },
+    "facts": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "evidenceIndexes"],
+        "properties": {
+          "claim": { "type": "string", "minLength": 1, "maxLength": 2000 },
+          "evidenceIndexes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer", "minimum": 0 } }
+        }
+      }
+    },
+    "assumptions": { "type": "array", "maxItems": 64, "items": { "type": "string", "minLength": 1, "maxLength": 1000 } },
+    "openQuestions": { "type": "array", "maxItems": 64, "items": { "type": "string", "minLength": 1, "maxLength": 1000 } },
+    "evidence": { "type": "array", "maxItems": 128, "items": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/evidenceRef" } },
+    "signature": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/signature" }
+  }
+}
+

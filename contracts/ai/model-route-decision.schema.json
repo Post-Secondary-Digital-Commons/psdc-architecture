@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:psdc:contracts:ai:model-route-decision:1",
+  "title": "PSDC AI Model Route Decision",
+  "description": "Auditable AI capability selection. It does not select or authorize a compute provider.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "decisionId", "institutionId", "sessionId", "requestId", "generation", "decidedAt", "policyVersion", "route", "capability", "riskLevel", "dataClassification", "reasons", "placementRequired", "signature"],
+  "properties": {
+    "contractVersion": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/contractVersion" },
+    "decisionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "institutionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/institutionId" },
+    "sessionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "requestId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "generation": { "type": "integer", "minimum": 1 },
+    "decidedAt": { "type": "string", "format": "date-time" },
+    "policyVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "route": { "enum": ["fast", "deliberative", "parallel", "degraded", "queued", "refused"] },
+    "capability": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" },
+    "fastModelAlias": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" },
+    "deliberativeModelAlias": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/boundedId" },
+    "riskLevel": { "enum": ["low", "moderate", "high", "prohibited"] },
+    "dataClassification": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/dataClassification" },
+    "reasons": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" } },
+    "deadlineAt": { "type": "string", "format": "date-time" },
+    "maximumQueueSeconds": { "type": "integer", "minimum": 0, "maximum": 86400 },
+    "placementRequired": { "type": "boolean" },
+    "computePlacementDecisionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "degradationNotice": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "signature": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/signature" }
+  }
+}
+

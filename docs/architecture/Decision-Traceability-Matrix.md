@@ -43,6 +43,8 @@
 | ADR-0030 Network copyleft and commercial contribution | PSDC service/client/contract license boundaries and participant agreements | AGPL target for services, open interoperability contracts, and mandatory upstream offers for recognized participants |
 | ADR-0031 Off-chain operations and on-chain settlement | PostgreSQL, evidence storage, batch builder, Cosmos-derived ledger and reconciliation | Fast mutable local operation with deterministic federated settlement; the ledger is not the scheduler database |
 | ADR-0032 Data-plane gateway boundary and two-axis roadmap | Client access to backends; ordering of common implementation waves versus institution phases | Clients reach storage, inference and workers only through the institution gateway; waves and phases are separate axes with an accepted mapping |
+| ADR-0033 Dual-lane adaptive AI sessions | AI sessions, model routing, context packages, caches, capacity, privacy and minimal clients | Fast interaction and asynchronous deliberation cooperate through versioned model-independent context; drafts stay local by default |
+| ADR-0034 Governed agent skills and workspace knowledge plane | Obsidian workspace, repository catalog, generated dashboards and common agent skills | The polyrepo remains authoritative; generated views are derived; third-party skills are pinned, reviewed and PSDC-bounded before import |
 
 ## Required use
 

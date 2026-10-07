@@ -1,0 +1,29 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "positive.ai.model-route-decision",
+  "category": "positive",
+  "schemaId": "urn:psdc:contracts:ai:model-route-decision:1",
+  "description": "Parallel fast and deliberative route that still requires a separate compute placement decision.",
+  "expected": { "schemaValid": true, "semanticOutcome": "accept" },
+  "instance": {
+    "contractVersion": "1.0",
+    "decisionId": "33333333-3333-4333-8333-333333333333",
+    "institutionId": "institution.example",
+    "sessionId": "22222222-2222-4222-8222-222222222222",
+    "requestId": "44444444-4444-4444-8444-444444444444",
+    "generation": 2,
+    "decidedAt": "2026-10-07T14:00:02Z",
+    "policyVersion": "2026.10.1",
+    "route": "parallel",
+    "capability": "ai.language.tutoring",
+    "fastModelAlias": "institution.fast-dialogue",
+    "deliberativeModelAlias": "institution.deliberative-general",
+    "riskLevel": "moderate",
+    "dataClassification": "confidential",
+    "reasons": ["CLARIFICATION_USEFUL", "DELIBERATION_REQUIRED"],
+    "maximumQueueSeconds": 30,
+    "placementRequired": true,
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#ai-router", "canonicalization": "RFC8785", "signedAt": "2026-10-07T14:00:02Z", "value": "bW9kZWwtcm91dGUtZGVjaXNpb24tc2ln" }
+  }
+}
+

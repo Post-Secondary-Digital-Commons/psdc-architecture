@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:psdc:contracts:ai:presentation-state:1",
+  "title": "PSDC AI Presentation State",
+  "description": "Client-facing distinction between response availability and presentation pacing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "sessionId", "responseId", "generationState", "presentationState", "pacedPresentation", "immediateRevealAvailable", "updatedAt"],
+  "properties": {
+    "contractVersion": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/contractVersion" },
+    "sessionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "responseId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "generationState": { "enum": ["not_started", "queued", "generating", "ready", "failed", "cancelled"] },
+    "presentationState": { "enum": ["hidden", "presenting", "paused", "complete"] },
+    "pacedPresentation": { "type": "boolean" },
+    "immediateRevealAvailable": { "type": "boolean" },
+    "reducedMotion": { "type": "boolean" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  }
+}
+

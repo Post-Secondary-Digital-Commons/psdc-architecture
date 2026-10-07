@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:psdc:contracts:ai:context-refresh-event:1",
+  "title": "PSDC AI Context Refresh Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "eventId", "institutionId", "sessionId", "requestId", "expectedGeneration", "eventType", "occurredAt", "reasonCode", "signature"],
+  "properties": {
+    "contractVersion": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/contractVersion" },
+    "eventId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "institutionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/institutionId" },
+    "sessionId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "requestId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "expectedGeneration": { "type": "integer", "minimum": 1 },
+    "resultGeneration": { "type": "integer", "minimum": 1 },
+    "eventType": { "enum": ["refresh_requested", "refresh_started", "package_proposed", "package_accepted", "package_rejected", "cancel_requested", "cancelled", "expired", "revoked", "failed"] },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "reasonCode": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" },
+    "packageId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "supersededPackageId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+    "signature": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/signature" }
+  }
+}
+

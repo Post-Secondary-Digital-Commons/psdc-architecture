@@ -28,11 +28,11 @@ data-routing, usage and provider-substitution tests.
 
 ## Purpose
 
-This index explains the purpose and placement of $dir and links readers to the authoritative documents it contains.
+This index explains the purpose and placement of the AI contract domain and links readers to the authoritative session architecture.
 
 ## Allowed contents
 
-This directory belongs to $repo. It may contain scoped documentation, contracts, configuration examples, tests, and navigation links owned by this repository.
+This directory belongs to `psdc-architecture`. It contains provider-neutral, institution-neutral model, routing, session-context and presentation contracts. Implementations live in `psdc-ai` and clients; this directory contains no runtime.
 
 ## Prohibited contents
 
@@ -40,12 +40,15 @@ It MUST NOT contain secrets, credentials, private infrastructure values, unrelat
 
 ## Owner
 
-The owning role is $owner; accountable maintenance remains with RedjiJB until a second maintainer is appointed.
+The owning role is PSDC AI Architecture Maintainers; accountable maintenance remains with RedjiJB until a second maintainer is appointed.
 
 ## Contents
 
-- `.gitkeep`
 - `README.md`
+- `session-context-package.schema.json` — model-independent, evidence-bearing session handoff
+- `model-route-decision.schema.json` — auditable fast/deliberative/degraded capability route; never compute placement
+- `context-refresh-event.schema.json` — generation-checked refresh, cancellation, revocation and failure events
+- `presentation-state.schema.json` — separates model generation from client presentation pacing
 
 ## Contribution and change control
 
@@ -55,4 +58,6 @@ Changes MUST use a pull request, preserve the repository boundary, update affect
 
 - [Ecosystem documentation quality standard](https://github.com/Post-Secondary-Digital-Commons/psdc-architecture/blob/main/docs/standards/Ecosystem-Documentation-Quality-Standard.md)
 - [Repository governance](https://github.com/Post-Secondary-Digital-Commons/psdc-architecture/blob/main/docs/governance/GitHub-Repository-Governance.md)
+- [Dual-lane adaptive session architecture](../../docs/ai/Dual-Lane-Adaptive-Session-Architecture.md)
+- [ADR-0033](../../docs/architecture/architecture-decision-records/ADR-0033-dual-lane-adaptive-ai-sessions.md)
 
