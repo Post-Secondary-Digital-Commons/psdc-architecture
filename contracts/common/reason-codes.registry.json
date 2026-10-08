@@ -1,5 +1,5 @@
 {
-  "$comment": "Registered reason codes for terminal lease transitions, usage-receipt outcomes and capability drains. A code distinguishes WHY a lease ended so billing, retry and provider reputation can treat owner-driven eviction differently from revocation for cause. Codes are append-only; never repurpose an existing code.",
+  "$comment": "Registered vocabulary for terminal lease transitions, usage-receipt assertions and capability drains. Provider or meter codes and providerFault defaults are not adjudicated facts or settlement authority. Economic and reputation effects require a verified, signed reason-adjudication record from the institution lease authority. Codes are append-only; never repurpose an existing code.",
   "registryVersion": "1.0",
   "codes": [
     { "code": "WORKLOAD_COMPLETED", "category": "normal", "appliesTo": ["lease:released"], "usageOutcomes": ["succeeded"], "retryableDefault": false, "providerFault": false, "description": "The workload finished and the lease was released by its owner." },

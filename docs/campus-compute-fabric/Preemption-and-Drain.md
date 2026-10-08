@@ -59,9 +59,20 @@ Preemption and drain describe how running work is stopped or moved when a donor 
 - **CCF-PREEMPT-017:** A capability in status `draining` SHALL state the drain request time, a grace period in seconds and a registered drain reason. When the grace period ends before a lease finishes or checkpoints, the lease is revoked with `DRAIN_DEADLINE`.
 - **CCF-PREEMPT-015:** Revoking a provider or capability SHALL make the lease authority evaluate each affected lease and append an explicit, signed, reason-coded terminal transition; it SHALL NOT silently rewrite or drop lease state. For a worker that cannot be reached, exposure is bounded by the lease `maximumDisconnectedSeconds`, not by instantaneous revocation (CP-3 in [Control Plane vs Data Plane](../architecture/Control-Plane-vs-Data-Plane.md)).
 
-**Resolved in the contracts.** The reason-code registry now separates owner eviction from revocation for cause, and the capability `drain` block carries the grace period. The validator enforces both.
+**Resolved structurally in candidate contracts.** The reason-code registry separates
+owner eviction from revocation for cause; the capability `drain` block carries
+the grace period; and the signed
+[reason-adjudication contract](../../contracts/compute/reason-adjudication.schema.json)
+separates a provider assertion from the lease authority's determination. The
+validator checks these shapes and contradictions, not real evidence or signatures.
 
-**Open questions.** (1) Which actor may assert each reason code, the evidence each requires, clock tolerance, and the billing, retry and provider-reputation treatment are not written; the registry only supplies the vocabulary and that gap is a blocker for economic use. (2) A sensible default and maximum grace period per trust tier. (3) Checkpoint and migration mechanics belong to [Checkpoint and Migration](Checkpoint-and-Migration.md), which is a stub.
+**Open questions.** (1) The actor-to-code permission matrix, minimum evidence
+per code, clock tolerance and institution-approved economic policy remain to be
+specified. The settlement service must verify the adjudication signature and
+join it to every incident receipt; disputed or missing adjudications cannot
+produce penalties or reputation effects. (2) A sensible default and maximum
+grace period per trust tier. (3) Checkpoint and migration mechanics belong to
+[Checkpoint and Migration](Checkpoint-and-Migration.md), which is a stub.
 
 ## Interfaces, APIs, events, and contracts
 
