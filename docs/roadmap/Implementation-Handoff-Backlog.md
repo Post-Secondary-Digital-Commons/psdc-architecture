@@ -73,6 +73,11 @@ No later phase may compensate for an authorization or contract defect in an earl
 | H-013 | psdc-deployment-template | OpenTofu/Ansible development profile for PostgreSQL, NATS, policy, evidence store, compute services and test ledger | H-004 through H-012 | clean offline-capable deployment, pinned images, secrets separation, backup/restore and teardown pass | D0 |
 | H-014 | psdc-compute | VS-01 orchestrated acceptance suite, operator runbook and evidence manifest | all prior packets | every VS-01 positive, denial, duplicate, cancellation, node/network/ledger loss and tamper scenario passes | D0 |
 
+The [H-006 candidate packet](H-006-Workload-Classification-Handoff.md) collects
+partial D1 contract material and synthetic decision cases. It does not promote
+H-006 above D0: the status/denial API, consumer review, prerequisites and
+independent classifier conformance evidence remain open.
+
 ## Packet preparation checklist
 
 Before promotion to D2, the owner MUST create the full handoff packet with exact contract

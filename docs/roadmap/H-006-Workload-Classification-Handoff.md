@@ -2,7 +2,7 @@
 
 > Standard: PSDC-DOC-001
 > Document type: roadmap
-> Status: D1 partial; **not D2 build-ready**
+> Status: H-006 D0; D1 contract material partial; **not D2 build-ready**
 > Owner: PSDC Compute Fabric Working Group
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-08
@@ -186,5 +186,6 @@ risk is that a schema-valid request is mistaken for an authorized placement.
 8. **H006-D2-008:** Produce clean bootstrap commands and a synthetic-only test environment in
    `psdc-compute`; prohibit real student or institutional records in test data.
 
-The packet stays D1 partial until these are closed. `psdc-compute` must not
+The H-006 packet stays D0 until its prerequisite and reviewer gates are closed;
+the attached contract material is only D1 partial. `psdc-compute` must not
 implement ambiguous behavior from this candidate as though it were accepted.

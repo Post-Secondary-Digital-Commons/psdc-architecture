@@ -128,7 +128,8 @@ of a new contract-link defect.
 
 The [H-006 handoff candidate](../roadmap/H-006-Workload-Classification-Handoff.md)
 now records class/backend decisions, synthetic cases, policy/error/timeout
-proposals, rollback and consumer-review requirements. It remains D1 partial:
+proposals, rollback and consumer-review requirements. The material is D1
+partial, but H-006 remains D0 under the handoff backlog:
 status/denial API, authorization and duplicate-command runtime tests, independent
 decision oracle and reviewer sign-off are not complete. Product implementation
 must not start merely because this candidate exists.
