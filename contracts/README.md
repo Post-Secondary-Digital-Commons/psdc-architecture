@@ -60,6 +60,26 @@ to prove byte-for-byte manifest reproducibility. It does not verify live signer 
 authorization currency, external revocation, referenced-object existence, transport behavior,
 or database transactionality; service conformance tests still own those semantics.
 
+The local H-001 signing experiment adds a detached Ed25519 attestation for a
+**candidate** bundle. `sign-contract-bundle.mjs` first verifies every declared
+file, sorted path and content-root digest, then signs the RFC 8785 canonical
+manifest with a caller-supplied private key. `verify-contract-bundle.mjs`
+rechecks the bytes and signature against a separately trusted public key and
+an expected key ID. The private key is never included in the bundle or printed.
+For a synthetic development key, run the bundle builder, then:
+
+```powershell
+node contracts/sign-contract-bundle.mjs <bundle-directory> <synthetic-private-key.pem> did:web:institution.example#bundle-test
+node contracts/verify-contract-bundle.mjs <bundle-directory> <synthetic-public-key.pem> did:web:institution.example#bundle-test
+```
+
+The test generates its own ephemeral key and covers wrong keys, changed files,
+changed manifest/signature, duplicate signing and undeclared files. A passing
+candidate attestation is **not** a contract release: key custody, revocation,
+source provenance, consumer compatibility, independent review, and a release
+authorization record remain unresolved. No institutional signing key belongs
+in this repository.
+
 ## Allowed and prohibited contents
 
 Contracts, examples, generated documentation, validation tooling, and synthetic conformance
