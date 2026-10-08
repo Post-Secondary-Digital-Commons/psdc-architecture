@@ -42,7 +42,7 @@
     "messages": {
       "providerChanged": { "name": "providerChanged", "title": "Provider registered, activated, suspended, revoked, or retired", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-data-schema": "urn:psdc:contracts:compute:provider:1" },
       "capabilityChanged": { "name": "capabilityChanged", "title": "Capability published, drained, unavailable, or revoked", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-data-schema": "urn:psdc:contracts:compute:capability:1" },
-      "workloadSubmitted": { "name": "workloadSubmitted", "title": "Workload submitted or cancelled", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-data-schema": "urn:psdc:contracts:compute:workload-manifest:1" },
+      "workloadSubmitted": { "name": "workloadSubmitted", "title": "Workload submitted", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-event-type": "org.psdc.compute.workload.submitted.v1", "x-psdc-data-schema": "urn:psdc:contracts:events:workload-submitted-data:1" },
       "workloadClassified": { "name": "workloadClassified", "title": "Workload classification recorded", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-data-schema": "urn:psdc:contracts:compute:classification-record:1" },
       "offerChanged": { "name": "offerChanged", "title": "Offer submitted, withdrawn, expired, accepted, or rejected", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-data-schema": "urn:psdc:contracts:compute:offer:1" },
       "decisionRecorded": { "name": "decisionRecorded", "title": "Placement decision recorded", "payload": { "$ref": "event-envelope.schema.json" }, "x-psdc-data-schema": "urn:psdc:contracts:compute:placement-decision:1" },

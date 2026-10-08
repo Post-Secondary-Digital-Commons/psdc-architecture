@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:psdc:contracts:events:workload-submitted-data:1",
+  "title": "PSDC Workload Submitted Event Data",
+  "description": "A reference to the immutable submitted manifest; the event does not distribute the manifest or its protected contents.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["workloadId"],
+  "properties": {
+    "workloadId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" }
+  }
+}

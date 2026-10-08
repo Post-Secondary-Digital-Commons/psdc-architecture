@@ -8,6 +8,7 @@ import addFormats from "ajv-formats";
 import SwaggerParser from "@apidevtools/swagger-parser";
 import { DiagnosticSeverity, Parser, fromFile } from "@asyncapi/parser";
 import canonicalize from "canonicalize";
+import { validateWorkloadSubmitTrace, validateLeaseCommandBindings } from "./validate-contract-bindings.mjs";
 
 const contractsRoot = path.dirname(fileURLToPath(import.meta.url));
 
@@ -442,6 +443,27 @@ for (const filePath of asyncApiFiles) {
   }
   if (!parsed.document) failures.push(`${relativePath}: official AsyncAPI parser produced no document`);
 }
+
+const trace = readJson(path.join(contractsRoot, "traceability", "workload-submit.trace.json"));
+const computeOpenApi = readJson(path.join(contractsRoot, "compute", "compute-control-plane.openapi.json"));
+const computeAsyncApi = readJson(path.join(contractsRoot, "events", "compute-fabric.asyncapi.json"));
+const fixtureById = new Map(fixtureFiles.map((filePath) => {
+  const fixture = readJson(filePath);
+  return [fixture.fixtureId, fixture];
+}));
+failures.push(...validateWorkloadSubmitTrace({
+  trace,
+  manifestSchema: schemaById.get(trace.manifestSchemaId),
+  eventDataSchema: schemaById.get(trace.event.dataSchemaId),
+  openApi: computeOpenApi,
+  asyncApi: computeAsyncApi,
+  fixtures: fixtureById
+}));
+failures.push(...validateLeaseCommandBindings({
+  registry: readJson(path.join(contractsRoot, "compute", "lease-commands.registry.json")),
+  machine: readJson(path.join(contractsRoot, "state-machines", "lease.machine.json")),
+  openApi: computeOpenApi
+}));
 
 if (failures.length > 0) {
   for (const failure of failures) console.error(`ERROR ${failure}`);

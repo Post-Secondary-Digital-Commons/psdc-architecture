@@ -1,0 +1,27 @@
+{
+  "traceVersion": "1.0",
+  "interfaceId": "workload.submit.v1",
+  "ownerRepository": "psdc-compute",
+  "manifestSchemaId": "urn:psdc:contracts:compute:workload-manifest:1",
+  "operation": {
+    "path": "/workloads",
+    "method": "post",
+    "operationId": "submitWorkload",
+    "requestSchemaRef": "workload-manifest.schema.json",
+    "acceptedStatus": "202",
+    "responseSchemaRef": "workload-manifest.schema.json",
+    "idempotencyParameterRef": "#/components/parameters/IdempotencyKey"
+  },
+  "event": {
+    "messageName": "workloadSubmitted",
+    "eventType": "org.psdc.compute.workload.submitted.v1",
+    "envelopeSchemaRef": "event-envelope.schema.json",
+    "dataSchemaId": "urn:psdc:contracts:events:workload-submitted-data:1"
+  },
+  "fixtures": {
+    "positiveManifest": "positive.compute.workload-manifest",
+    "negativeManifest": "negative.compute.workload-invalid-classification",
+    "positiveEventData": "positive.events.workload-submitted-data",
+    "positiveEventEnvelope": "positive.events.event-envelope"
+  }
+}

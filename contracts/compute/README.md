@@ -28,6 +28,12 @@ provider, capability, policy, offer, and placement records are valid and eligibl
 | `usage-receipt.schema.json` | trusted meter | evidence/settlement/dispute | signed interval measurements and governed evidence |
 | `compute-control-plane.openapi.json` | compute API owner | clients/services | OpenAPI 3.1 provider, capability, workload, market, lease, and receipt boundary |
 
+The first interface-specific binding is
+[`workload.submit.v1`](../traceability/workload-submit.trace.json). Its
+[contract trace](../../docs/campus-compute-fabric/Workload-Submission-Contract-Trace.md)
+distinguishes an accepted request from execution admission and binds the
+reference-only event data to its own schema.
+
 The schema order is provider/capability plus workload, then offer/decision, then lease, then
 receipt. Schema validity is necessary but not sufficient: services still verify signatures,
 authority, current time, freshness, capacity transactionality, generation fencing, policy,
@@ -45,6 +51,14 @@ applies if it comes first.
 ## Lease timing, receipt chains and command parity
 
 A lease carries absolute timestamps for audit plus two signed relative bounds. `leaseDurationSeconds` is the running time the worker enforces from its own monotonic start on acceptance and never exceeds the window between `issuedAt` and `expiresAt`. `maximumDisconnectedSeconds` is the longest the worker may run without authenticated contact and never exceeds the duration. A monotonic clock cannot interpret a UTC expiry, which is why durations are signed. The values themselves are set by policy per workload risk class; the contract only bounds them.
+
+**Handoff blocker:** the current duration bound is measured from issuance but
+enforced from worker acceptance. A delayed acceptance could run past the
+authorized absolute window. The per-generation remaining-time or cumulative
+lineage rule is not yet contracted; do not implement this lease as production
+authority until that rule and its race/renewal fixtures are reviewed. Registered
+reason codes likewise classify provider assertions, not authoritative fault
+adjudication for receipts or settlement.
 
 A usage-receipt chain is identified by `(leaseId, attempt, meterId)` unless a single canonical aggregator owns the whole lease attempt. Sequence one has no prior digest; later receipts name the preceding accepted receipt of the same chain. Uniqueness, gap-freedom, non-overlap and fork handling are operational-store invariants, not schema checks.
 
