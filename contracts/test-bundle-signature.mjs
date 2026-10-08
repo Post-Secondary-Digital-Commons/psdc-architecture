@@ -35,21 +35,25 @@ try {
   const output = path.join(temporaryRoot, "output");
   run("build-contract-bundle.mjs", [output]);
   const bundle = path.join(output, `${metadata.name}-${metadata.version}`);
+  const contentRoot = JSON.parse(fs.readFileSync(path.join(bundle, "manifest.json"), "utf8")).contentRoot;
+  const verifyArgs = [bundle, publicPath, keyId, contentRoot];
   run("sign-contract-bundle.mjs", [bundle, privatePath, keyId]);
   run("sign-contract-bundle.mjs", [bundle, privatePath, keyId], false);
-  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId]);
-  run("verify-contract-bundle.mjs", [bundle, otherPublicPath, keyId], false);
-  run("verify-contract-bundle.mjs", [bundle, publicPath, "did:web:institution.example#other"], false);
+  run("verify-contract-bundle.mjs", verifyArgs);
+  run("verify-contract-bundle.mjs", [bundle, otherPublicPath, keyId, contentRoot], false);
+  run("verify-contract-bundle.mjs", [bundle, publicPath, "did:web:institution.example#other", contentRoot], false);
+  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId, "0".repeat(64)], false);
+  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId], false);
 
   const firstFile = path.join(bundle, "contracts", "README.md");
   const original = fs.readFileSync(firstFile);
   fs.appendFileSync(firstFile, "\nmutation");
-  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId], false);
+  run("verify-contract-bundle.mjs", verifyArgs, false);
   fs.writeFileSync(firstFile, original);
 
   const extra = path.join(bundle, "unexpected.txt");
   fs.writeFileSync(extra, "unlisted");
-  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId], false);
+  run("verify-contract-bundle.mjs", verifyArgs, false);
   fs.unlinkSync(extra);
 
   const manifestPath = path.join(bundle, "manifest.json");
@@ -57,7 +61,7 @@ try {
   const changed = JSON.parse(manifest.toString("utf8"));
   changed.package.version = "forged";
   fs.writeFileSync(manifestPath, `${JSON.stringify(changed, null, 2)}\n`);
-  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId], false);
+  run("verify-contract-bundle.mjs", verifyArgs, false);
   fs.writeFileSync(manifestPath, manifest);
 
   const signaturePath = path.join(bundle, "signature.json");
@@ -65,11 +69,11 @@ try {
   const forged = JSON.parse(signature.toString("utf8"));
   forged.value = `${forged.value.slice(0, -2)}AA`;
   fs.writeFileSync(signaturePath, `${JSON.stringify(forged, null, 2)}\n`);
-  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId], false);
+  run("verify-contract-bundle.mjs", verifyArgs, false);
   fs.writeFileSync(signaturePath, signature);
-  run("verify-contract-bundle.mjs", [bundle, publicPath, keyId]);
+  run("verify-contract-bundle.mjs", verifyArgs);
 
-  process.stdout.write(`Candidate bundle signing checks passed: ${checks} build, valid, replay, wrong-key, tamper and undeclared-file cases. No release key used.\n`);
+  process.stdout.write(`Candidate bundle signing checks passed: ${checks} build, valid, duplicate-signing, wrong-key, wrong-pin, tamper and undeclared-file cases. No release key used.\n`);
 } finally {
   const resolved = path.resolve(temporaryRoot);
   const systemTemp = path.resolve(os.tmpdir());
