@@ -443,8 +443,8 @@ architecture choices.
 | AI-025 | Response pacing | Presentation is independent of generation; immediate reveal and reduced-motion controls are mandatory | Product + accessibility | Accepted by ADR-0033 |
 | AI-026 | AI capacity degradation | Preserve policy; reserve fast-lane capacity; disclose degraded route; use approved local/federated ladder only | AI + compute + governance | Accepted by ADR-0033 |
 | DEV-008 | Workspace knowledge plane | PSDC root remains Obsidian-compatible command and knowledge plane over independent repositories | Founder + developer experience | Accepted by ADR-0034 |
-| DEV-009 | Agent skills strategy | Governed common skill pack, pinned upstream, PSDC adaptations and thin institution overlays | Founder + developer experience | Accepted by ADR-0034; import review open |
-| DEV-010 | Matt Pocock skills candidates | Adopt selected planning/domain/research/writing patterns after immutable provenance and security review; implementation skills remain disabled | Developer experience + security | Provenance gate before import |
+| DEV-009 | Agent skills strategy | Governed common skill pack, pinned upstream, PSDC adaptations and thin institution overlays | Founder + developer experience | Accepted by ADR-0034; initial common import structurally validated, behavioral review open |
+| DEV-010 | Matt Pocock skills candidates | Adopt selected planning/domain/research/writing patterns after immutable provenance and security review; implementation skills remain disabled | Developer experience + security | Initial import recorded in `psdc-agent-skills`; behavioral and update reviews remain |
 
 ## Decision record template
 

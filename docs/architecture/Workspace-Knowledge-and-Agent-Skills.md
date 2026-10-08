@@ -35,7 +35,7 @@ accepted ADRs/register/policies
 `repos.yaml` catalogs repositories and dependencies. The Platform Home links the
 current state. Generated views include repository/dependency catalog, authority
 map, evidence/readiness registry, contract explorer, documentation debt and
-active vertical slices. `psdc-agent-skills` will own pinned, tested common agent
+active vertical slices. `psdc-agent-skills` owns pinned, tested common agent
 workflows; repositories consume a versioned manifest rather than mutable latest.
 
 ## Requirements

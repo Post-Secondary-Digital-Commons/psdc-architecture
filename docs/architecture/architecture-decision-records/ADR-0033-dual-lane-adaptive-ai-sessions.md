@@ -124,7 +124,7 @@ and dual-lane routing while retaining session export and audit evidence.
 
 ## Validation
 
-- `ADR33-ACC-001`: schemas reject an expired, cross-institution, unversioned or unscoped session context package.
+- `ADR33-ACC-001`: schemas reject unversioned or structurally unscoped context packages; consumer conformance tests reject packages that are expired, from another institution, or outside current authorization and policy scope. Schema validation alone does not establish those contextual facts.
 - `ADR33-ACC-002`: a test proves unsubmitted typing produces no network request in default mode.
 - `ADR33-ACC-003`: a stale or contradicted package causes escalation or an explicit bounded refusal, not an unsupported answer.
 - `ADR33-ACC-004`: capacity exhaustion returns a visible degraded route without bypassing policy or using an unapproved provider.

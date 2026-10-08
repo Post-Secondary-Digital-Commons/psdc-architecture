@@ -2,13 +2,13 @@
 
 > Standard: PSDC-DOC-001
 > Document type: provenance-record
-> Status: Proposed; import gated
+> Status: Initial import recorded; behavioral review open
 > Owner: PSDC Developer Experience Maintainers
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-07
 > Governing decisions: ADR-0001, ADR-0008, ADR-0034
 
-> Import state: no source imported. Upstream revision and digest remain an implementation gate.
+> Import state: reviewed upstream subset imported into the common skill pack; product implementation remains gated.
 
 ## Purpose and upstream
 
@@ -19,9 +19,13 @@ unreviewed mutable bundle.
 
 ## Commit, tag and license
 
-No commit or tag is pinned in this architecture-only adoption. The import PR MUST
-pin an immutable upstream revision and verify the MIT license and retained
-copyright notice for that revision.
+The common [`psdc-agent-skills`](https://github.com/Post-Secondary-Digital-Commons/psdc-agent-skills)
+repository pins `mattpocock/skills` commit
+`f3fc5632f401156837ee3872f14fe33ccf1024ea` in its skill registry. Its
+`config/upstream-files.sha256` records included-file digests, and
+`THIRD_PARTY_NOTICES.md` carries MIT attribution. Consumer repositories pin the
+common skill-pack commit separately. These records establish provenance and
+structural adoption, not behavioral confinement of a future agent invocation.
 
 ## Included and excluded paths
 
@@ -54,7 +58,7 @@ tests and MUST NOT enable an excluded skill merely because it exists upstream.
 
 ## Provenance and security gate
 
-Before import, record commit, tag, retrieval date, tree digest, MIT notice,
+For each new or updated import, record commit, tag, retrieval date, tree digest, MIT notice,
 included paths, excluded paths, script/dependency inventory, network behavior,
 filesystem writes, issue-tracker behavior, model/subagent invocation, security
 review, test results, local modifications, update cadence, patch budget and exit

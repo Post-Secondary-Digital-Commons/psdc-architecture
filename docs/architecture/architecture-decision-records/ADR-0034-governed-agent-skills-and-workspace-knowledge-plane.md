@@ -50,10 +50,11 @@ mutation boundaries.
 3. The workspace SHALL grow a generated command center, repository/dependency
    catalog, authority map, evidence/readiness registry, contract explorer and
    governed agent-workspace index.
-4. PSDC SHALL create a common `psdc-agent-skills` product when implementation is
-   authorized. It SHALL contain reviewed PSDC adaptations, an upstream lock,
-   license notices, policy, tests and versioned releases. Institution-specific
-   agent behavior belongs in thin institution overlays or forks.
+4. The common `psdc-agent-skills` repository owns reviewed PSDC adaptations,
+   an upstream lock, license notices, policy and tests. Consuming repositories
+   pin an immutable skill-pack commit. A versioned release remains a separate
+   distribution gate. Institution-specific agent behavior belongs in thin
+   institution overlays or forks.
 5. The initial approved upstream candidates are setup, grill-with-docs,
    domain-modeling, to-spec, to-tickets, wayfinder, research and
    writing-for-agents. Code-review, diagnosing-bugs and TDD are deferred until
@@ -71,7 +72,9 @@ mutation boundaries.
 The workspace becomes easier for humans and agents to navigate without merging
 repositories. PSDC accepts maintenance of a small governed skill distribution and
 must periodically reconcile upstream improvements. This ADR accepts the adoption
-strategy; it does not claim that upstream skills have been imported or tested.
+strategy. A separate provenance record must name the imported upstream revision
+and checks actually performed; structural tests do not prove agent behavior or
+authorize product implementation.
 
 ## Security, privacy and safety
 
