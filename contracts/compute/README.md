@@ -26,6 +26,7 @@ provider, capability, policy, offer, and placement records are valid and eligibl
 | `placement-decision.schema.json` | resolver | lease service/auditor | candidates, exclusions, algorithm, selected result |
 | `lease.schema.json` | lease service | worker/backend/meter | fencing generation, allocation, reservations, authority |
 | `usage-receipt.schema.json` | trusted meter | evidence/settlement/dispute | signed interval measurements and governed evidence |
+| `reason-adjudication.schema.json` | institution lease authority | settlement/dispute | signed, evidence-backed classification of provider assertions |
 | `compute-control-plane.openapi.json` | compute API owner | clients/services | OpenAPI 3.1 provider, capability, workload, market, lease, and receipt boundary |
 
 The first interface-specific binding is
@@ -40,6 +41,16 @@ authority, current time, freshness, capacity transactionality, generation fencin
 and referenced-object existence. `contracts/state-machines/` supplies machine-checked provider,
 capability, offer, lease, and receipt lifecycles.
 
+The required-field changes to `workload-manifest.schema.json` are a breaking
+**candidate-baseline correction**. The `1.0` wire label has not been released
+to an implementation or deployment; the tagged baseline was explicitly a
+draft. Prior candidate manifests lacking owner, criticality, budget or
+conditional objectives are rejected. Before a supported v1 release, the
+contract owner must approve this profile and the consumer migration plan.
+After release, the compatibility policy requires a new major version for
+another breaking change; this draft correction is not a precedent for
+rewriting a supported contract in place.
+
 ## Capability additions
 
 A capability advertisement may carry `compute.operatingSystem` (linux, windows, macos, other), `network` uplink
@@ -50,15 +61,27 @@ applies if it comes first.
 
 ## Lease timing, receipt chains and command parity
 
-A lease carries absolute timestamps for audit plus two signed relative bounds. `leaseDurationSeconds` is the running time the worker enforces from its own monotonic start on acceptance and never exceeds the window between `issuedAt` and `expiresAt`. `maximumDisconnectedSeconds` is the longest the worker may run without authenticated contact and never exceeds the duration. A monotonic clock cannot interpret a UTC expiry, which is why durations are signed. The values themselves are set by policy per workload risk class; the contract only bounds them.
+A lease carries absolute timestamps for audit and a signed generation cap. Before
+activation the worker starts a monotonic timer, creates a one-use challenge and
+sends it to the lease authority. The authority signs an `activationGrant` bound
+to the challenge and generation, with remaining duration no greater than
+`expiresAt - grantedAt` or the generation cap. The worker enforces that duration
+from its **pre-request** timer start, so network delay cannot extend execution
+beyond the authority's absolute window. A replay, reboot, suspend or renewal
+cannot restart that timer; renewal requires a new fenced generation and challenge.
+`maximumDisconnectedSeconds` is a separate fail-stop cap. Schema and fixtures
+check the grant's internal bounds. A runtime must still prove nonce uniqueness,
+timer persistence/fail-stop, authorized generation transitions, clock authority
+and acceptance races before this is production authority.
 
-**Handoff blocker:** the current duration bound is measured from issuance but
-enforced from worker acceptance. A delayed acceptance could run past the
-authorized absolute window. The per-generation remaining-time or cumulative
-lineage rule is not yet contracted; do not implement this lease as production
-authority until that rule and its race/renewal fixtures are reviewed. Registered
-reason codes likewise classify provider assertions, not authoritative fault
-adjudication for receipts or settlement.
+Receipt reasons remain assertions. A separate signed
+`reason-adjudication.schema.json` records the lease authority's determination,
+the source receipt digest, evidence, policy decision and permitted effects.
+Disputed or unattributed cases carry no economic effects. Settlement must join
+each incident receipt to a verified confirmed adjudication or hold it for
+dispute; a receipt's reason code or registry default cannot set refunds,
+penalties or provider reputation by itself. Cross-object joins and settlement
+gating remain runtime obligations, not JSON Schema guarantees.
 
 A usage-receipt chain is identified by `(leaseId, attempt, meterId)` unless a single canonical aggregator owns the whole lease attempt. Sequence one has no prior digest; later receipts name the preceding accepted receipt of the same chain. Uniqueness, gap-freedom, non-overlap and fork handling are operational-store invariants, not schema checks.
 

@@ -1,0 +1,17 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "failure.compute.reason-disputed",
+  "category": "failure",
+  "schemaId": "urn:psdc:contracts:compute:reason-adjudication:1",
+  "description": "Conflicting provider and controller evidence leaves the incident disputed with no economic effects.",
+  "expected": { "schemaValid": true, "semanticOutcome": "failed", "statusPath": "/status", "expectedStatus": "disputed" },
+  "instance": {
+    "contractVersion": "1.0", "adjudicationId": "cccccccc-cccc-4ccc-8ccc-cccccccccccc", "leaseId": "66666666-6666-4666-8666-666666666666",
+    "receiptId": "d86cc9de-5c45-4c52-889c-44a30ea6c00f", "providerId": "provider.example.lab-a",
+    "assertedReasonCode": "OWNER_RECLAIM", "status": "disputed", "adjudicatorId": "lease-authority.example.v1", "authorityInstitutionId": "institution.example",
+    "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.reason.adjudication", "policyVersion": "1.0.0", "outcome": "allow" },
+    "decidedAt": "2026-09-27T14:07:00Z",
+    "evidence": [{ "uri": "s3://evidence/lease/conflict", "digest": "9292929292929292929292929292929292929292929292929292929292929292", "classification": "internal", "retentionClass": "retention.audit.7y" }],
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#lease-authority", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:07:00Z", "value": "ZGlzcHV0ZWQtYWRqdWRpY2F0aW9u" }
+  }
+}

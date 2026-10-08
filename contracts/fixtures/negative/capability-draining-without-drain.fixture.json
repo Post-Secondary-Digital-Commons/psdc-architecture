@@ -11,14 +11,14 @@
   "instance": {
     "contractVersion": "1.0",
     "capabilityId": "capability.lab-b.cpu",
-    "providerId": "provider.algonquin.lab-a",
+    "providerId": "provider.example.lab-a",
     "resourceId": "resource.lab-a.pool",
     "sequence": 42,
     "status": "draining",
     "observedAt": "2026-09-27T14:01:00Z",
     "expiresAt": "2026-09-27T14:06:00Z",
     "locality": {
-      "institutionId": "algonquin.example",
+      "institutionId": "institution.example",
       "zoneId": "zone.lab-a",
       "country": "CA",
       "campusClass": "lab"
@@ -56,7 +56,7 @@
     "interactiveUserPresent": true,
     "signature": {
       "algorithm": "Ed25519",
-      "keyId": "did:web:algonquin.example#provider-1",
+      "keyId": "did:web:institution.example#provider-1",
       "canonicalization": "RFC8785",
       "signedAt": "2026-09-27T14:01:00Z",
       "value": "Y2FwYWJpbGl0eS1zaWduYXR1cmU"

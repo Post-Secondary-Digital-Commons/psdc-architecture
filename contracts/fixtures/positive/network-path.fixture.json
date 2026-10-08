@@ -8,7 +8,7 @@
   "instance": {
     "contractVersion": "1.0",
     "pathId": "path.lab-a.dc-a",
-    "providerId": "network.algonquin.core",
+    "providerId": "network.example.core",
     "sequence": 12,
     "sourceZoneId": "zone.lab-a",
     "destinationZoneId": "zone.dc-a",
@@ -23,6 +23,6 @@
     "encryption": { "required": true, "modes": ["mTLS", "WireGuard"] },
     "egressMode": "institution_proxy",
     "federation": { "crossInstitution": false, "approvedPeerIds": [] },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:01:00Z", "value": "bmV0d29yay1wYXRoLXNpZ25hdHVyZQ" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:01:00Z", "value": "bmV0d29yay1wYXRoLXNpZ25hdHVyZQ" }
   }
 }

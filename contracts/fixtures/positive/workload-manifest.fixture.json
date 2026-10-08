@@ -10,19 +10,25 @@
     "workloadId": "11111111-1111-4111-8111-111111111111",
     "requestId": "22222222-2222-4222-8222-222222222222",
     "idempotencyKey": "vs01-request-00000001",
-    "requester": { "subjectId": "subject.synthetic.student-1", "institutionId": "algonquin.example", "projectId": "project.vs01" },
+    "requester": { "subjectId": "subject.synthetic.student-1", "institutionId": "institution.example", "projectId": "project.vs01" },
+    "accountableOwnerId": "owner.synthetic.project-1",
     "submittedAt": "2026-09-27T14:02:00Z",
     "purpose": "Execute the public synthetic VS-01 matrix fixture.",
     "dataClassification": "public",
     "workloadClass": "opportunistic_task",
+    "criticality": "experimental",
     "backendPreferences": ["task"],
     "resources": { "cpuMillis": 2000, "memoryBytes": 4294967296, "gpuCount": 0, "ephemeralStorageBytes": 10737418240, "nodeCount": 1 },
+    "parallelism": { "maximumConcurrentTasks": 1, "interTaskCommunication": "none", "checkpointCapable": true },
     "runtime": { "imageRef": "oci://registry.psdc.example/vs01/matrix:1.0.0", "imageDigest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "command": ["/app/run", "--fixture", "public"] },
     "placement": { "institutionScope": "local_only", "allowFederation": false, "minimumTrustTier": "pilot", "residencyCountries": ["CA"] },
-    "networkRequirements": { "egressMode": "none", "reservationRequired": false },
+    "networkRequirements": { "ingressMode": "none", "egressMode": "none", "reservationRequired": false },
+    "storageRequirements": [],
     "schedule": { "priority": 100, "preemptible": true, "deadline": "2026-09-27T15:00:00Z", "maxRuntimeSeconds": 900, "checkpointIntervalSeconds": 120 },
     "retryPolicy": { "maxAttempts": 3, "backoff": "exponential", "initialDelaySeconds": 10, "retryableReasonCodes": ["WORKER_LOST", "DEPENDENCY_TIMEOUT"] },
+    "budgetCeiling": { "unit": "IRU", "amount": "2.000" },
+    "softwareLicenseDecision": { "decisionId": "34343434-3434-4343-8343-343434343434", "policyId": "policy.software.license", "policyVersion": "1.0.0", "outcome": "allow" },
     "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.compute.admission", "policyVersion": "1.0.0", "outcome": "allow" },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#requester-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:02:00Z", "value": "d29ya2xvYWQtc2lnbmF0dXJl" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#requester-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:02:00Z", "value": "d29ya2xvYWQtc2lnbmF0dXJl" }
   }
 }

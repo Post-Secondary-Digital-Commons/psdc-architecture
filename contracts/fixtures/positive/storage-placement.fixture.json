@@ -11,7 +11,7 @@
     "objectId": "88888888-8888-4888-8888-888888888888",
     "objectDigest": "1414141414141414141414141414141414141414141414141414141414141414",
     "tier": 1,
-    "authorityInstitutionId": "algonquin.example",
+    "authorityInstitutionId": "institution.example",
     "status": "active",
     "issuedAt": "2026-09-27T14:01:00Z",
     "expiresAt": "2027-09-27T14:01:00Z",
@@ -23,6 +23,6 @@
     "encryptionEnvelopeRef": { "kind": "key-envelope", "id": "99999999-9999-4999-8999-999999999999" },
     "repairPolicy": { "repairThreshold": 1, "targetHealthyProviders": 2, "maximumRepairDelaySeconds": 3600 },
     "policyDecision": { "decisionId": "abababab-abab-4bab-8bab-abababababab", "policyId": "policy.storage.placement", "policyVersion": "1.0.0", "outcome": "allow" },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#storage-authority-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:01:00Z", "value": "c3RvcmFnZS1wbGFjZW1lbnQtc2ln" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#storage-authority-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:01:00Z", "value": "c3RvcmFnZS1wbGFjZW1lbnQtc2ln" }
   }
 }

@@ -1,0 +1,19 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.compute.reason-provider-self-adjudication",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:compute:reason-adjudication:1",
+  "description": "A provider may assert a reason but cannot sign the authoritative fault decision about itself.",
+  "expected": { "schemaValid": true, "semanticOutcome": "reject", "semanticViolation": "provider cannot adjudicate its own reason assertion" },
+  "instance": {
+    "contractVersion": "1.0", "adjudicationId": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb", "leaseId": "66666666-6666-4666-8666-666666666666",
+    "receiptId": "d86cc9de-5c45-4c52-889c-44a30ea6c00f", "receiptDigest": "9090909090909090909090909090909090909090909090909090909090909090",
+    "providerId": "provider.example.lab-a", "assertedReasonCode": "OWNER_RECLAIM", "status": "confirmed", "determinedReasonCode": "OWNER_RECLAIM",
+    "adjudicatorId": "provider.example.lab-a", "authorityInstitutionId": "institution.example",
+    "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.reason.adjudication", "policyVersion": "1.0.0", "outcome": "allow" },
+    "decidedAt": "2026-09-27T14:07:00Z",
+    "evidence": [{ "uri": "s3://evidence/lease/owner-return", "digest": "9191919191919191919191919191919191919191919191919191919191919191", "classification": "internal", "retentionClass": "retention.audit.7y" }],
+    "effects": { "retryable": true, "providerFault": false, "settlementDisposition": "ordinary" },
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#lease-authority", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:07:00Z", "value": "YWRqdWRpY2F0aW9uLXNpZ25hdHVyZQ" }
+  }
+}

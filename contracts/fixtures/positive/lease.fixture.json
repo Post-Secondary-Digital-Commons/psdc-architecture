@@ -16,12 +16,13 @@
     "decisionId": "55555555-5555-4555-8555-555555555555",
     "offerId": "44444444-4444-4444-8444-444444444444",
     "workloadId": "11111111-1111-4111-8111-111111111111",
-    "providerId": "provider.algonquin.lab-a",
+    "providerId": "provider.example.lab-a",
     "status": "active",
     "generation": 1,
     "issuedAt": "2026-09-27T14:04:05Z",
     "activateBy": "2026-09-27T14:05:05Z",
     "activatedAt": "2026-09-27T14:04:20Z",
+    "activationGrant": { "challengeId": "67676767-6767-4676-8676-676767676767", "generation": 1, "grantedAt": "2026-09-27T14:04:20Z", "remainingDurationSeconds": 600 },
     "renewalDeadline": "2026-09-27T14:17:00Z",
     "expiresAt": "2026-09-27T14:19:20Z",
     "allocatedResources": {
@@ -44,7 +45,7 @@
     "manifestDigest": "1212121212121212121212121212121212121212121212121212121212121212",
     "signature": {
       "algorithm": "Ed25519",
-      "keyId": "did:web:algonquin.example#lease-1",
+      "keyId": "did:web:institution.example#lease-1",
       "canonicalization": "RFC8785",
       "signedAt": "2026-09-27T14:04:05Z",
       "value": "bGVhc2Utc2lnbmF0dXJlLTAx"

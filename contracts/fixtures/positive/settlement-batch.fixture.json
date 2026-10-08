@@ -8,7 +8,7 @@
   "instance": {
     "contractVersion": "1.0",
     "batchId": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
-    "scope": { "kind": "institution", "institutionIds": ["algonquin.example"] },
+    "scope": { "kind": "institution", "institutionIds": ["institution.example"] },
     "sequenceRange": { "start": 1, "end": 1 },
     "previousBatchRoot": "0000000000000000000000000000000000000000000000000000000000000000",
     "window": { "startedAt": "2026-09-27T14:00:00Z", "endedAt": "2026-09-27T15:00:00Z" },
@@ -21,10 +21,10 @@
       { "accountId": "account.provider-lab-a", "delta": { "unit": "IRU", "amount": "0.18025" } }
     ],
     "evidence": { "uri": "s3://evidence/settlement/dddddddd", "digest": "1717171717171717171717171717171717171717171717171717171717171717", "classification": "internal", "retentionClass": "retention.finance.7y" },
-    "builderId": "settlement-builder.algonquin.v1",
+    "builderId": "settlement-builder.example.v1",
     "createdAt": "2026-09-27T15:01:00Z",
     "disputeDeadline": "2026-10-04T15:01:00Z",
     "status": "built",
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#settlement-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T15:01:00Z", "value": "c2V0dGxlbWVudC1iYXRjaC1zaWc" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#settlement-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T15:01:00Z", "value": "c2V0dGxlbWVudC1iYXRjaC1zaWc" }
   }
 }

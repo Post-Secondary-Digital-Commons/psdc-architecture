@@ -10,7 +10,7 @@
     "workloadId": "10101010-1010-4010-8010-101010101010",
     "requestId": "20202020-2020-4020-8020-202020202020",
     "idempotencyKey": "negative-request-0001",
-    "requester": { "subjectId": "subject.synthetic", "institutionId": "algonquin.example" },
+    "requester": { "subjectId": "subject.synthetic", "institutionId": "institution.example" },
     "submittedAt": "2026-09-27T16:00:00Z",
     "purpose": "Demonstrate classification rejection.",
     "dataClassification": "secret_unregistered",
@@ -22,6 +22,6 @@
     "schedule": { "priority": 10, "preemptible": true, "maxRuntimeSeconds": 60 },
     "retryPolicy": { "maxAttempts": 1, "backoff": "none", "initialDelaySeconds": 0 },
     "policyDecision": { "decisionId": "30303030-3030-4030-8030-303030303030", "policyId": "policy.compute.admission", "policyVersion": "1.0.0", "outcome": "deny" },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#requester-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T16:00:00Z", "value": "bmVnYXRpdmUtd29ya2xvYWQtc2ln" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#requester-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T16:00:00Z", "value": "bmVnYXRpdmUtd29ya2xvYWQtc2ln" }
   }
 }

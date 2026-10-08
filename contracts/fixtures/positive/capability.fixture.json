@@ -8,18 +8,18 @@
   "instance": {
     "contractVersion": "1.0",
     "capabilityId": "capability.lab-a.gpu",
-    "providerId": "provider.algonquin.lab-a",
+    "providerId": "provider.example.lab-a",
     "resourceId": "resource.lab-a.pool",
     "sequence": 42,
     "status": "available",
     "observedAt": "2026-09-27T14:01:00Z",
     "expiresAt": "2026-09-27T14:06:00Z",
-    "locality": { "institutionId": "algonquin.example", "zoneId": "zone.lab-a", "country": "CA", "campusClass": "lab" },
+    "locality": { "institutionId": "institution.example", "zoneId": "zone.lab-a", "country": "CA", "campusClass": "lab" },
     "trust": { "tier": "pilot", "attestationStatus": "valid", "attestationRef": { "kind": "attestation", "id": "attestation.lab-a.42", "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" } },
     "compute": { "architecture": "amd64", "cpuModelClass": "x86-64-v3", "backends": ["task"], "runtimes": ["oci-1.1"], "accelerators": [{ "kind": "gpu", "modelClass": "cuda-compatible-lab", "count": 1, "memoryBytes": 8589934592, "partitioning": "none" }] },
     "available": { "cpuMillis": 8000, "memoryBytes": 34359738368, "gpuCount": 1, "gpuMemoryBytes": 8589934592, "ephemeralStorageBytes": 107374182400, "nodeCount": 1 },
     "pressure": "low",
     "interactiveUserPresent": false,
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#provider-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:01:00Z", "value": "Y2FwYWJpbGl0eS1zaWduYXR1cmU" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#provider-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:01:00Z", "value": "Y2FwYWJpbGl0eS1zaWduYXR1cmU" }
   }
 }

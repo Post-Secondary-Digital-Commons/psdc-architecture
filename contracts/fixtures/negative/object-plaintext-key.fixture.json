@@ -9,7 +9,7 @@
     "contractVersion": "1.0",
     "objectId": "40404040-4040-4040-8040-404040404040",
     "owner": { "kind": "project", "id": "project.negative" },
-    "institutionId": "algonquin.example",
+    "institutionId": "institution.example",
     "createdAt": "2026-09-27T16:00:00Z",
     "contentDigest": "4040404040404040404040404040404040404040404040404040404040404040",
     "sizeBytes": 128,
@@ -20,6 +20,6 @@
     "encryption": { "mode": "client_side_envelope", "contentAlgorithm": "AES-256-GCM", "keyEnvelopeRef": { "kind": "key-envelope", "id": "envelope.negative" }, "keyVersion": 1, "plaintextKey": "DO-NOT-ACCEPT" },
     "retention": { "class": "retention.test", "deletionPolicy": "automatic_verified", "legalHold": false },
     "residency": { "allowedCountries": ["CA"], "allowFederation": false, "publicNetworkAllowed": false },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#storage-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T16:00:00Z", "value": "bmVnYXRpdmUtb2JqZWN0LXNpZw" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#storage-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T16:00:00Z", "value": "bmVnYXRpdmUtb2JqZWN0LXNpZw" }
   }
 }

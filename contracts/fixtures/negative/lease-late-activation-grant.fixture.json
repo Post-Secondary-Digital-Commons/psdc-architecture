@@ -1,0 +1,21 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.compute.lease-late-activation-grant",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:compute:lease:1",
+  "description": "A late activation grant cannot reuse the full issue-time duration past absolute expiry.",
+  "expected": { "schemaValid": true, "semanticOutcome": "reject", "semanticViolation": "activation grant exceeds remaining expiry window" },
+  "instance": {
+    "contractVersion": "1.0", "leaseId": "61616161-6161-4616-8616-616161616161", "decisionId": "55555555-5555-4555-8555-555555555555",
+    "offerId": "44444444-4444-4444-8444-444444444444", "workloadId": "11111111-1111-4111-8111-111111111111",
+    "providerId": "provider.example.lab-a", "status": "active", "generation": 1,
+    "issuedAt": "2026-09-27T14:00:00Z", "activateBy": "2026-09-27T14:09:00Z", "activatedAt": "2026-09-27T14:08:30Z", "expiresAt": "2026-09-27T14:10:00Z",
+    "leaseDurationSeconds": 600, "maximumDisconnectedSeconds": 30,
+    "activationGrant": { "challengeId": "67676767-6767-4676-8676-676767676767", "generation": 1, "grantedAt": "2026-09-27T14:08:30Z", "remainingDurationSeconds": 600 },
+    "allocatedResources": { "cpuMillis": 1000, "memoryBytes": 1073741824 },
+    "creditReservation": { "unit": "IRU", "amount": "0.100" },
+    "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.compute.admission", "policyVersion": "1.0.0", "outcome": "allow" },
+    "manifestDigest": "6060606060606060606060606060606060606060606060606060606060606060",
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#lease-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:08:30Z", "value": "ZXhhbXBsZS1sZWFzZS1zaWduYXR1cmU" }
+  }
+}

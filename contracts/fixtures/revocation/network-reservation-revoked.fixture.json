@@ -23,6 +23,6 @@
     "destinationZoneId": "zone.dc-a",
     "policyDecision": { "decisionId": "91919191-9191-4191-8191-919191919191", "policyId": "policy.network.reservation", "policyVersion": "1.0.1", "outcome": "deny" },
     "reason": { "code": "POLICY_REVOKED", "message": "Updated policy revoked the reservation.", "retryable": false },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:08:00Z", "value": "cmV2b2tlZC1uZXR3b3JrLXNpZw" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:08:00Z", "value": "cmV2b2tlZC1uZXR3b3JrLXNpZw" }
   }
 }

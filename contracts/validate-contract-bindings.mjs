@@ -60,5 +60,19 @@ export function validateLeaseCommandBindings({ registry, machine, openApi }) {
   const request = openApi.components?.requestBodies?.[registry.openApi.requestBody]?.content?.["application/json"]?.schema;
   fail(request?.required?.includes("expectedGeneration") && request?.properties?.expectedGeneration?.type === "integer" && request?.properties?.expectedGeneration?.minimum === 1,
     "bound transition request body lacks a generation fence");
+  fail(request?.properties?.activationChallengeId?.type === "string" && request?.properties?.activationChallengeId?.format === "uuid",
+    "bound transition request body lacks an activation challenge field");
+  return findings;
+}
+
+export function validateReasonAdjudicationBinding({ schema, openApi, positiveFixture }) {
+  const findings = [];
+  const fail = (condition, message) => { if (!condition) findings.push(`reason adjudication binding: ${message}`); };
+  const operation = openApi.paths?.["/reason-adjudications"]?.post;
+  fail(schema?.$id === "urn:psdc:contracts:compute:reason-adjudication:1", "reason schema ID differs from the candidate contract");
+  fail(operation?.operationId === "publishReasonAdjudication", "live operationId differs from the reason contract");
+  fail(operation?.requestBody?.content?.["application/json"]?.schema?.$ref === "reason-adjudication.schema.json", "live request body is not bound to the reason schema");
+  fail(operation?.parameters?.some((parameter) => parameter.$ref === "#/components/parameters/IdempotencyKey"), "live operation lacks idempotency");
+  fail(positiveFixture?.schemaId === schema?.$id && positiveFixture?.instance?.status === "confirmed", "positive fixture is not a confirmed reason adjudication");
   return findings;
 }

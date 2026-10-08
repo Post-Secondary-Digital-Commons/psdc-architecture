@@ -19,6 +19,6 @@
     "selectedOfferId": "44444444-4444-4444-8444-444444444444",
     "decidedAt": "2026-09-27T14:04:00Z",
     "reason": { "code": "SELECTED_BEST_ELIGIBLE", "message": "Highest score among policy-eligible offers.", "retryable": false },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#resolver-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:04:00Z", "value": "ZGVjaXNpb24tc2lnbmF0dXJl" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#resolver-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:04:00Z", "value": "ZGVjaXNpb24tc2lnbmF0dXJl" }
   }
 }

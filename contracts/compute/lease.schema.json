@@ -19,8 +19,18 @@
     "activatedAt": { "type": "string", "format": "date-time" },
     "renewalDeadline": { "type": "string", "format": "date-time" },
     "expiresAt": { "type": "string", "format": "date-time" },
-    "leaseDurationSeconds": { "type": "integer", "minimum": 1, "maximum": 604800, "description": "Signed running time the worker enforces from its local monotonic start on acceptance. Never longer than expiresAt minus issuedAt." },
+    "leaseDurationSeconds": { "type": "integer", "minimum": 1, "maximum": 604800, "description": "Upper bound for a generation's activation grant, not a timer started on receipt of the issued lease." },
     "maximumDisconnectedSeconds": { "type": "integer", "minimum": 0, "maximum": 86400, "description": "Longest the worker may keep running without authenticated contact before it fail-stops. Not greater than leaseDurationSeconds." },
+    "activationGrant": {
+      "type": "object", "additionalProperties": false, "required": ["challengeId", "generation", "grantedAt", "remainingDurationSeconds"],
+      "description": "Lease-authority grant bound to a one-use challenge. The worker starts its monotonic timer before sending the challenge and never restarts it on delivery or replay.",
+      "properties": {
+        "challengeId": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" },
+        "generation": { "type": "integer", "minimum": 1 },
+        "grantedAt": { "type": "string", "format": "date-time" },
+        "remainingDurationSeconds": { "type": "integer", "minimum": 1, "maximum": 604800 }
+      }
+    },
     "terminalAt": { "type": "string", "format": "date-time" },
     "allocatedResources": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/resourceQuantity" },
     "networkReservationIds": { "type": "array", "uniqueItems": true, "items": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/uuid" } },
@@ -32,6 +42,7 @@
     "signature": { "$ref": "urn:psdc:contracts:common:definitions:1#/$defs/signature" }
   },
   "allOf": [
+    { "if": { "properties": { "status": { "enum": ["active", "renewal_pending"] } }, "required": ["status"] }, "then": { "required": ["activatedAt", "activationGrant"] } },
     { "if": { "properties": { "status": { "enum": ["released", "expired", "revoked", "failed"] } }, "required": ["status"] }, "then": { "required": ["terminalAt", "reason"] } }
   ]
 }

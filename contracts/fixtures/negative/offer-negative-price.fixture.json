@@ -9,7 +9,7 @@
     "contractVersion": "1.0",
     "offerId": "b0b0b0b0-b0b0-40b0-80b0-b0b0b0b0b0b0",
     "requestId": "22222222-2222-4222-8222-222222222222",
-    "providerId": "provider.algonquin.lab-a",
+    "providerId": "provider.example.lab-a",
     "capabilityId": "capability.lab-a.gpu",
     "sequence": 99,
     "status": "submitted",
@@ -19,6 +19,6 @@
     "prices": [{ "metric": "cpu_seconds", "billingUnit": "second", "price": { "unit": "IRU", "amount": "-1.0" } }],
     "healthSnapshotDigest": "b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0",
     "policySnapshotDigest": "b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1",
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#provider-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:03:00Z", "value": "bmVnYXRpdmUtcHJpY2Utc2lnbmF0dXJl" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#provider-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:03:00Z", "value": "bmVnYXRpdmUtcHJpY2Utc2lnbmF0dXJl" }
   }
 }

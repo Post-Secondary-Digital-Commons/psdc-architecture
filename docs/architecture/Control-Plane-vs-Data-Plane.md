@@ -66,10 +66,13 @@ The data plane does the work and moves the bytes: workers executing a leased wor
   [ADR-0032](architecture-decision-records/ADR-0032-data-plane-gateway-and-two-axis-roadmap.md)).
 - **CP-2:** Workers connect outbound to a cell gateway over mutual TLS; there is no unsolicited inbound connection to a lab machine (NET-004 in the [decision register](../governance/Human-Choices-and-Decisions-Register.md)).
 - **CP-3:** Leases are time-bounded. A lease carries absolute timestamps for audit and federation
-  plus signed relative bounds, `leaseDurationSeconds` and `maximumDisconnectedSeconds`. On
-  acceptance the worker records a local monotonic start and enforces the signed duration from
-  it; a monotonic clock measures elapsed time and cannot interpret a UTC expiry on its own. The
-  worker MUST NOT renew offline and MUST shorten, never extend, its authorization when its clock
+  plus a signed generation cap and disconnect bound. Before requesting activation, the worker
+  records a local monotonic start and sends a one-use challenge. The lease authority returns a
+  signed `activationGrant` bound to that challenge and generation, with `remainingDurationSeconds`
+  no greater than the time left at grant issuance. The worker enforces that duration from the
+  **pre-request** monotonic start, not from delivery or acceptance; delay only shortens usable
+  time. It MUST NOT reset the timer on replay or renew offline, and MUST shorten, never extend,
+  its authorization when its clock
   uncertainty is high. Reboot, suspend and resume end the local authorization unless the lease
   defines otherwise. Revocation takes effect when authenticated revocation evidence reaches the
   worker, so the maximum permitted exposure is `maximumDisconnectedSeconds`, not an impossible

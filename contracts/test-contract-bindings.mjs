@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { validateWorkloadSubmitTrace, validateLeaseCommandBindings } from "./validate-contract-bindings.mjs";
+import { validateWorkloadSubmitTrace, validateLeaseCommandBindings, validateReasonAdjudicationBinding } from "./validate-contract-bindings.mjs";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const read = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), "utf8"));
@@ -25,9 +25,15 @@ const lease = {
   machine: read("state-machines/lease.machine.json"),
   openApi: input.openApi
 };
+const adjudication = {
+  schema: read("compute/reason-adjudication.schema.json"),
+  openApi: input.openApi,
+  positiveFixture: read("fixtures/positive/reason-adjudication.fixture.json")
+};
 
 assert.deepEqual(validateWorkloadSubmitTrace(input), []);
 assert.deepEqual(validateLeaseCommandBindings(lease), []);
+assert.deepEqual(validateReasonAdjudicationBinding(adjudication), []);
 
 function mutateWorkload(name, mutate, expected) {
   const copy = structuredClone(input);
@@ -39,6 +45,11 @@ function mutateLease(name, mutate, expected) {
   mutate(copy);
   assert.ok(validateLeaseCommandBindings(copy).some((finding) => finding.includes(expected)), `${name} escaped validation`);
 }
+function mutateAdjudication(name, mutate, expected) {
+  const copy = structuredClone(adjudication);
+  mutate(copy);
+  assert.ok(validateReasonAdjudicationBinding(copy).some((finding) => finding.includes(expected)), `${name} escaped validation`);
+}
 
 mutateWorkload("wrong live request ref", (copy) => { copy.openApi.paths["/workloads"].post.requestBody.content["application/json"].schema.$ref = "offer.schema.json"; }, "request-body schema ref");
 mutateWorkload("missing live idempotency parameter", (copy) => { copy.openApi.paths["/workloads"].post.parameters = []; }, "idempotency parameter");
@@ -48,5 +59,7 @@ mutateWorkload("protected event body", (copy) => { copy.fixtures.get(copy.trace.
 mutateLease("wrong registry machine", (copy) => { copy.registry.machineId = "compute.offer.v1"; }, "machineId");
 mutateLease("unbound transition request body", (copy) => { copy.openApi.paths["/leases/{leaseId}/{action}"].post.requestBody.$ref = "#/components/requestBodies/ProviderTransitionRequest"; }, "request body does not reference");
 mutateLease("missing bound generation fence", (copy) => { copy.openApi.components.requestBodies.LeaseTransitionRequest.content["application/json"].schema.required = ["authorizationDecisionId", "reason"]; }, "generation fence");
+mutateLease("missing activation challenge", (copy) => { delete copy.openApi.components.requestBodies.LeaseTransitionRequest.content["application/json"].schema.properties.activationChallengeId; }, "activation challenge field");
+mutateAdjudication("wrong adjudication request ref", (copy) => { copy.openApi.paths["/reason-adjudications"].post.requestBody.content["application/json"].schema.$ref = "usage-receipt.schema.json"; }, "not bound to the reason schema");
 
-console.log("Contract binding mutation tests passed: 8 adversarial changes rejected.");
+console.log("Contract binding mutation tests passed: 10 adversarial changes rejected.");

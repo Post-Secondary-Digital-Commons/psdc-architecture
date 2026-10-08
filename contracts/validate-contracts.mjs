@@ -8,7 +8,7 @@ import addFormats from "ajv-formats";
 import SwaggerParser from "@apidevtools/swagger-parser";
 import { DiagnosticSeverity, Parser, fromFile } from "@asyncapi/parser";
 import canonicalize from "canonicalize";
-import { validateWorkloadSubmitTrace, validateLeaseCommandBindings } from "./validate-contract-bindings.mjs";
+import { validateWorkloadSubmitTrace, validateLeaseCommandBindings, validateReasonAdjudicationBinding } from "./validate-contract-bindings.mjs";
 
 const contractsRoot = path.dirname(fileURLToPath(import.meta.url));
 
@@ -87,7 +87,7 @@ function validateSemantics(schemaId, instance, relativePath, failures) {
     "urn:psdc:contracts:compute:capability:1": [["/observedAt", "/expiresAt"], ["/drain/requestedAt", "/observedAt"]],
     "urn:psdc:contracts:compute:workload-manifest:1": [["/submittedAt", "/schedule/deadline"]],
     "urn:psdc:contracts:compute:offer:1": [["/availableFrom", "/expiresAt"]],
-    "urn:psdc:contracts:compute:lease:1": [["/issuedAt", "/activateBy", "/expiresAt"], ["/issuedAt", "/activatedAt", "/expiresAt"], ["/issuedAt", "/renewalDeadline", "/expiresAt"]],
+    "urn:psdc:contracts:compute:lease:1": [["/issuedAt", "/activateBy", "/expiresAt"], ["/issuedAt", "/activatedAt", "/expiresAt"], ["/issuedAt", "/renewalDeadline", "/expiresAt"], ["/issuedAt", "/activationGrant/grantedAt", "/activatedAt", "/expiresAt"], ["/activatedAt", "/activateBy"]],
     "urn:psdc:contracts:compute:usage-receipt:1": [["/interval/startedAt", "/interval/endedAt", "/recordedAt"]],
     "urn:psdc:contracts:storage:placement:1": [["/issuedAt", "/expiresAt"]],
     "urn:psdc:contracts:network:path:1": [["/observedAt", "/expiresAt"]],
@@ -137,6 +137,24 @@ function validateReasonRules(schemaId, instance, relativePath, failures) {
     const windowSeconds = (Date.parse(instance.expiresAt) - Date.parse(instance.issuedAt)) / 1000;
     if (instance.leaseDurationSeconds > windowSeconds) failures.push(`${relativePath}: leaseDurationSeconds exceeds the window between issuedAt and expiresAt`);
     if (instance.maximumDisconnectedSeconds > instance.leaseDurationSeconds) failures.push(`${relativePath}: maximumDisconnectedSeconds exceeds leaseDurationSeconds`);
+    if (instance.activationGrant) {
+      const grant = instance.activationGrant;
+      const remainingWindow = (Date.parse(instance.expiresAt) - Date.parse(grant.grantedAt)) / 1000;
+      if (grant.generation !== instance.generation) failures.push(`${relativePath}: activation grant generation does not match lease generation`);
+      if (grant.remainingDurationSeconds > remainingWindow) failures.push(`${relativePath}: activation grant exceeds remaining expiry window`);
+      if (grant.remainingDurationSeconds > instance.leaseDurationSeconds) failures.push(`${relativePath}: activation grant exceeds lease duration cap`);
+      if (instance.maximumDisconnectedSeconds > grant.remainingDurationSeconds) failures.push(`${relativePath}: disconnected bound exceeds activation grant`);
+    }
+  }
+  if (schemaId === "urn:psdc:contracts:compute:reason-adjudication:1") {
+    if (instance.adjudicatorId === instance.providerId) failures.push(`${relativePath}: provider cannot adjudicate its own reason assertion`);
+    if (instance.status === "confirmed") {
+      const determined = reasonsByCode.get(instance.determinedReasonCode);
+      if (!determined || !determined.appliesTo.some((target) => target.startsWith("lease:"))) failures.push(`${relativePath}: determined reason is not a registered lease reason`);
+      if (instance.effects.providerFault && !determined?.providerFault) failures.push(`${relativePath}: provider fault effect contradicts determined reason`);
+      if (instance.effects.settlementDisposition === "penalty_review" && !instance.effects.providerFault) failures.push(`${relativePath}: penalty review requires an adjudicated provider fault`);
+      if (instance.policyDecision.outcome !== "allow") failures.push(`${relativePath}: confirmed adjudication requires an allowing policy decision`);
+    }
   }
   if (schemaId === "urn:psdc:contracts:compute:capability:1" && instance.drain) {
     const entry = reasonsByCode.get(instance.drain.reasonCode);
@@ -190,6 +208,7 @@ validateRegistry(failures);
 for (const filePath of fixtureFiles) {
   const fixture = readJson(filePath);
   const relativePath = path.relative(contractsRoot, filePath);
+  if (/algonquin/i.test(JSON.stringify(fixture))) failures.push(`${relativePath}: common conformance fixture contains an institution-specific Algonquin identifier`);
 
   if (!fixtureValidator(fixture)) {
     failures.push(`${relativePath}: invalid fixture wrapper: ${ajv.errorsText(fixtureValidator.errors, { separator: "; " })}`);
@@ -463,6 +482,11 @@ failures.push(...validateLeaseCommandBindings({
   registry: readJson(path.join(contractsRoot, "compute", "lease-commands.registry.json")),
   machine: readJson(path.join(contractsRoot, "state-machines", "lease.machine.json")),
   openApi: computeOpenApi
+}));
+failures.push(...validateReasonAdjudicationBinding({
+  schema: schemaById.get("urn:psdc:contracts:compute:reason-adjudication:1"),
+  openApi: computeOpenApi,
+  positiveFixture: fixtureById.get("positive.compute.reason-adjudication")
 }));
 
 if (failures.length > 0) {

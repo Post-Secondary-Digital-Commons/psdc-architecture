@@ -95,27 +95,25 @@ OpenAPI and AsyncAPI bindings, and eight seeded binding mutations. This is
 classifier, network gateway, event broker, requester client or retry behavior
 was executed.
 
-Three earlier lease-contract findings remain separate H-008/H-010 blockers:
+The earlier lease-contract findings now have candidate contract remediations,
+but remain runtime and integration handoff blockers:
 
-- The signed `leaseDurationSeconds` is measured from worker acceptance, which
-  can be late. A per-generation remaining-duration or cumulative-lineage bound
-  is needed so delayed acceptance and repeated renewal cannot outlive the
-  authorized absolute window without relying on an unsynchronized worker clock.
+- A signed `activationGrant` now bounds remaining time at grant issuance and
+  binds a one-use challenge to the lease generation. The worker must anchor its
+  monotonic timer before sending that challenge. Nonce replay, restart, suspend,
+  renewal and offline fail-stop behavior still require an executable worker test.
 - The live lease API request-body `$ref` and registry `machineId` require
   mutation-tested binding. The binding validator in this change addresses this
   *structural* defect, not lease transactionality or authorization.
-- Provider-controlled reason fields are assertions. Receipts and settlement
-  need an authoritative adjudication result before fault or preemption affects
-  credits; the current registry and receipt schema do not supply that authority.
+- Provider-controlled reason fields are assertions. The new reason-adjudication
+  contract supplies a distinct signed authority result; receipts and settlement
+  still need an executable join and hold/dispute gate before credits or
+  reputation can change.
 
-The older [classification specification](./Workload-Classification.md) also
-lists admission fields that the present manifest schema does not require,
-including criticality, accountable owner, budget ceiling, and service recovery
-objectives. The contract owner must reconcile per-workload mandatory fields,
-conditional requirements by workload class, and institution-policy inputs before
-claiming H-006 D2. Several common contract fixtures still contain Algonquin
-example identifiers; they need institution-neutral replacements and an overlay
-example before common conformance release.
+The [classification specification](./Workload-Classification.md) now separates
+core and conditional v1 inputs, with matching required and conditional schema
+rules. Institution-specific policy evaluation, bare-metal and hybrid-graph
+contracts, and classifier behavioral fixtures remain before H-006 D2.
 
 ## Verification and next gate
 

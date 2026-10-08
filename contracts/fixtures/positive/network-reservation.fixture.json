@@ -21,6 +21,6 @@
     "sourceZoneId": "zone.lab-a",
     "destinationZoneId": "zone.dc-a",
     "policyDecision": { "decisionId": "cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd", "policyId": "policy.network.reservation", "policyVersion": "1.0.0", "outcome": "allow" },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:04:00Z", "value": "bmV0d29yay1yZXNlcnZhdGlvbi1zaWc" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:04:00Z", "value": "bmV0d29yay1yZXNlcnZhdGlvbi1zaWc" }
   }
 }

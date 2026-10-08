@@ -7,18 +7,18 @@
   "expected": { "schemaValid": true, "semanticOutcome": "accept", "statusPath": "/status", "expectedStatus": "active" },
   "instance": {
     "contractVersion": "1.0",
-    "providerId": "provider.algonquin.lab-a",
-    "institutionId": "algonquin.example",
+    "providerId": "provider.example.lab-a",
+    "institutionId": "institution.example",
     "displayName": "Example Campus Lab A",
     "providerType": "campus",
-    "authorityDid": "did:web:algonquin.example",
+    "authorityDid": "did:web:institution.example",
     "status": "active",
     "trustTier": "pilot",
     "scopes": ["compute"],
     "sequence": 1,
     "issuedAt": "2026-09-27T14:00:00Z",
     "expiresAt": "2026-09-28T14:00:00Z",
-    "endpoints": [{ "kind": "capability", "uri": "https://compute.algonquin.example/capabilities" }],
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#provider-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:00:00Z", "value": "cHJvdmlkZXItc2lnbmF0dXJl" }
+    "endpoints": [{ "kind": "capability", "uri": "https://compute.institution.example/capabilities" }],
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#provider-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:00:00Z", "value": "cHJvdmlkZXItc2lnbmF0dXJl" }
   }
 }

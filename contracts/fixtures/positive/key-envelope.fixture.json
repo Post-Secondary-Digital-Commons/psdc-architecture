@@ -18,6 +18,6 @@
     "encryptedAt": "2026-09-27T14:00:00Z",
     "expiresAt": "2027-09-27T14:00:00Z",
     "status": "active",
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#kms-authority-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:00:00Z", "value": "a2V5LWVudmVsb3BlLXNpZ25hdHVyZQ" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#kms-authority-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:00:00Z", "value": "a2V5LWVudmVsb3BlLXNpZ25hdHVyZQ" }
   }
 }

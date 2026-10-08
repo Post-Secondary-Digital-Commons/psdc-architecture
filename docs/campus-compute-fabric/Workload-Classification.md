@@ -39,23 +39,35 @@ performed downstream after classification.
 
 ## Required manifest
 
-**CCF-WC-001:** The admission API MUST reject a manifest that omits:
+**CCF-WC-001:** The v1 admission API MUST reject a manifest missing its common
+core: workload and request identifiers, requester subject/institution/project,
+accountable owner, purpose, data classification, workload class and criticality;
+backend preferences; CPU, memory, accelerator count, scratch and node count;
+image reference and digest; maximum concurrent tasks and communication mode;
+institution/provider scope, trust tier and residency countries; ingress/egress
+mode; storage-requirement array (empty only when no governed object is needed);
+priority, preemption, maximum runtime, retry policy, budget ceiling, software
+license decision, admission-policy decision and contract version. The schema
+encodes these as required fields in
+[the workload manifest](../../contracts/compute/workload-manifest.schema.json).
 
-- workload ID, requester/project and accountable owner;
-- execution shape: service, VM, job, DAG, MPI or hybrid graph;
-- image or artifact digest and software license decision;
-- CPU, memory, accelerator, local scratch and estimated duration;
-- parallelism, inter-task communication and checkpoint capability;
-- latency, deadline, availability, RPO and RTO objectives;
-- data classifications, object references, residency and storage tier;
-- network ingress/egress, bandwidth, topology and protocol needs;
-- production criticality, trust tier and allowed provider scope;
-- budget ceiling, priority, preemption and retry policy;
-- policy bundle and schema versions.
+**Conditional inputs:** container, AI and critical services and VMs require
+availability, latency, RPO and RTO objectives. Critical and safety/records
+workloads additionally require non-preemptible scheduling; production trust,
+eligible failure domains and any exceptional federation are policy decisions
+that must be explicit and cannot be inferred from the JSON shape. MPI requires
+tightly coupled communication and a
+named network profile. Deadline, checkpoint interval, bandwidth, object
+references and specific provider IDs are required only when requested or when
+institution policy for that class demands them. Policy evaluates such conditions
+before bidding; JSON Schema does not prove that an institution's policy was run.
 
-Unknown classification, residency, owner, image digest or provider scope fails closed.
-Unknown duration or resource quantities MAY enter an explicitly bounded discovery queue,
-not a production queue.
+Unknown classification, residency, owner, image digest, budget or provider
+scope fails closed. The v1 submission contract rejects unknown duration or
+resource quantities. A bounded discovery queue would require a separate
+contract and is not silently implied by this API. Hybrid graphs and bare-metal
+appliances remain architecture targets, not v1 manifest classes; they require
+separate graph/stage or reservation contracts before admission.
 
 ## Classification hierarchy
 

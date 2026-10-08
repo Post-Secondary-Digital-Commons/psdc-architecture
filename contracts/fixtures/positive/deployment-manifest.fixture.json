@@ -7,13 +7,13 @@
   "expected": { "schemaValid": true, "semanticOutcome": "accept" },
   "instance": {
     "contractVersion": "1.0",
-    "deploymentId": "algonquin.example",
+    "deploymentId": "institution.example",
     "sequence": 1,
     "issuedAt": "2026-09-27T12:00:00Z",
     "expiresAt": "2026-10-27T12:00:00Z",
-    "branding": { "institutionName": "Example Institution", "productName": "Example Digital Commons", "supportUrl": "https://support.algonquin.example/", "privacyUrl": "https://algonquin.example/privacy" },
-    "endpoints": { "portal": "https://commons.algonquin.example/", "aiGateway": "https://ai.algonquin.example/", "sessionRelay": "https://relay.algonquin.example/", "updateManifest": "https://updates.algonquin.example/manifest.json" },
-    "oidc": { "issuer": "https://identity.algonquin.example/realms/commons", "authorizationFlow": "authorization_code_pkce", "webClientId": "commons-web", "desktopClientId": "commons-desktop", "mobileClientId": "commons-mobile", "scopes": ["openid", "profile"] },
-    "trust": { "manifestSigningKeyId": "did:web:algonquin.example#deployment-1", "minimumClientVersion": "0.1.0" }
+    "branding": { "institutionName": "Example Institution", "productName": "Example Digital Commons", "supportUrl": "https://support.institution.example/", "privacyUrl": "https://institution.example/privacy" },
+    "endpoints": { "portal": "https://commons.institution.example/", "aiGateway": "https://ai.institution.example/", "sessionRelay": "https://relay.institution.example/", "updateManifest": "https://updates.institution.example/manifest.json" },
+    "oidc": { "issuer": "https://identity.institution.example/realms/commons", "authorizationFlow": "authorization_code_pkce", "webClientId": "commons-web", "desktopClientId": "commons-desktop", "mobileClientId": "commons-mobile", "scopes": ["openid", "profile"] },
+    "trust": { "manifestSigningKeyId": "did:web:institution.example#deployment-1", "minimumClientVersion": "0.1.0" }
   }
 }

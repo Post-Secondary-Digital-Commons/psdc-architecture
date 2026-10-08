@@ -27,7 +27,11 @@ conformance tests.
 
 Only deterministic synthetic data is allowed. Real people, student records, credentials,
 private topology, actual keys, production endpoints, or copied operational evidence are
-prohibited. Negative fixtures must use unmistakably fake values.
+prohibited. Common fixtures use `institution.example` and other neutral example
+identifiers; Algonquin-specific sample bindings belong in the Algonquin overlay.
+The validator rejects an Algonquin identifier in this common corpus. Negative
+fixtures must use unmistakably fake values. Signature values are synthetic
+placeholders, not a proof that the rewritten fixture bytes have valid signatures.
 
 ## Change control
 

@@ -8,7 +8,7 @@
   "instance": {
     "contractVersion": "1.0",
     "pathId": "path.lab-a.dc-a",
-    "providerId": "network.algonquin.core",
+    "providerId": "network.example.core",
     "sequence": 13,
     "sourceZoneId": "zone.lab-a",
     "destinationZoneId": "zone.dc-a",
@@ -23,6 +23,6 @@
     "egressMode": "institution_proxy",
     "federation": { "crossInstitution": false, "approvedPeerIds": [] },
     "reason": { "code": "TELEMETRY_STALE", "message": "Fresh path evidence is unavailable.", "retryable": true, "retryAfterSeconds": 60 },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:10:00Z", "value": "dW5hdmFpbGFibGUtcGF0aC1zaWc" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#network-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:10:00Z", "value": "dW5hdmFpbGFibGUtcGF0aC1zaWc" }
   }
 }

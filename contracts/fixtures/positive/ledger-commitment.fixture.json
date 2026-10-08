@@ -17,9 +17,9 @@
     "status": "finalized",
     "submittedAt": "2026-09-27T15:02:00Z",
     "finalizedAt": "2026-09-27T15:02:06Z",
-    "proposerId": "validator.algonquin.test-1",
+    "proposerId": "validator.example.test-1",
     "validatorSetDigest": "1919191919191919191919191919191919191919191919191919191919191919",
     "evidenceDigest": "1717171717171717171717171717171717171717171717171717171717171717",
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#ledger-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T15:02:06Z", "value": "bGVkZ2VyLWNvbW1pdG1lbnQtc2ln" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#ledger-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T15:02:06Z", "value": "bGVkZ2VyLWNvbW1pdG1lbnQtc2ln" }
   }
 }

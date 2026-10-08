@@ -14,10 +14,10 @@
     "module": "psdc.settlement.v1",
     "status": "rejected",
     "submittedAt": "2026-09-27T15:02:00Z",
-    "proposerId": "validator.algonquin.test-1",
+    "proposerId": "validator.example.test-1",
     "validatorSetDigest": "1919191919191919191919191919191919191919191919191919191919191919",
     "evidenceDigest": "1717171717171717171717171717171717171717171717171717171717171717",
     "reason": { "code": "BATCH_ROOT_MISMATCH", "message": "Submitted root does not match canonical batch evidence.", "retryable": false },
-    "signature": { "algorithm": "Ed25519", "keyId": "did:web:algonquin.example#ledger-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T15:02:01Z", "value": "cmVqZWN0ZWQtY29tbWl0bWVudC1zaWc" }
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#ledger-1", "canonicalization": "RFC8785", "signedAt": "2026-09-27T15:02:01Z", "value": "cmVqZWN0ZWQtY29tbWl0bWVudC1zaWc" }
   }
 }

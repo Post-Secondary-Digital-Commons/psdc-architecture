@@ -1,0 +1,19 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "positive.compute.reason-adjudication",
+  "category": "positive",
+  "schemaId": "urn:psdc:contracts:compute:reason-adjudication:1",
+  "description": "Independent lease authority confirms a worker loss after checking evidence; a receipt alone is not authoritative.",
+  "expected": { "schemaValid": true, "semanticOutcome": "accept", "statusPath": "/status", "expectedStatus": "confirmed" },
+  "instance": {
+    "contractVersion": "1.0", "adjudicationId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa", "leaseId": "66666666-6666-4666-8666-666666666666",
+    "receiptId": "d86cc9de-5c45-4c52-889c-44a30ea6c00f", "receiptDigest": "9090909090909090909090909090909090909090909090909090909090909090",
+    "providerId": "provider.example.lab-a", "assertedReasonCode": "OWNER_RECLAIM", "status": "confirmed", "determinedReasonCode": "WORKER_LOST",
+    "adjudicatorId": "lease-authority.example.v1", "authorityInstitutionId": "institution.example",
+    "policyDecision": { "decisionId": "33333333-3333-4333-8333-333333333333", "policyId": "policy.reason.adjudication", "policyVersion": "1.0.0", "outcome": "allow" },
+    "decidedAt": "2026-09-27T14:07:00Z",
+    "evidence": [{ "uri": "s3://evidence/lease/worker-loss", "digest": "9191919191919191919191919191919191919191919191919191919191919191", "classification": "internal", "retentionClass": "retention.audit.7y" }],
+    "effects": { "retryable": true, "providerFault": true, "settlementDisposition": "penalty_review" },
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#lease-authority", "canonicalization": "RFC8785", "signedAt": "2026-09-27T14:07:00Z", "value": "YWRqdWRpY2F0aW9uLXNpZ25hdHVyZQ" }
+  }
+}
