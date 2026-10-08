@@ -8,7 +8,7 @@
   "scripts": {
     "build:contracts": "node contracts/build-contract-bundle.mjs",
     "test:bundle-reproducibility": "node contracts/test-bundle-reproducibility.mjs",
-    "test:contracts": "node contracts/validate-contracts.mjs && node contracts/test-workload-classification.mjs && node contracts/test-contract-bindings.mjs && node contracts/test-bundle-reproducibility.mjs"
+    "test:contracts": "node contracts/validate-contracts.mjs && node contracts/test-workload-classification.mjs && node contracts/test-classification-decision-cases.mjs && node contracts/test-contract-bindings.mjs && node contracts/test-bundle-reproducibility.mjs"
   },
   "devDependencies": {
     "@apidevtools/swagger-parser": "13.1.0",

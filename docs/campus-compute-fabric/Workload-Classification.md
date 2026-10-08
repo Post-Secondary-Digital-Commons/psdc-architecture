@@ -120,8 +120,11 @@ record; it never mutates historical evidence.
 
 ## Interfaces and compatibility
 
-- POST /v1/workload-classifications accepts the versioned manifest and returns the signed
-  classification record or a stable rejection.
+- The v1 submission seam is `POST /workloads`, which returns `202` for an
+  immutable request accepted **for classification**, not an execution grant.
+  `GET /workloads/{workloadId}/classification` reads a completed signed
+  classification record. A separate `POST /v1/workload-classifications` is not
+  part of the current OpenAPI contract and must not be assumed by consumers.
 - WorkloadClassified is a CloudEvents event containing identifiers and digests, not
   secrets or protected content.
 - Backend adapters publish capability schemas consumed by the classifier. Unknown fields
@@ -190,15 +193,20 @@ trusted provider.
 
 ## Testing and evidence
 
-Fixtures cover every workload/backend class, hard-policy rejection, deterministic replay,
-mixed graphs and operation without public adapters.
+The [H-006 candidate handoff](../roadmap/H-006-Workload-Classification-Handoff.md)
+contains the v1 class-to-backend decision table and synthetic, institution-neutral
+decision cases. Its structural checker proves the cases are well formed and cover
+the declared classes; only a future classifier adapter can prove decision behavior.
+Mixed graphs and bare-metal remain outside the v1 manifest, so neither may be
+claimed as covered by v1 conformance.
 
 ## Binary acceptance criteria
 
 These testing and evidence criteria are binary and retained with the classifier version.
 
-- **CCF-WC-ACC-001:** every row in the backend table has positive and negative fixtures whose
-  selected backend and reason codes match exactly;
+- **CCF-WC-ACC-001:** every admitted v1 manifest class has positive and
+  policy-denial cases whose backend set and reason codes match exactly; the
+  architecture-only bare-metal and mixed-graph rows need their own contracts;
 - **CCF-WC-ACC-002:** lowering a bid cannot make a provider pass a failed data, identity,
   trust, residency, production or network constraint;
 - **CCF-WC-ACC-003:** a mixed AI pipeline decomposes into task, service and storage stages

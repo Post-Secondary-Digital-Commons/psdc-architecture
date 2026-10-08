@@ -90,7 +90,7 @@ semantics. The trace validator does not replace a compatibility suite.
 ## Evidence and known gaps
 
 The repository's contract suite checks schema/fixture validity, the live
-OpenAPI and AsyncAPI bindings, and eight seeded binding mutations. This is
+OpenAPI and AsyncAPI bindings, and ten seeded binding mutations. This is
 **structural** evidence only. No authorization service, transactional outbox,
 classifier, network gateway, event broker, requester client or retry behavior
 was executed.
@@ -119,15 +119,16 @@ contracts, and classifier behavioral fixtures remain before H-006 D2.
 
 ### Validation and conformance
 
-From this repository root, run `npm ci` and `npm run test:contracts`. A clean
-run shows the schema/fixture count, official API parser results, eight rejected
+From this repository root, run `npm ci --ignore-scripts` and `npm run test:contracts`. A clean
+run shows the schema/fixture count, official API parser results, ten rejected
 mutations and a reproducible candidate bundle. Re-run against the merge commit;
 an isolated worktree's workspace-relative link checker may report the existing
 documentation-audit link to the parent workspace script, which is not evidence
 of a new contract-link defect.
 
-The next bounded task is a D2 H-006 packet with a decision table for each
-workload class, exact policy/error/timeout behavior, neutral fixtures,
-authorization and duplicate-command tests, rollback and consumer review.
-That task must not start product implementation merely because this trace is
-present.
+The [H-006 handoff candidate](../roadmap/H-006-Workload-Classification-Handoff.md)
+now records class/backend decisions, synthetic cases, policy/error/timeout
+proposals, rollback and consumer-review requirements. It remains D1 partial:
+status/denial API, authorization and duplicate-command runtime tests, independent
+decision oracle and reviewer sign-off are not complete. Product implementation
+must not start merely because this candidate exists.

@@ -34,6 +34,11 @@ The first interface-specific binding is
 [contract trace](../../docs/campus-compute-fabric/Workload-Submission-Contract-Trace.md)
 distinguishes an accepted request from execution admission and binds the
 reference-only event data to its own schema.
+The [classification decision cases](classification-decision-cases.v1.json)
+exercise the candidate class/backend and hard-filter table using synthetic
+manifests. Their checker verifies the proposed oracle, not an API or classifier
+implementation; the [H-006 handoff](../../docs/roadmap/H-006-Workload-Classification-Handoff.md)
+records the remaining D2 gates.
 
 The schema order is provider/capability plus workload, then offer/decision, then lease, then
 receipt. Schema validity is necessary but not sufficient: services still verify signatures,

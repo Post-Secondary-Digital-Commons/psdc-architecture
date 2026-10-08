@@ -44,6 +44,7 @@ live in the sibling repositories under the workspace root.
 - [Semantic clone removal plan](./docs/roadmap/Semantic-Clone-Removal-Plan.md)
 - [Implementation handoff standard](./docs/standards/Implementation-Handoff-Standard.md)
 - [Implementation handoff backlog](./docs/roadmap/Implementation-Handoff-Backlog.md)
+- [H-006 workload classification handoff candidate](./docs/roadmap/H-006-Workload-Classification-Handoff.md)
 - [Documentation completion audit](./docs/architecture/Documentation-Completion-Audit-2026-09-11.md)
 - [Specification completeness standard](./docs/architecture/Specification-Completeness-Standard.md)
 - [Ecosystem documentation quality and scope standard](./docs/standards/Ecosystem-Documentation-Quality-Standard.md)
