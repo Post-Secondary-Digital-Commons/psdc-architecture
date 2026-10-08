@@ -77,6 +77,9 @@ The [H-006 candidate packet](H-006-Workload-Classification-Handoff.md) collects
 partial D1 contract material and synthetic decision cases. It does not promote
 H-006 above D0: the status/denial API, consumer review, prerequisites and
 independent classifier conformance evidence remain open.
+The [VS-01 acceptance design](VS-01-Acceptance-Design.md) lists synthetic
+positive, denial, race, outage and recovery observations before H-004 coding.
+Its scenario checker is structural only; H-014 remains D0.
 
 ## Packet preparation checklist
 
