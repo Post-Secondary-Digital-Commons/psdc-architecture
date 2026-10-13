@@ -1,5 +1,11 @@
 # Contributing
 
+Follow the [engineering and code standard](docs/standards/Ecosystem-Engineering-and-Code-Standard.md)
+for interfaces, security boundaries, comments, tests, review evidence, and
+release claims. Documentation follows the
+[ecosystem documentation standard](docs/standards/Ecosystem-Documentation-Quality-Standard.md).
+Repository-specific language rules may be stricter and must name their checks.
+
 Contributions are accepted under the license of the repository. Every commit must
 include a Developer Certificate of Origin sign-off using `git commit -s`.
 

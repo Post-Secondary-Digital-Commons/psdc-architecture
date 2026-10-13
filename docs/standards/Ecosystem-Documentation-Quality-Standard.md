@@ -6,8 +6,8 @@
 > Status: Normative
 > Owner: PSDC Architecture Maintainer
 > Accountable maintainer: RedjiJB until delegation
-> Last reviewed: 2026-09-11
-> Governing decisions: <ADR identifiers or "none; index only">
+> Last reviewed: 2026-10-13
+> Governing decisions: ADR-0001, ADR-0012, ADR-0013; applicable document-specific ADRs
 
 > Applies to: every Markdown document in common and institution repositories
 
@@ -45,6 +45,13 @@ evidence required by its declared purpose.
    institution values and stricter policies live in signed deployment overlays.
 9. **Open implementation.** Required core behavior has a self-hostable,
    open-source implementation path and documented exit alternatives.
+10. **Traceable claims.** Separate accepted decisions, measured observations,
+    source-backed facts, inferences, estimates, and proposed controls. Name the
+    source revision and scope when a claim depends on an external project.
+11. **Reader-complete explanations.** Define specialized terms on first use,
+    explain the steps and state changes behind an important mechanism, and
+    include a concrete example and failure case where misinterpretation could
+    change implementation or security behavior.
 
 ## Required control block
 
@@ -189,6 +196,21 @@ Templates include all required headings for their target type, author instructio
 and explicit non-normative status. Neither is a current completed specification.
 
 ## Requirement quality
+
+For code-facing documents, the [engineering and code standard](Ecosystem-Engineering-and-Code-Standard.md)
+adds public-interface documentation, security-invariant comments, schema
+field descriptions, fixture expectations, and review evidence. It does not
+replace this document's type-specific completeness rules. Reader-facing
+tutorials, procedures, reference, and explanation SHOULD be separated by
+purpose following [Diátaxis](https://diataxis.fr/); an architecture
+specification still carries the normative requirements in one owning place.
+
+Examples and diagrams MUST match the current named contract version. A
+security-sensitive explanation MUST state its threat actor, trust boundary,
+assumptions, limits, failure mode, and what evidence would substantiate the
+claim. Detailed prose is required where it removes ambiguity, but repeated
+boilerplate, untestable adjectives, and paragraph-by-paragraph code narration
+do not satisfy scope.
 
 Every normative requirement SHALL use a stable identifier such as
 `CLOUD-ARCH-001`, a responsible actor, normative language (`MUST`, `SHALL`,

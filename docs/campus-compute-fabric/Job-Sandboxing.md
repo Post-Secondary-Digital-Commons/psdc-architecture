@@ -6,7 +6,7 @@
 > Status: Normative; subject-specific section is contract-backed, open questions listed
 > Owner: PSDC Campus Compute Fabric Working Group
 > Accountable maintainer: RedjiJB until delegation
-> Last reviewed: 2026-09-11
+> Last reviewed: 2026-10-13
 > Governing decisions: Applicable ADRs and repository governance
 > Domain: campus-compute-fabric
 
@@ -56,6 +56,26 @@ Sandboxing decides what a workload is allowed to touch on a donor machine. The c
 - **CCF-SANDBOX-014:** Stronger isolation SHALL apply as `dataClassification` rises or trust tier falls; the mapping from those inputs to a required isolation level is a policy decision recorded in the institution manifest.
 
 **Open decisions (not settled by any contract or ADR).** The isolation technology (container hardening, user-space kernel, microVM) and its per-class mapping; network egress rules for jobs; handling of untrusted code on student-owned or volunteer machines; and resource-limit enforcement and escape detection. Until these are decided, only low-risk, local-only, institution-trusted workloads should be considered for any pilot.
+
+## Provider visibility and confidential execution
+
+An ordinary container or VM isolates a workload from other workloads to a
+degree determined by its runtime and configuration. It does **not** make
+decrypted inputs, memory, or outputs confidential from the operator of the
+host or hypervisor. A provider with host administration authority must be
+treated as able to inspect them. Encryption during transfer and storage does
+not change that conclusion once the workload receives a decryption key.
+
+The current manifest has `dataClassification` and `minimumTrustTier`; the
+capability contract has generic device `attestationStatus`. Neither expresses
+an attested workload TEE or a key-release policy tied to its measurement.
+`valid` device attestation MUST NOT be described as proof that the provider is
+unable to inspect the running workload. The classifier and scheduler need a
+new contract and policy before host-confidential workloads can be placed.
+Until then, use trusted institution-controlled providers under approved
+operator controls, or restrict a less-trusted provider to data for which its
+visibility is acceptable. The [confidential-execution assessment](../security/Confidential-Execution-and-Provider-Visibility.md)
+records the threat model, candidate TEE path, missing contracts, and tests.
 
 ## Interfaces, APIs, events, and contracts
 
@@ -114,6 +134,7 @@ Inherits [baseline acceptance gates](../architecture/Cross-Cutting-Architecture-
 
 ## References
 
+- [Confidential Execution and Provider Visibility](../security/Confidential-Execution-and-Provider-Visibility.md)
 - [Specification Completeness Standard](../architecture/Specification-Completeness-Standard.md)
 - [Technology Defaults and Alternatives](../vision/13-Technology-Defaults-and-Alternatives.md)
 - [Human Choices and Decisions Register](../governance/Human-Choices-and-Decisions-Register.md)

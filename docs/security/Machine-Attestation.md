@@ -93,6 +93,13 @@ See [Standards controls](../architecture/Domain-Control-Profiles.md#security-pro
 | Primary trust boundary | an untrusted campus or personal device requests admission to a compute trust tier |
 | Unsafe failure to prevent | stale, cloned, unverifiable, or downgraded measurements are accepted |
 
+This contract assesses worker identity and approved device/software posture.
+It does not, by itself, measure a particular workload inside a TEE or prove
+that the host administrator cannot inspect its plaintext. A future
+confidential-execution claim needs separate workload attestation, verifier
+policy, and key release bound to the measured guest and lease. See
+[Confidential Execution and Provider Visibility](Confidential-Execution-and-Provider-Visibility.md).
+
 - **SEC-ATST-001:** The owner MUST implement the responsibility and preserve the input-to-output evidence chain shown above.
 - **SEC-ATST-002:** The enforcement point MUST fail closed when identity, policy version, integrity, freshness, or required context cannot be verified.
 - **SEC-ATST-003:** A release MUST include a positive conformance case, an unauthorized or malformed case, a dependency-loss case, and a regression case for the unsafe failure.

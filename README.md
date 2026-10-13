@@ -49,6 +49,8 @@ live in the sibling repositories under the workspace root.
 - [Documentation completion audit](./docs/architecture/Documentation-Completion-Audit-2026-09-11.md)
 - [Specification completeness standard](./docs/architecture/Specification-Completeness-Standard.md)
 - [Ecosystem documentation quality and scope standard](./docs/standards/Ecosystem-Documentation-Quality-Standard.md)
+- [Ecosystem engineering and code standard](./docs/standards/Ecosystem-Engineering-and-Code-Standard.md)
+- [Confidential execution and provider visibility](./docs/security/Confidential-Execution-and-Provider-Visibility.md)
 - [AI documentation review rubric](./docs/standards/AI-Documentation-Review-Rubric.md)
 - [PSDC Web foundation](./docs/clients/PSDC-Web-Foundation.md)
 - [ADR-0009: web bootstrap](./docs/architecture/architecture-decision-records/ADR-0009-psdc-ai-web-foundation.md)
