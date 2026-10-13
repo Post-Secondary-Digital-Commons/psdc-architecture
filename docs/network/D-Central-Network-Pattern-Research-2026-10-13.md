@@ -1,0 +1,55 @@
+# D-Central network patterns for PSDC — source review
+
+> Standard: PSDC-DOC-001
+> Document type: architecture-map
+> Status: Draft for owner review; non-normative research, no PSDC decision or deployment change
+> Owner: PSDC Network Working Group
+> Accountable maintainer: RedjiJB until delegation
+> Last reviewed: 2026-10-13
+> Governing decisions: [PSDC Network Architecture](Network-Architecture.md), ADR-0010, ADR-0026, ADR-0029, ADR-0032
+
+## Question and evidence boundary
+
+Which ideas from the local D-Central network designs could improve PSDC's sovereign campus and federation network? This note is an adoption filter, **not** a replacement network specification. The [PSDC network architecture](Network-Architecture.md) remains normative; [network contracts](../../contracts/network/README.md) are D1 schema candidates, not a configured campus network. D-Central chat exports are not used as authority here.
+
+Sources inspected (local paths and checkout revisions):
+
+| Source | Revision and status | Relevant material |
+|---|---|---|
+| Local checkout `DCentral-ChatGPT-Optimistic` | `240cb53`; cited files are clean, although other files have uncommitted work; no `origin` remote configured | `docs/adr/0006-local-first-hierarchical-federation.md` (explicitly **Proposed**, E0); `docs/DEPLOYMENT-TOPOLOGIES.md` (Topology 2/3 and data-plane handshake); `docs/ACTORS-AUTHORITY.md` (federation and relayer authority); `docs/REQUIREMENTS.md` (`FR-FED-001..005` candidates); `docs/FAILURE-MODEL.md` (`FM-PART-*`, `FM-BYZ-*`); `docs/STANDARDS-ADOPTION.md` (transport adapters) |
+| Local checkout `DCentral-ChatGPT-Realistic` | `f80fa24` plus an **uncommitted** `docs/ARCHITECTURE.md`; no `origin` remote configured | `docs/ARCHITECTURE.md` §5.4 and current scope: deny-by-default node egress and bounded network grants; federation and custom overlay networking are out of scope. This is a local working-file observation, not a reproducible commit claim. |
+| Local folder `dcentral-tech` | Files sit under a broad parent Git root, but the cited networking document is untracked there; no reliable repository-specific revision or remote was established | `docs/01-core/06-advanced-networking-engineering.md` (ICN/mesh vision); `docs/SEAMLESS-CONNECTIVITY-FEASIBILITY.md` and `docs/CONNECTIVITY-SERVICES-MODULES-116-118.md` (client connectivity proposals); `repos/connectivity/dcentral-connectivity-manager/README.md` and `repos/networking/dcentral-fcn-router/README.md` (module descriptions). These are design claims, not independently verified performance or deployment evidence. |
+| Local checkout `dcentral-fieldops` | `9a1cb4f`; cited source file is clean; `origin` points to `RedjiJB/sodboys-fieldops`, so folder name is not repository identity | `src/federation/FederationTransport.ts`: a transport interface and a single-node loopback implementation, not a remote federation transport. |
+
+The optimistic D-Central ADR is proposed, not accepted. Its requirements and topologies are candidate designs. The older `dcentral-tech` feasibility document asserts precise roaming, development-effort, and adoption figures without test artifacts in the inspected sources; none should become PSDC facts. The connectivity module README claims `src/` and labs, but `src/` was absent in the inspected module checkout. The FCN router README is a generic development scaffold. The inspected `dcentral-tech/repos/networking/dcentral-{cilium,headscale,icn-cache}` trees contained no `.ts`, `.go`, `.py`, `.rs`, or `.js` implementation files; their named module folders are not evidence of working controllers. `dcentral-fieldops` does contain a real TypeScript interface, but its only transport logs a would-send message and yields no incoming peers. No D-Central network behavior was run or measured in this review.
+
+## Patterns worth adapting
+
+| Pattern | Local source | PSDC adaptation and boundary |
+|---|---|---|
+| Local-first, hierarchical federation: campus authority → optional partner/regional summaries; no global resource registry or automatic transitive trust | Optimistic `docs/adr/0006-local-first-hierarchical-federation.md`; `docs/DEPLOYMENT-TOPOLOGIES.md` “Topology 3” | Candidate refinement for PSDC federation discovery. Each campus keeps IPAM, policy, admission, lease, and failure authority. Upper tiers carry only scoped, expiring capability summaries and route requests, not full topology, student identity, or lease ownership. |
+| Provider-domain lease and fence authority across a network partition | Optimistic ADR-0006 “Decision” and “Gate”; `docs/DEPLOYMENT-TOPOLOGIES.md` “Cross-domain allocation”; `docs/FAILURE-MODEL.md` `FM-PART-001..005` | Use as a test scenario for PSDC's compute/network reservation transaction: remote provider issues its own authoritative resource lease; requester records a reference and cannot extend it during partition. Check against PSDC lease contracts before adopting wording. |
+| Separate discovery/control from bulk data, with an endpoint-specific short-lived grant | Optimistic `docs/DEPLOYMENT-TOPOLOGIES.md` “Cross-domain allocation” steps 7–9 and “Control-plane to data-plane handshake” | Useful handshake checklist, but PSDC ADR-0032 requires client traffic to storage/inference/workers through an institution-owned policy-enforcing data-plane gateway. D-Central's optional *direct* endpoint path must not bypass that gateway. |
+| A relayer or federation gateway transports attributable messages but cannot mint business authority | Optimistic `docs/ACTORS-AUTHORITY.md` “Coordination, execution, evidence, and federation”; `docs/REQUIREMENTS.md` `FR-FED-004`; `docs/FAILURE-MODEL.md` `FM-BYZ-003` | Add malicious/unavailable-relay cases to federation test plans: source/audience, expiry, sequence, replay, profile version, and local policy are rechecked at each domain. WireGuard/mTLS authenticates a channel, not the underlying placement or data authority. |
+| Client connectivity abstraction for roaming between campus Wi-Fi and off-campus networks | `dcentral-tech/docs/CONNECTIVITY-SERVICES-MODULES-116-118.md` Module 116; `docs/SEAMLESS-CONNECTIVITY-FEASIBILITY.md` | Possible **client UX research**, not an always-on PSDC VPN mandate. Prefer ordinary HTTPS/mTLS gateway access; consider institution-approved WireGuard or MDM profile only for a documented service need. Measure battery, captive portals, NAT, accessibility, IPv6 and failover on real devices before promising seamlessness. |
+| Transport-neutral semantics with replaceable bindings | Optimistic `docs/STANDARDS-ADOPTION.md` “Networking and federation” | Preserve PSDC OpenAPI/CloudEvents semantics over institution-owned HTTPS/mTLS. Evaluate libp2p discovery/NAT traversal or IBC-style acknowledgement patterns only as bounded adapters/reference patterns; neither supplies PSDC authorization, finality, or campus routing policy. |
+| Deny-by-default workload egress at the execution boundary | Realistic `docs/ARCHITECTURE.md` §5.4 “Egress enforcer” and `AGENTS.md` R0 scope | Compatible with PSDC lab-cell outbound-only control and per-workload egress grants. This is an implementation pattern to prototype and packet-test, not evidence that the D-Central realistic lane has shipped a network fabric. |
+| Transport interface separated from federation semantics | `dcentral-fieldops/src/federation/FederationTransport.ts` | Useful seam only: keep a transport replaceable, but do not treat the loopback class as federation. PSDC would still need authenticated remote send/receive, replay protection, bounded payloads, privacy-safe logging, and two-domain failure tests. The loopback currently logs an arbitrary `payload`; copying it into PSDC would risk disclosure. |
+
+## Ideas that do not transfer as defaults
+
+- **Universal autonomous ICN/mesh replacing campus IP/DNS:** `dcentral-tech/docs/01-core/06-advanced-networking-engineering.md` proposes content-name routing, neighborhood mesh, and even eliminating ISP dependency. That latter claim is a vision statement, not demonstrated resilience: an Internet-dependent campus-to-campus path still depends on upstream connectivity. PSDC's accepted campus model requires institution IPAM/DNS, VRF segmentation, managed ingress, change authority, and approved L3 federation. An ICN cache may be a bounded artifact-distribution experiment inside an approved zone; it is not a replacement underlay or a route around storage authorization.
+- **Direct client-to-provider traffic based only on a route score:** older Connectivity Module 116 scores bandwidth/latency/cost and suggests trusted-mesh direct access. PSDC requires hard policy/data-class filtering before price/performance comparison and a policy-enforcing gateway for client storage, inference, and worker access. “Trusted network” is not authorization; campus presence cannot erase segmentation.
+- **A global or predictive route selector with arbitrary peer discovery:** institution-specific disclosure, approved peers, data residency, freshness, and consent limit what can be advertised. Predictive preconnection can reveal user intent and consume network/battery capacity. It needs a privacy/threat model and opt-in decision, not automatic adoption.
+- **Unqualified performance and maturity claims:** the older feasibility note's `90% proven`, `200–800ms typical`, code-size/time estimates, and “100% achievable” language are not PSDC evidence. Real network trials must record topology, device/OS, access media, mobility scenario, packet loss, latency distribution, failover, power cost, and privacy effects.
+
+## Recommended bounded next work (not decisions)
+
+1. Write a federation **network discovery profile** over PSDC's existing abstract path/reservation schemas: scoped advertisements, audience, expiry, trust bundle, sequence, route budget, revocation, no private topology. Keep campus paths and federation summaries distinct.
+2. Extend the network fault fixtures with a two-campus harness: overlapping private prefixes, asymmetric reachability, stale/duplicate advertisements, relay compromise, remote lease expiry, peer revocation, and partition during reservation. Verify no duplicate capacity commitment or unauthorized data path.
+3. Prototype one lab-cell and one bilateral federation path with the current HTTPS/mTLS gateway design. Packet-test default deny, outbound-only workers, privacy-minimized telemetry, data-plane gateway enforcement, and disconnect survival before evaluating mesh/ICN or client VPN enhancements.
+4. Record any new binding or trust-root choice by PSDC ADR. Keep site-specific prefixes, BGP, tunnel keys, DNS and QoS in signed institution profiles, not this common note.
+
+## Verification and limitations
+
+This is a read-only source review of local documents and module trees. It did not run D-Central or PSDC networking, inspect a live campus topology, validate a mobile VPN, measure path performance, or establish upstream license/provenance for code reuse. Its comparisons are research recommendations only; accepting them requires PSDC authority and executable evidence.
