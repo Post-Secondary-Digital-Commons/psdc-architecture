@@ -1,0 +1,15 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.c0.resource-ref-embedded-authorization",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:common:resource-reference:1",
+  "description": "A portable resource reference cannot embed an authorization claim.",
+  "expected": { "schemaValid": false, "semanticOutcome": "reject" },
+  "instance": {
+    "contractVersion": "1.0",
+    "institutionId": "institution.example",
+    "resource": { "kind": "workload", "id": "workload.synthetic.1" },
+    "classification": "internal",
+    "authorized": true
+  }
+}

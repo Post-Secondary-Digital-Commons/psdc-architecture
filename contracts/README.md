@@ -61,7 +61,9 @@ synthetic ordering and idempotency cases, not independent human review,
 durable delivery, or full RFC 8785 equivalence.
 
 The runner validates every schema in strict Draft 2020-12 mode, resolves registered URN
-references, checks fixtures, enforces positive coverage and all six scenario categories, checks
+references, checks fixtures, enforces positive coverage and all six scenario categories, and
+requires positive and negative structural coverage for each C0 boundary (including the intended
+single schema error for each C0 negative case). It checks
 relative timestamp ordering and selected arithmetic invariants, validates local API/event
 references with the official OpenAPI and AsyncAPI parsers, verifies fixed canonicalization and
 Ed25519 vectors, exercises duplicate, conflicting, out-of-order, expired and
