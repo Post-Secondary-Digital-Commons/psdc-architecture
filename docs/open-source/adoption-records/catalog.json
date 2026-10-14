@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "status": "proposed-only",
+  "records": [
+    { "componentId": "c0.toolchain.ajv", "path": "ajv.json" },
+    { "componentId": "c0.toolchain.canonicalize", "path": "canonicalize.json" }
+  ]
+}

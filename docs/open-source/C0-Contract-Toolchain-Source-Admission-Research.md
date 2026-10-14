@@ -35,3 +35,16 @@ The version, URL, integrity, and license fields above were read from this reposi
 5. Create the governed, machine-readable component adoption record(s), link the repo catalog and consuming PRs to the immutable record revision, and obtain Architecture Maintainer admission. Record what was tested, what was not, and the review-expiry trigger.
 
 No independent package test, tarball/source diff, SBOM, vulnerability scan, or legal approval was performed for this research note. Its observed claims are limited to local package metadata/files, source-code import/build paths, npm publication metadata, and upstream GitHub commit/tag/license records.
+
+## Subsequent Wave A evidence (2026-10-14)
+
+After this source review, the [lockfile-derived SPDX inventory](evidence/C0-Toolchain.spdx.json)
+and [dated scan record](evidence/C0-Toolchain-Checks-2026-10-14.json) were added, with
+reproduction checks in `contracts/check-toolchain-sbom.mjs`. The inventory has 171 package
+identities and declared licenses, but `filesAnalyzed` is false for every package. A
+top-level license-file presence check identified three packages requiring closer review.
+The npm advisory response reported zero findings at the recorded time; it expires as
+security evidence and does not establish future safety. The
+[Ajv and canonicalize adoption records](adoption-records/README.md) remain **proposed**.
+These later artifacts do not change the original research note's lack of file-level
+license review, source/tarball comparison, admission approval, or release authority.

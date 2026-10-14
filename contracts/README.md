@@ -51,6 +51,12 @@ npm run test:contracts
 npm audit --audit-level=moderate
 ```
 
+The suite checks the stored lockfile-derived SPDX package graph against a fresh
+`npm sbom` run. npm's volatile creation time and document namespace are ignored,
+but package identities, versions, declared licenses, checksums and dependency
+relationships must agree. The evidence is an inventory, **not** a file-level
+license audit or source-admission approval.
+
 The complete suite also needs Python 3.8 or newer for an independently written
 event-consumer model. On Windows it tries `py -3` then `python`; on other systems
 it tries `python3` then `python`. Set `PSDC_PYTHON` to an explicit interpreter

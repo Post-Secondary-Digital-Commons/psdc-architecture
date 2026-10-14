@@ -7,8 +7,9 @@
   "type": "module",
   "scripts": {
     "build:contracts": "node contracts/build-contract-bundle.mjs",
+    "sbom:toolchain": "node contracts/check-toolchain-sbom.mjs",
     "test:bundle-reproducibility": "node contracts/test-bundle-reproducibility.mjs",
-    "test:contracts": "node contracts/validate-contracts.mjs && node contracts/test-event-delivery.mjs && node contracts/test-cross-language-event.mjs && node contracts/test-key-lifecycle.mjs && node contracts/test-workload-classification.mjs && node contracts/test-classification-decision-cases.mjs && node contracts/test-vs01-acceptance-matrix.mjs && node contracts/test-contract-bindings.mjs && node contracts/test-bundle-reproducibility.mjs && node contracts/test-bundle-attestation.mjs"
+    "test:contracts": "node contracts/validate-contracts.mjs && node contracts/test-event-delivery.mjs && node contracts/test-cross-language-event.mjs && node contracts/test-key-lifecycle.mjs && node contracts/test-workload-classification.mjs && node contracts/test-classification-decision-cases.mjs && node contracts/test-vs01-acceptance-matrix.mjs && node contracts/test-contract-bindings.mjs && node contracts/test-bundle-reproducibility.mjs && node contracts/test-bundle-attestation.mjs && npm run sbom:toolchain"
   },
   "devDependencies": {
     "@apidevtools/swagger-parser": "13.1.0",

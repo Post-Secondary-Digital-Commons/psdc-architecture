@@ -66,6 +66,9 @@ Verified against upstream repositories on 2026-09-25; re-verify at source-admiss
 The [C0 contract-toolchain source-admission research](C0-Contract-Toolchain-Source-Admission-Research.md)
 captures candidate provenance for two pinned development dependencies. It is research
 evidence, not an admission decision or a substitute for the requirements below.
+The [proposed adoption-record catalog](adoption-records/README.md) and
+[lockfile SPDX evidence](evidence/C0-Toolchain.meta.json) provide additional
+machine-readable inputs without promoting either dependency to accepted status.
 
 Before source or binaries enter a release, the owner MUST record:
 
