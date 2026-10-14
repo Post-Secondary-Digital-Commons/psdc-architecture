@@ -170,6 +170,13 @@ container, gVisor, Kata or dedicated VM/host. Protected input keys are operation
 Economic/telemetry records use project/workload references and exclude content. Public and
 federated providers require explicit scope and cannot be silent fallbacks.
 
+The [Basic-first execution-assurance proposal](Execution-Assurance-and-Provider-Accountability.md)
+details operator visibility, optional later Confidential capacity, attestation and key
+release, provider conformance, dispute evidence and future live-session reservations.
+It is a **proposal**, not a claim that all campus machines have TEEs or that those
+interfaces are implemented. The accepted fast operational/ledger split remains
+governed by ADR-0031.
+
 ## Production and critical services
 
 Critical services may participate in dynamic placement only inside a certified pool with
@@ -261,3 +268,4 @@ These testing and evidence gates are pass/fail and produce retained conformance 
 - [Storage Architecture](../storage/Storage-Architecture.md)
 - [Production Boundary](../deployment/Production.md)
 - [Ledger and Operational Database Architecture](../economics/Ledger-and-Operational-Database-Architecture.md)
+- [Execution Assurance and Provider Accountability (proposed)](Execution-Assurance-and-Provider-Accountability.md)

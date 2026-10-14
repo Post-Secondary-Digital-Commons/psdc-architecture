@@ -58,6 +58,11 @@ This glossary defines the terms the architecture uses with a specific meaning. W
 | ACF | Algonquin Campus Compute Fabric, the Algonquin deployment of the Commons Compute Fabric |
 | Provider | An institution-operated or partner source of compute capacity ([provider contract](../../contracts/compute/provider.schema.json)) |
 | Capability advertisement | A signed, expiring statement of what a resource offers right now ([capability contract](../../contracts/compute/capability.schema.json)) |
+| Execution assurance | Proposed independent placement dimension describing runtime confidentiality against the host operator; it does not replace data classification or provider trust ([profile](../campus-compute-fabric/Execution-Assurance-and-Provider-Accountability.md)) |
+| Basic execution | Proposed initial profile on institution-approved hosts without a host-memory secrecy claim; even a managed host administrator may inspect plaintext runtime memory |
+| Confidential execution | Proposed optional later profile requiring a verified TEE/guest/key-release stack; it narrows host-memory exposure within a stated threat model but does not prove result correctness |
+| Attestation verdict | Time-bounded verifier appraisal of evidence against approved reference values; KMS and institution policy still decide whether a particular key operation is authorized |
+| Performance reserve | Proposed, institution-controlled non-transferable credit hold or contractual capacity guarantee; release or penalty needs evidence, adjudication and appeal |
 | Workload manifest | A signed request describing what to run and its constraints ([workload contract](../../contracts/compute/workload-manifest.schema.json)) |
 | Offer | A provider's priced, expiring answer to a workload |
 | Placement decision | The recorded choice of offer, with its reasons |
