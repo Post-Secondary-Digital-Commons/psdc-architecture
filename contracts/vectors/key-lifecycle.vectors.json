@@ -1,0 +1,67 @@
+{
+  "vectorVersion": "1.0",
+  "purpose": "Synthetic Ed25519 key eligibility for new authorization only; no private keys or production identifiers.",
+  "cases": [
+    {
+      "id": "active-original-key",
+      "keyId": "synthetic-key-1",
+      "publicKeyHex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "payloadUtf8": "",
+      "signatureHex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b",
+      "notBefore": "2026-01-01T00:00:00Z",
+      "notAfter": "2027-01-01T00:00:00Z",
+      "verificationTime": "2026-09-29T12:00:00Z",
+      "expectedCryptographicValidity": true,
+      "expectedNewAuthorization": true
+    },
+    {
+      "id": "active-rotated-key",
+      "keyId": "synthetic-key-2",
+      "publicKeyHex": "4653e684450daee5e2e66649460b874fa7ca325e224808befa12bebcf313b2ad",
+      "payloadUtf8": "psdc-key-rotation-vector-v1",
+      "signatureHex": "223a4a4a02d8262d5580635f8c35f94647613d96f60275a6e0a4bfc90c6e2062e418e951d7912fdfe58465a93ae6462d28262b99088ad71a054d879dac66a004",
+      "notBefore": "2026-09-01T00:00:00Z",
+      "notAfter": "2027-09-01T00:00:00Z",
+      "verificationTime": "2026-09-29T12:00:00Z",
+      "expectedCryptographicValidity": true,
+      "expectedNewAuthorization": true
+    },
+    {
+      "id": "retired-original-key",
+      "keyId": "synthetic-key-1",
+      "publicKeyHex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "payloadUtf8": "",
+      "signatureHex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b",
+      "notBefore": "2026-01-01T00:00:00Z",
+      "notAfter": "2026-09-28T00:00:00Z",
+      "verificationTime": "2026-09-29T12:00:00Z",
+      "expectedCryptographicValidity": true,
+      "expectedNewAuthorization": false
+    },
+    {
+      "id": "revoked-rotated-key",
+      "keyId": "synthetic-key-2",
+      "publicKeyHex": "4653e684450daee5e2e66649460b874fa7ca325e224808befa12bebcf313b2ad",
+      "payloadUtf8": "psdc-key-rotation-vector-v1",
+      "signatureHex": "223a4a4a02d8262d5580635f8c35f94647613d96f60275a6e0a4bfc90c6e2062e418e951d7912fdfe58465a93ae6462d28262b99088ad71a054d879dac66a004",
+      "notBefore": "2026-09-01T00:00:00Z",
+      "notAfter": "2027-09-01T00:00:00Z",
+      "revokedAt": "2026-09-29T11:59:00Z",
+      "verificationTime": "2026-09-29T12:00:00Z",
+      "expectedCryptographicValidity": true,
+      "expectedNewAuthorization": false
+    },
+    {
+      "id": "wrong-key-for-signature",
+      "keyId": "synthetic-key-1",
+      "publicKeyHex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "payloadUtf8": "psdc-key-rotation-vector-v1",
+      "signatureHex": "223a4a4a02d8262d5580635f8c35f94647613d96f60275a6e0a4bfc90c6e2062e418e951d7912fdfe58465a93ae6462d28262b99088ad71a054d879dac66a004",
+      "notBefore": "2026-01-01T00:00:00Z",
+      "notAfter": "2027-01-01T00:00:00Z",
+      "verificationTime": "2026-09-29T12:00:00Z",
+      "expectedCryptographicValidity": false,
+      "expectedNewAuthorization": false
+    }
+  ]
+}
