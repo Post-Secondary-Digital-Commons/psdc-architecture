@@ -59,7 +59,10 @@ Ed25519 vectors, exercises duplicate, conflicting, out-of-order, expired and
 institution-scoped event delivery through a deterministic consumer model, proves lifecycle
 state/transition coverage, checks fixed synthetic key rotation and revocation
 vectors for new authorization, and performs two clean bundle builds
-to prove byte-for-byte manifest reproducibility. It does not verify live signer authority,
+to prove byte-for-byte manifest reproducibility. It also builds and attests one
+candidate bundle with an ephemeral development key, then rejects changed content,
+manifest, signature, key identity, duplicate attestation and unlisted files.
+It does not verify live signer authority,
 authorization currency, external revocation, referenced-object existence, transport behavior,
 or database transactionality. The event consumer model keeps its state in memory;
 production consumers must persist deduplication and domain mutations atomically.
@@ -67,6 +70,26 @@ The key vectors test eligibility for new authorization only; historical audit,
 signer authority, key registry freshness and offline revocation require service
 policy and runtime evidence.
 Service conformance tests still own those semantics.
+
+### Development bundle attestation
+
+The bundle builder produces a `candidate-unsigned` manifest. The attestation tool verifies
+its file hashes and content root before adding a **development** signature over the exact
+manifest bytes. The verifier checks the same file set and hashes and validates the signature
+against a public key supplied out of band. These tools do not promote a bundle to a released
+contract package or establish an authoritative signing key.
+
+```powershell
+node contracts/build-contract-bundle.mjs <empty-output-directory>
+node contracts/attest-contract-bundle.mjs <bundle-directory> <ephemeral-private-key.pem> <key-id>
+node contracts/verify-contract-bundle.mjs <bundle-directory> <public-key.pem> <key-id>
+```
+
+Generate and keep development private keys outside the repository and bundle. A real release
+requires an approved signing authority, key rotation/revocation process, license/provenance
+record, generated bindings and documentation, independent consumer evidence, and release
+approval under the executable contract portfolio. The detached `attestation.json` is not a
+substitute for any of those gates.
 
 ## Allowed and prohibited contents
 
