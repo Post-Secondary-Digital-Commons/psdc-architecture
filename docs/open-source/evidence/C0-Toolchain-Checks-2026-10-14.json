@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "dated-observation-not-admission",
   "scope": "psdc-architecture development contract toolchain",
-  "packageLockSha256": "864cf3b411c34f5efa29411e806ce125d8b31c10a49608532ca877020360804e",
+  "packageLockSha256": "8875128574dc56a489b1de14126d89a05211121eca7040c21823a83c2e81522f",
   "sbom": {
     "format": "SPDX-2.3",
     "generator": "npm/cli-11.17.0 --package-lock-only",
