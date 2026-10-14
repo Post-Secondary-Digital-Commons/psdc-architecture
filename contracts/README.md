@@ -55,10 +55,18 @@ The runner validates every schema in strict Draft 2020-12 mode, resolves registe
 references, checks fixtures, enforces positive coverage and all six scenario categories, checks
 relative timestamp ordering and selected arithmetic invariants, validates local API/event
 references with the official OpenAPI and AsyncAPI parsers, verifies fixed canonicalization and
-Ed25519 vectors, proves lifecycle state/transition coverage, and performs two clean bundle builds
+Ed25519 vectors, exercises duplicate, conflicting, out-of-order, expired and
+institution-scoped event delivery through a deterministic consumer model, proves lifecycle
+state/transition coverage, checks fixed synthetic key rotation and revocation
+vectors for new authorization, and performs two clean bundle builds
 to prove byte-for-byte manifest reproducibility. It does not verify live signer authority,
 authorization currency, external revocation, referenced-object existence, transport behavior,
-or database transactionality; service conformance tests still own those semantics.
+or database transactionality. The event consumer model keeps its state in memory;
+production consumers must persist deduplication and domain mutations atomically.
+The key vectors test eligibility for new authorization only; historical audit,
+signer authority, key registry freshness and offline revocation require service
+policy and runtime evidence.
+Service conformance tests still own those semantics.
 
 ## Allowed and prohibited contents
 
