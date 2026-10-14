@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "componentId": "c0.toolchain.ajv",
+  "repository": "psdc-architecture",
+  "scope": "common",
+  "status": "proposed",
+  "decisionOwner": "PSDC Architecture Maintainers",
+  "governingRefs": ["ADR-0030", "docs/open-source/License-Policy.md", "contracts/README.md"],
+  "candidates": [
+    {
+      "project": "ajv",
+      "sourceUrl": "https://github.com/ajv-validator/ajv",
+      "sourceRevision": "0fba0b8e649909613cfce0999b149cd08f4a4987",
+      "licenseEvidence": "MIT declaration and upstream LICENSE at tag v8.20.0; see C0-Contract-Toolchain-Source-Admission-Research.md",
+      "fit": "Pinned JavaScript Draft 2020-12 schema validation for Common fixtures and contracts",
+      "limitations": "Development tool only; schema validity does not establish policy, authorization, runtime state or release approval"
+    }
+  ],
+  "selection": {
+    "mode": "adopt",
+    "project": "ajv",
+    "sourceRevision": "0fba0b8e649909613cfce0999b149cd08f4a4987",
+    "rationale": "Proposed direct toolchain use at the existing validator seam; no PSDC fork or copied source is justified by current evidence"
+  },
+  "upstreamProvides": ["JSON Schema Draft 2020-12 validation mechanics"],
+  "psdcOwns": ["contract meaning and fixture expectations", "release decision and institutional authority"],
+  "excluded": ["runtime authorization authority", "automatic acceptance of upstream schema behavior changes", "packaging dependency code in the current contract bundle"],
+  "evidence": [
+    {
+      "method": "Upstream tag, npm metadata and local lockfile review",
+      "artifact": "docs/open-source/C0-Contract-Toolchain-Source-Admission-Research.md",
+      "revision": "2d243f88a2192d79ba8baa34a77a9dc0765a0e95",
+      "result": "documented-claim",
+      "limitations": "No tarball-to-source diff, file-level license review or signature verification"
+    },
+    {
+      "method": "npm lockfile SPDX graph and dated npm advisory query",
+      "artifact": "docs/open-source/evidence/C0-Toolchain-Checks-2026-10-14.json",
+      "revision": "package-lock sha256:864cf3b411c34f5efa29411e806ce125d8b31c10a49608532ca877020360804e",
+      "result": "passed",
+      "limitations": "Declared licenses only; point-in-time advisory data; no admission approval"
+    }
+  ],
+  "maintenance": {
+    "owner": "unassigned",
+    "updatePlan": "Assign owner, review cadence, dependency updates and vulnerability response before acceptance",
+    "replacementTrigger": "Unsupported release, incompatible license, unresolved vulnerability or changed schema behavior",
+    "patchBudget": "No fork or local patch planned"
+  },
+  "openGates": [
+    "compare other credible validator options and document why direct adoption remains appropriate",
+    "review full transitive file-level licenses and notices",
+    "compare npm tarball against upstream source and verify available provenance",
+    "assign security/update owner and obtain qualified approval"
+  ]
+}

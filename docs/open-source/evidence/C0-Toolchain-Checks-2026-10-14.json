@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "status": "dated-observation-not-admission",
+  "scope": "psdc-architecture development contract toolchain",
+  "packageLockSha256": "864cf3b411c34f5efa29411e806ce125d8b31c10a49608532ca877020360804e",
+  "sbom": {
+    "format": "SPDX-2.3",
+    "generator": "npm/cli-11.17.0 --package-lock-only",
+    "packageCount": 171,
+    "allHaveDeclaredLicense": true,
+    "filesAnalyzed": false,
+    "declaredLicenseCounts": {
+      "MIT": 141,
+      "Apache-2.0": 23,
+      "0BSD": 3,
+      "BSD-2-Clause": 1,
+      "BSD-3-Clause": 1,
+      "ISC": 1,
+      "Python-2.0": 1
+    }
+  },
+  "installedLicenseFilePresence": {
+    "method": "Check top-level LICENSE, LICENCE or COPYING files in each installed package directory named by the SPDX inventory",
+    "missing": [
+      "@asyncapi/parser@3.6.3",
+      "@stoplight/spectral-runtime@1.1.6",
+      "tr46@0.0.3"
+    ],
+    "limitation": "Absence of a top-level file is not proof of unlicensed code; presence is not a file-level license audit"
+  },
+  "audit": {
+    "command": "npm audit --json --audit-level=moderate",
+    "observedAt": "2026-10-14T13:33:31.6493162Z",
+    "refreshBy": "2026-10-21T13:33:31Z",
+    "exitCode": 0,
+    "reportedVulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "limitation": "A point-in-time npm advisory response, not a security guarantee or a substitute for maintained update ownership"
+  },
+  "openGates": [
+    "file-level license and NOTICE review, including packages without a top-level license file",
+    "tarball-to-tagged-source comparison and upstream provenance/signature review",
+    "generated artifact and distribution dependency-boundary review",
+    "maintainer, legal, security and architecture admission decisions"
+  ]
+}
