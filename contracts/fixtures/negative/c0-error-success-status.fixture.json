@@ -1,0 +1,18 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.c0.error-success-status",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:common:error-envelope:1",
+  "description": "An error envelope cannot masquerade as an HTTP success response.",
+  "expected": { "schemaValid": false, "semanticOutcome": "reject" },
+  "instance": {
+    "contractVersion": "1.0",
+    "type": "https://spec.psdc.example/problems/capacity-unavailable",
+    "title": "Capacity unavailable",
+    "status": 200,
+    "code": "CAPACITY_UNAVAILABLE",
+    "traceId": "trace.synthetic.1",
+    "correlationId": "12121212-1212-4121-8121-121212121212",
+    "retryable": false
+  }
+}

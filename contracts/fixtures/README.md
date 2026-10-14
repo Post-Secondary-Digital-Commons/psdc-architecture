@@ -22,6 +22,9 @@ category coverage, and the declared status/reason values. It does not prove cryp
 signatures, wall-clock ordering, registry state, policy truth, capacity arithmetic, Merkle
 construction, ledger consensus, or backend behavior. Those belong to service and vertical-slice
 conformance tests.
+The validator additionally requires at least one positive and one negative structural case
+for each of the five C0 boundaries. This is a coverage floor, not a claim that every invalid,
+expired, revoked, unauthorized, or privacy-sensitive case is tested.
 
 ## Allowed and prohibited contents
 

@@ -1,0 +1,20 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.c0.signed-object-unapproved-canonicalization",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:common:signed-object-envelope:1",
+  "description": "A signed object must not select an unapproved canonicalization algorithm.",
+  "expected": { "schemaValid": false, "semanticOutcome": "reject" },
+  "instance": {
+    "contractVersion": "1.0",
+    "envelopeId": "15151515-1515-4151-8151-151515151515",
+    "payloadSchemaId": "urn:psdc:contracts:common:resource-reference:1",
+    "payloadDigest": "1515151515151515151515151515151515151515151515151515151515151515",
+    "canonicalization": "raw-json",
+    "payload": { "synthetic": true },
+    "signer": { "subjectId": "subject.synthetic.signer", "keyId": "did:web:institution.example#signer-1" },
+    "signedAt": "2026-09-29T12:00:00Z",
+    "nonce": "synthetic-nonce-0001",
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#signer-1", "canonicalization": "RFC8785", "signedAt": "2026-09-29T12:00:00Z", "value": "c2lnbmVkLW9iamVjdC1zaWduYXR1cmU" }
+  }
+}

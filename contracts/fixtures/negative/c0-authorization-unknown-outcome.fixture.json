@@ -1,0 +1,24 @@
+{
+  "fixtureVersion": "1.0",
+  "fixtureId": "negative.c0.authorization-unknown-outcome",
+  "category": "negative",
+  "schemaId": "urn:psdc:contracts:common:authorization-decision:1",
+  "description": "Authorization outcomes must be explicit allow or deny; unknown states fail closed.",
+  "expected": { "schemaValid": false, "semanticOutcome": "reject" },
+  "instance": {
+    "contractVersion": "1.0",
+    "decisionId": "13131313-1313-4131-8131-131313131313",
+    "institutionId": "institution.example",
+    "policyId": "policy.compute.admission",
+    "policyVersion": "1.0.0",
+    "outcome": "defer",
+    "subject": { "kind": "service-account", "id": "subject.synthetic.scheduler" },
+    "action": "compute.workload.submit",
+    "resource": { "kind": "workload", "id": "workload.synthetic.1" },
+    "contextDigest": "1313131313131313131313131313131313131313131313131313131313131313",
+    "issuedAt": "2026-09-29T12:00:00Z",
+    "expiresAt": "2026-09-29T12:05:00Z",
+    "reason": { "code": "POLICY_DENY", "message": "Synthetic unknown outcome." },
+    "signature": { "algorithm": "Ed25519", "keyId": "did:web:institution.example#policy-1", "canonicalization": "RFC8785", "signedAt": "2026-09-29T12:00:00Z", "value": "YXV0aG9yaXphdGlvbi1zaWduYXR1cmU" }
+  }
+}

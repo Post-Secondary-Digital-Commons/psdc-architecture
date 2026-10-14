@@ -202,6 +202,14 @@ const fixtureFiles = walk(path.join(contractsRoot, "fixtures"), ".fixture.json")
 const fixtureIds = new Set();
 const categories = new Set();
 const positiveCoverage = new Set();
+const negativeCoverage = new Set();
+const c0NegativeError = new Map([
+  ["negative.c0.event-invalid-classification", { instancePath: "/classification", keyword: "enum" }],
+  ["negative.c0.error-success-status", { instancePath: "/status", keyword: "minimum" }],
+  ["negative.c0.resource-ref-embedded-authorization", { instancePath: "", keyword: "additionalProperties", additionalProperty: "authorized" }],
+  ["negative.c0.authorization-unknown-outcome", { instancePath: "/outcome", keyword: "enum" }],
+  ["negative.c0.signed-object-unapproved-canonicalization", { instancePath: "/canonicalization", keyword: "const" }]
+]);
 const failures = [];
 validateRegistry(failures);
 
@@ -231,8 +239,16 @@ for (const filePath of fixtureFiles) {
   if (valid !== fixture.expected.schemaValid) {
     failures.push(`${relativePath}: expected schemaValid=${fixture.expected.schemaValid}, got ${valid}; ${ajv.errorsText(validator.errors, { separator: "; " })}`);
   }
+  const expectedError = c0NegativeError.get(fixture.fixtureId);
+  if (expectedError) {
+    const observedErrors = validator.errors ?? [];
+    const matches = observedErrors.length === 1 && Object.entries(expectedError).every(([key, value]) =>
+      key === "additionalProperty" ? observedErrors[0].params.additionalProperty === value : observedErrors[0][key] === value);
+    if (!matches) failures.push(`${relativePath}: negative C0 fixture must fail only at its intended constraint: ${JSON.stringify(expectedError)}; observed ${JSON.stringify(observedErrors)}`);
+  }
 
   if (fixture.category === "positive" && valid) positiveCoverage.add(fixture.schemaId);
+  if (fixture.category === "negative" && !valid) negativeCoverage.add(fixture.schemaId);
   if (valid) {
     const semanticFailures = [];
     validateSemantics(fixture.schemaId, fixture.instance, relativePath, semanticFailures);
@@ -263,6 +279,20 @@ const productionSchemas = schemas
   .filter((id) => !id.includes(":common:") && !id.includes(":fixtures:"));
 for (const schemaId of productionSchemas) {
   if (!positiveCoverage.has(schemaId)) failures.push(`No positive fixture covers ${schemaId}`);
+}
+
+// C0 is the prerequisite for the operational outbox packet. A globally present
+// negative category is insufficient: each shared boundary needs its own rejection case.
+const c0Schemas = [
+  "urn:psdc:contracts:events:event-envelope:1",
+  "urn:psdc:contracts:common:error-envelope:1",
+  "urn:psdc:contracts:common:resource-reference:1",
+  "urn:psdc:contracts:common:authorization-decision:1",
+  "urn:psdc:contracts:common:signed-object-envelope:1"
+];
+for (const schemaId of c0Schemas) {
+  if (!positiveCoverage.has(schemaId)) failures.push(`No positive C0 fixture covers ${schemaId}`);
+  if (!negativeCoverage.has(schemaId)) failures.push(`No negative C0 fixture covers ${schemaId}`);
 }
 
 for (const requiredCategory of ["positive", "negative", "timeout", "retry", "revocation", "failure"]) {
