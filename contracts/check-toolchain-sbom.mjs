@@ -27,7 +27,10 @@ const result = spawnSync(process.execPath, [npmEntrypoint, "sbom", "--package-lo
 if (result.error || result.status !== 0) throw new Error(`npm sbom failed: ${result.error?.message ?? result.stderr}`);
 const generated = JSON.parse(result.stdout);
 const sha256 = (data) => createHash("sha256").update(data).digest("hex");
-const lockSha256 = sha256(fs.readFileSync(path.join(repositoryRoot, "package-lock.json")));
+// Git may check text artifacts out with CRLF on Windows. Hash the canonical LF
+// representation so the recorded digest identifies content across platforms.
+const canonicalTextSha256 = (data) => sha256(data.toString("utf8").replace(/\r\n/g, "\n"));
+const lockSha256 = canonicalTextSha256(fs.readFileSync(path.join(repositoryRoot, "package-lock.json")));
 
 function normalized(document) {
   assert.equal(document.spdxVersion, "SPDX-2.3");
@@ -70,7 +73,9 @@ if (mode === "--check") {
   const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
   const snapshotBytes = fs.readFileSync(snapshotPath);
   assert.equal(metadata.packageLockSha256, lockSha256, "Snapshot lockfile digest is stale");
-  assert.equal(metadata.snapshotSha256, sha256(snapshotBytes), "Stored SPDX snapshot was modified");
+  assert.equal(metadata.snapshotSha256, canonicalTextSha256(snapshotBytes), "Stored SPDX snapshot was modified");
+  const crlfSnapshot = Buffer.from(snapshotBytes.toString("utf8").replace(/\r?\n/g, "\r\n"), "utf8");
+  assert.equal(metadata.snapshotSha256, canonicalTextSha256(crlfSnapshot), "Snapshot digest must survive CRLF checkout");
   const stored = JSON.parse(snapshotBytes);
   assert.deepEqual(normalized(stored), expectedGraph, "Pinned dependency graph differs from stored SPDX snapshot");
   assert.equal(metadata.packageCount, stored.packages.length);
@@ -95,7 +100,7 @@ if (mode === "--check") {
     schemaVersion: 1,
     status: "generated-inventory-not-admission",
     packageLockSha256: lockSha256,
-    snapshotSha256: sha256(snapshotBytes),
+    snapshotSha256: canonicalTextSha256(snapshotBytes),
     packageCount: generated.packages.length,
     generatedAt: new Date().toISOString(),
     limitation: "npm package-lock SPDX inventory only; no file-level license, provenance or vulnerability clearance"
