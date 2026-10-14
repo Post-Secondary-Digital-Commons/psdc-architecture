@@ -63,6 +63,10 @@ Verified against upstream repositories on 2026-09-25; re-verify at source-admiss
 
 ## Component admission record
 
+The [C0 contract-toolchain source-admission research](C0-Contract-Toolchain-Source-Admission-Research.md)
+captures candidate provenance for two pinned development dependencies. It is research
+evidence, not an admission decision or a substitute for the requirements below.
+
 Before source or binaries enter a release, the owner MUST record:
 
 - upstream organization/repository and immutable commit/tag;
