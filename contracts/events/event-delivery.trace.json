@@ -1,0 +1,20 @@
+{
+  "traceVersion": "1.0",
+  "baseFixture": "../fixtures/positive/event-envelope.fixture.json",
+  "observationTime": "2026-09-29T12:01:00Z",
+  "expectedAppliedCount": 5,
+  "cases": [
+    { "id": "first", "overrides": {}, "expected": "applied" },
+    { "id": "redelivery", "overrides": {}, "expected": "duplicate" },
+    { "id": "gap-before-predecessor", "overrides": { "sequence": 3, "id": "36363636-3636-4363-8363-363636363636", "idempotencykey": "workload-submitted-0003" }, "expected": "gap" },
+    { "id": "predecessor", "overrides": { "sequence": 2, "id": "26262626-2626-4262-8262-262626262626", "idempotencykey": "workload-submitted-0002" }, "expected": "applied" },
+    { "id": "gap-retry", "overrides": { "sequence": 3, "id": "36363636-3636-4363-8363-363636363636", "idempotencykey": "workload-submitted-0003" }, "expected": "applied" },
+    { "id": "predecessor-redelivery", "overrides": { "sequence": 2, "id": "26262626-2626-4262-8262-262626262626", "idempotencykey": "workload-submitted-0002" }, "expected": "duplicate" },
+    { "id": "event-id-conflict", "overrides": { "sequence": 2, "id": "26262626-2626-4262-8262-262626262626", "idempotencykey": "workload-submitted-0002", "data": { "workloadId": "changed" } }, "expected": "id-conflict" },
+    { "id": "idempotency-conflict", "overrides": { "sequence": 4, "id": "46464646-4646-4464-8464-464646464646", "idempotencykey": "workload-submitted-0002" }, "expected": "idempotency-conflict" },
+    { "id": "stale-sequence", "overrides": { "sequence": 2, "id": "56565656-5656-4565-8565-565656565656", "idempotencykey": "workload-submitted-0005" }, "expected": "stale" },
+    { "id": "expired", "overrides": { "sequence": 4, "id": "66666666-6666-4666-8666-666666666666", "idempotencykey": "workload-submitted-0006", "expiresat": "2026-09-29T12:00:59Z" }, "expected": "expired" },
+    { "id": "other-institution", "overrides": { "institutionid": "partner.example" }, "expected": "applied" },
+    { "id": "other-source-same-institution", "overrides": { "source": "/institutions/institution.example/compute/other-producer" }, "expected": "applied" }
+  ]
+}

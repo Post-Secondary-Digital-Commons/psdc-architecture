@@ -51,12 +51,21 @@ npm run test:contracts
 npm audit --audit-level=moderate
 ```
 
+The complete suite also needs Python 3.8 or newer for an independently written
+event-consumer model. On Windows it tries `py -3` then `python`; on other systems
+it tries `python3` then `python`. Set `PSDC_PYTHON` to an explicit interpreter
+when neither default resolves. Both models consume the same 12-case trace in
+`events/event-delivery.trace.json`; a wrong expected result is deliberately
+mutated to prove the Python check fails. This is cross-language agreement on
+synthetic ordering and idempotency cases, not independent human review,
+durable delivery, or full RFC 8785 equivalence.
+
 The runner validates every schema in strict Draft 2020-12 mode, resolves registered URN
 references, checks fixtures, enforces positive coverage and all six scenario categories, checks
 relative timestamp ordering and selected arithmetic invariants, validates local API/event
 references with the official OpenAPI and AsyncAPI parsers, verifies fixed canonicalization and
 Ed25519 vectors, exercises duplicate, conflicting, out-of-order, expired and
-institution-scoped event delivery through a deterministic consumer model, proves lifecycle
+institution/source-scoped event delivery through two deterministic consumer models, proves lifecycle
 state/transition coverage, checks fixed synthetic key rotation and revocation
 vectors for new authorization, and performs two clean bundle builds
 to prove byte-for-byte manifest reproducibility. It also builds and attests one

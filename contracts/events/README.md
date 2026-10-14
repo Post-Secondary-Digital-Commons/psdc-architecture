@@ -53,6 +53,8 @@ It MUST NOT contain secrets, credentials, private infrastructure values, unrelat
 ## Contents
 
 - `event-envelope.schema.json` — common metadata, causality, ordering, replay, and expiry shape;
+- `event-delivery.trace.json` — shared synthetic ordering/deduplication expectations consumed by
+  separate JavaScript and Python in-memory models; not a broker durability test;
 - `compute-fabric.asyncapi.json` — compute, metering, settlement, ledger, and dispute messages;
 - `README.md` — delivery, ownership, and compatibility semantics.
 

@@ -7,9 +7,11 @@ import canonicalize from "canonicalize";
 // Conformance model for an at-least-once consumer. Production consumers must
 // persist these maps in the same transaction as their domain state mutation.
 const root = path.dirname(fileURLToPath(import.meta.url));
+const trace = JSON.parse(fs.readFileSync(path.join(root, "events/event-delivery.trace.json"), "utf8"));
 const fixture = JSON.parse(fs.readFileSync(path.join(root, "fixtures/positive/event-envelope.fixture.json"), "utf8"));
+assert.equal(trace.baseFixture, "../fixtures/positive/event-envelope.fixture.json");
 const original = fixture.instance;
-const now = Date.parse("2026-09-29T12:01:00Z");
+const now = Date.parse(trace.observationTime);
 
 function consumer() {
   const scopes = new Map();
@@ -41,29 +43,9 @@ function consumer() {
   return { receive, applied: () => applied };
 }
 
-const next = (sequence, id, idempotencykey) => ({
-  ...original, sequence, id, idempotencykey,
-});
-const consumerA = consumer();
-assert.equal(consumerA.receive(original), "applied");
-assert.equal(consumerA.receive(original), "duplicate");
-assert.equal(consumerA.applied(), 1, "redelivery must not apply twice");
-
-const second = next(2, "26262626-2626-4262-8262-262626262626", "workload-submitted-0002");
-const third = next(3, "36363636-3636-4363-8363-363636363636", "workload-submitted-0003");
-assert.equal(consumerA.receive(third), "gap", "a future event waits for its predecessor");
-assert.equal(consumerA.receive(second), "applied");
-assert.equal(consumerA.receive(third), "applied", "retry succeeds after predecessor");
-assert.equal(consumerA.receive(second), "duplicate");
-assert.equal(consumerA.applied(), 3);
-
-assert.equal(consumerA.receive({ ...second, data: { workloadId: "changed" } }), "id-conflict");
-assert.equal(consumerA.receive({ ...next(4, "46464646-4646-4464-8464-464646464646", second.idempotencykey) }), "idempotency-conflict");
-assert.equal(consumerA.receive(next(2, "56565656-5656-4565-8565-565656565656", "workload-submitted-0005")), "stale");
-assert.equal(consumerA.receive({ ...next(4, "66666666-6666-4666-8666-666666666666", "workload-submitted-0006"), expiresat: "2026-09-29T12:00:59Z" }), "expired");
-
-// Ordering and idempotency are scoped to the producer and institution. Another
-// institution does not inherit this consumer's sequence or deduplication state.
-assert.equal(consumerA.receive({ ...original, institutionid: "partner.example" }), "applied");
-assert.equal(consumerA.applied(), 4);
-console.log("C0 event delivery conformance passed: duplicate, conflict, gap, retry, stale, expiry, and institution scope.");
+const subject = consumer();
+for (const testCase of trace.cases) {
+  assert.equal(subject.receive({ ...original, ...testCase.overrides }), testCase.expected, testCase.id);
+}
+assert.equal(subject.applied(), trace.expectedAppliedCount);
+console.log(`C0 JavaScript event consumer trace passed: ${trace.cases.length} cases, ${subject.applied()} applied.`);
