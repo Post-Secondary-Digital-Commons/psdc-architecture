@@ -27,6 +27,14 @@ services owned by Commons Compute Fabric, Commons AI Fabric, Commons Media and S
 
 ## Taxonomy
 
+The [self-service cloud product proposal](../../product/Self-Service-Cloud-Product-and-Console.md)
+adds an institution-branded console, account/project lifecycle and optional paid
+capacity to this taxonomy. It records founder product direction but is not an
+accepted commercial offer: course enrollment is not proposed as a universal
+prerequisite, while eligible account population and paid-service activation remain
+institution decisions. The services below are architecture scope, not proof of a
+deployed cloud or AWS/Azure feature parity.
+
 | Domain | Services | Boundary posture |
 |---|---|---|
 | Access edge | ingress, API gateway, load balancing, DNS, egress | Standard network and TLS mechanisms |

@@ -48,6 +48,13 @@ This document orders delivery of the shared cloud services the other fabrics rel
 
 ### Order
 
+The [proposed self-service cloud product](../product/Self-Service-Cloud-Product-and-Console.md)
+requires a separate user-facing release sequence: synthetic account/project and
+bucket/function slice, institution-approved grant-only pilot, separately approved
+paid pilot, then commercial production. This is a proposal, not a claim that
+paid top-ups or business hosting are authorized by the existing rollout or
+ADR-0015 funding assumption.
+
 1. **Governance and self-hosted CI.** Protected branches, deny-by-default membership and mandatory two-factor are active; a self-hosted Woodpecker server with isolated agents is the planned CI engine (CLD-017). No required CI checks exist yet. Early environments use only synthetic bootstrap secrets.
 2. **Development key and certificate profile.** A development KMS and certificate profile with synthetic roots, clearly separated from production, so the services below are not run with ad hoc credentials.
 3. **Identity, policy and contracts.** Keycloak identity broker with an institution-approved upstream in production and a local or test provider elsewhere, and an OPA-compatible policy service (CLD-013). Contract candidates for the compute slice already exist.

@@ -64,6 +64,10 @@ This glossary defines the terms the architecture uses with a specific meaning. W
 | Lease | A fenced, expiring grant of resources for one workload, with a generation number that rejects stale actors ([lease contract](../../contracts/compute/lease.schema.json)) |
 | Usage receipt | Signed measurement of what a lease actually used |
 | IRU | Institutional resource unit: a non-transferable accounting unit, not a public token ([ADR-0029](../architecture/architecture-decision-records/ADR-0029-unified-institutional-resource-metering.md)) |
+| Cloud account | Proposed institution-governed relationship through which an eligible person accesses self-service cloud projects; it is not a course enrollment ([proposal](../product/Self-Service-Cloud-Product-and-Console.md)) |
+| Cloud project | Proposed institution-owned boundary for a purpose, members, resources, quotas, policy and funding; a person may belong to several projects |
+| Granted service credit | Proposed non-transferable, sponsor-issued spending entitlement with stated use restrictions; it is not customer prepayment |
+| Purchased service balance | Proposed record of customer-prepaid cloud capacity and its refund or dispute obligations; it is not a public token or authorization credential |
 | Settlement batch | A zero-sum set of balance changes over a window, committed to a ledger |
 | Preemption | Ending a running lease so the resource can serve a higher-priority or owner need; distinct from revocation for cause |
 | Drain | Stopping new leases on a resource ahead of eviction or maintenance, with a grace period |
