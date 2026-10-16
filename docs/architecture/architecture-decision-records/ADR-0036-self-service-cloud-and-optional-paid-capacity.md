@@ -5,8 +5,8 @@
 > Status: Proposed; founder product direction recorded, commerce not institution-approved
 > Owner: PSDC Cloud, Product and Economics Working Groups
 > Accountable maintainer: RedjiJB until delegation
-> Last reviewed: 2026-10-15
-> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032
+> Last reviewed: 2026-10-16
+> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-024
 > Date: 2026-10-15
 > Decision owner: PSDC founder for product direction; each institution for commercial activation
 
@@ -61,13 +61,32 @@ explicit finance, legal, privacy, security, procurement and institutional approv
    client boundary. S3-compatible SDK access targets that gateway, not raw Ceph or
    another storage provider. Function triggers and runtime endpoints likewise pass
    through institution policy. Compatibility claims name tested API subsets.
+7. An eligible person's cloud account remains accessible after graduation as an
+   **alumni account**. Graduation ends neither identity nor ownership of an allowed
+   personal project. It does not automatically award another grant. A school-owned
+   or sponsored project's ownership and sponsorship follow its explicit agreement.
+8. The initial pilot population is limited to institution-affiliated people and
+   alumni, subject to institution approval and without a course-enrollment
+   prerequisite. Unaffiliated public registration is a later,
+   separately approved release gate; a DID, VC or purchased balance does not
+   establish eligibility or authorization by itself.
+9. When a grant is exhausted, a project may consume purchased balance **only after
+   its authorized payer explicitly opts in to paid usage** for that project and
+   accepts its rate card and spending ceiling. Buying balance is not that opt-in.
+   No automatic card charge or credit extension follows from grant exhaustion.
+10. If no permitted funding remains, the platform pauses billable services rather
+    than silently charging the user or deleting the account. Sign-in, usage and
+    billing review, support, and eligible data export remain available. Resource
+    retention, non-billable preservation cost, notice and restart semantics need
+    published institution-approved terms before a live pilot.
 
 ## Consequences and review gates
 
 - The [self-service cloud product proposal](../../product/Self-Service-Cloud-Product-and-Console.md)
   gives candidate journeys, interfaces, failure handling and staged release gates.
-- Institution eligibility is an open choice: affiliated users first versus approved
-  public signup. No deployment may infer open registration from this ADR.
+- The founder selected affiliated users and alumni for the first pilot on
+  2026-10-16. That product direction does not itself authorize an institution to
+  activate registration; public signup remains a separate future decision.
 - No paid top-up, refund rule, expiry, tax treatment, public offer or business-hosting
   promise activates before institution counsel, finance, consumer-protection/privacy,
   security and service ownership approve it. Pricing and service terms need publication
@@ -75,9 +94,10 @@ explicit finance, legal, privacy, security, procurement and institutional approv
 - Existing contract candidates do not define financial purchase/refund/chargeback
   lifecycles or a student cloud service catalog. They need versioned contracts and
   negative fixtures before implementation handoff.
-- A student may keep an allowed personal project after a course ends, subject to
-  continuing account eligibility, balance, data retention and institution policy.
-  Graduation or account termination requires export and disposition workflows.
+- Graduation is an account-status transition, not account closure. An alumnus may
+  keep an allowed personal project without an automatic new grant. Account closure,
+  sponsorship changes and funded-service suspension require distinct export and
+  disposition workflows.
 
 ## Alternatives
 

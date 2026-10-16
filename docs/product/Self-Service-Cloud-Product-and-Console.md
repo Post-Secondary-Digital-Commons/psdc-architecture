@@ -5,8 +5,8 @@
 > Status: Proposed for owner and institution review; no console or paid service deployed
 > Owner: PSDC Cloud and Product Working Groups
 > Accountable maintainer: RedjiJB until delegation
-> Last reviewed: 2026-10-15
-> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032; proposed ADR-0036
+> Last reviewed: 2026-10-16
+> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-024; proposed ADR-0036
 
 ## Purpose and users
 
@@ -17,13 +17,14 @@ own identity, policy, capacity, rates, data and financial authority. The initial
 console should feel like a usable cloud product, not expose disconnected Kubernetes,
 OpenStack, Ceph and billing dashboards as the primary experience.
 
-Users include an individual student working personally, a school-sponsored project,
-a developer testing or hosting an application, a research team, an institution
+Users include an individual student or alumnus working personally, a
+school-sponsored project, a developer testing or hosting an application, a research team, an institution
 administrator and—only after commercial approval—a customer operating an approved
 business project. Faculty or a course may grant sponsorship, but no user needs a
-course enrollment solely to have an eligible personal project. Whether unaffiliated
-members of the general public may register is an explicit institution choice, not
-settled by this proposal.
+course enrollment solely to have an eligible personal project. The founder's
+initial-pilot direction is institution-affiliated people and alumni. Each
+institution still approves its enrollment and identity-proofing process before
+activation. Unaffiliated public registration is a separate future release gate.
 
 ## Scope and out of scope
 
@@ -39,13 +40,14 @@ the PSDC ledger, certifying any site, or claiming a production deployment.
 
 | Concept | Owner and boundary | Visible behavior |
 |---|---|---|
-| Cloud account | Institution identity and eligibility authority | Sign in, security settings, owned/sponsored projects, notices, export and closure |
+| Cloud account | Institution identity and eligibility authority | Sign in, security settings, student-to-alumni status, owned/sponsored projects, notices, export and closure |
 | Cloud project | PSDC Cloud product boundary under one institution | Purpose, members, service profile, data policy, quotas, rate card, funding sources and resources |
 | Service profile | Institution-approved policy | Personal sandbox, school-sponsored, developer/research, or commercial; controls and SLO vary |
 | Service catalog | PSDC Cloud over replaceable providers | Eligible resource types, price/credit estimate, location, limits, API compatibility and availability |
 | Resource | Owning service behind a PSDC contract | Create, configure, observe, renew, stop, export and delete with explainable status |
 | Granted service credit | Sponsor/program entitlement, not money | Award, restrictions, usage and lawful expiry if any |
 | Purchased service balance | Customer prepayment obligation, not a public token | Separate purchase/refund/chargeback history, tax treatment and available balance |
+| Paid-usage opt-in | Authorized payer's project-scoped approval | Explicit rate card, budget ceiling, funding order and revocation; purchasing balance alone is insufficient |
 | IRU | Metered resource accounting unit under ADR-0029 | CPU/GPU time, storage time/I/O, governed egress and comparable usage receipts |
 
 One human may own a personal project and belong to a school or commercial project.
@@ -87,9 +89,10 @@ display a successful creation merely because a backend request was queued.
 | Object-storage user | Creates a bucket, obtains scoped S3-compatible access through the institution gateway, uploads, versions, retrieves and deletes an allowed object | Unsupported S3 operation returns a documented compatibility error; backend is not directly exposed |
 | Function developer | Publishes an approved artifact and connects HTTP, schedule, queue or object trigger; sees invocation logs and cost | Unapproved image, forbidden egress, missing budget or duplicate event cannot bypass admission or double charge |
 | School sponsor | Assigns restricted grant credits to a project and later withdraws sponsorship under published terms | A restricted academic grant cannot silently pay for commercial use |
-| Purchased capacity | Authorized user requests a top-up and receives balance only after verified payment or approved invoice | Failed/duplicate/charged-back payment does not mint spendable balance; refund retains audit trail |
+| Purchased capacity | Authorized user requests a top-up and receives balance only after verified payment or approved invoice; separately opts the project into paid usage | Failed/duplicate/charged-back payment does not mint spendable balance; buying balance alone does not permit paid consumption |
 | Business operator | Applies for commercial profile, accepts terms, configures controlled ingress and receives the approved support/SLO | Payment alone does not make a sandbox production-certified or authorize protected data |
-| Graduating user | Exports eligible project data, resolves ownership, then closes or transitions the project | Legal hold, sponsor ownership and retention are explained; backups cannot resurrect deleted data |
+| Graduating user | Keeps an accessible alumni account and allowed personal projects, resolves any school sponsorship, and can export eligible data | No automatic new grant; graduation alone does not close the account or delete data |
+| Exhausted funding | Receives warnings, sees services paused and retains console, usage/billing, support and eligible export access | No silent use of purchased balance, automatic card charge or immediate deletion; resume only after permitted funding and checks |
 
 ## Service and implementation architecture
 
@@ -163,8 +166,13 @@ expiry authority) and **purchased balance** (what the customer paid, taxes/fees,
 refund liability and chargeback state). The user may see an estimated total, but
 the statement must reveal both columns and the configured consumption order.
 Alert thresholds, a user-set hard spending cap and automatic stop/suspend behavior
-are required before paid use. A dispute holds the contested amount and prevents
-an automated provider penalty. No conversion, transfer, withdrawal or cash
+are required before paid use. Purchased balance is available for a project's
+billable usage only after its authorized payer explicitly opts in to that project's
+current rate card and spending ceiling. Buying or holding balance is not opt-in.
+Revocation blocks new paid consumption; any in-flight reservation must follow
+its published cancellation and reconciliation rule. A dispute holds the contested
+amount and prevents an automated provider penalty. No conversion, transfer,
+withdrawal or cash
 redemption follows from the word “credit.”
 
 Finance/counsel must decide whether prepaid cloud capacity is treated as a
@@ -173,6 +181,38 @@ the architecture does not make that legal determination. Terms must resolve pric
 changes, expiries, inactivity, refunds, service failure, tax, fraud and closure.
 The existing ADR-0015 funding model remains a separate scenario, not an approved
 charge or a substitute for these customer obligations.
+
+### Funding exhaustion and alumni lifecycle
+
+Account status, project funding state and resource runtime state are separate.
+`student -> alumni` keeps sign-in and allowed personal-project ownership; it does
+not renew a student grant. A school-sponsored project follows its sponsorship and
+data-ownership agreement, not the student's account status alone.
+
+For each project, the funding authority evaluates applicable grants first under
+their restrictions. It may draw purchased balance only with an active,
+project-scoped paid-usage opt-in from an authorized payer. The opt-in records the
+accepted rate-card version, spending ceiling, funding order, time and actor. It
+can be revoked; no pre-existing balance or stored payment method implies consent
+to future paid use. Automatic top-up or postpaid invoicing needs a separate,
+explicitly approved agreement and is not the default.
+
+When permitted funding runs out, reject new billable admissions and transition
+existing resources through service-specific safe-stop steps. A function stops
+accepting billable invocations; a VM or container receives a bounded shutdown;
+public ingress ceases serving if its backing service cannot run safely. Storage
+must enter an institution-funded, bounded preservation/export state rather than
+silently accruing customer charges or being immediately deleted. The institution
+must publish notice intervals, preservation duration, what export includes, what
+may continue running, and the later disposition rule before the pilot. No numeric
+period is assumed by this common proposal.
+
+The console remains usable for status, usage, billing/dispute, support, top-up and
+eligible export. On a valid grant or approved paid funding, resumption rechecks
+identity, project policy, current rate card, quota, resource health and placement;
+it is not an unconditional replay of old leases. A business service requiring
+continuity must opt into a separately approved funding and support arrangement;
+payment alone does not confer production assurance.
 
 ## Failure, recovery and operations
 
@@ -184,8 +224,9 @@ charge or a substitute for these customer obligations.
 | Object backend down | Reads/writes follow declared availability; no false success | Storage Authority repairs/fails over only inside policy and custody rules |
 | Payment provider unavailable | Existing entitled/granted use continues under policy; top-up pending | No unverified credit mint; independent core cloud operation |
 | Ledger unavailable | Accepted resource use continues within approved exposure limits | Queue commitments; reconcile after recovery, no card or content on-chain |
-| Project over budget | Alert then stop new discretionary usage at hard cap | Preserve export, billing, dispute and recovery access as policy permits |
-| Graduation/closure | Clear ownership, export, disposition and balance/refund status | Institution retention authority and finance, not course enrollment alone |
+| Project funding exhausted | Warn at thresholds; pause billable compute, functions, writes and public serving according to service-specific safe-stop procedures | Keep account, console, usage/billing, support and eligible export access; no automatic purchased-balance use or card charge |
+| Graduation | Transition student to alumni status; preserve accessible account and allowed personal projects | End or reassign school sponsorship under its agreement; no automatic alumni grant |
+| Account closure | Clear ownership, export, disposition and balance/refund status | Institution retention authority and finance, not course enrollment alone |
 
 Each service requires a named owner, documented support hours, SLO, measured
 capacity, backup/restore and incident runbook before production advertisement.
@@ -199,11 +240,13 @@ must remain usable during partner outages.
    gateway subset and one HTTP function. No real money or protected student data.
 2. **Institution pilot:** eligible accounts independent of courses, quotas, logs,
    export and a real provider with tested backup/restore, abuse controls and
-   independent receipt reconciliation. Grants only, with institutional approval.
+   independent receipt reconciliation. The founder-selected population is
+   institution-affiliated people and alumni. Grants only, with institutional approval.
 3. **Paid pilot:** separate purchased-balance contract, approved seller, terms,
    taxes/refunds/chargeback procedures, payment integration or invoice process,
-   daily reconciliation, support and negative financial fixtures. Feature gate
-   off until all institutional approvals are recorded.
+   daily reconciliation, explicit project-scoped paid-usage opt-in, support and
+   negative financial fixtures. Feature gate off until all institutional approvals
+   are recorded.
 4. **Commercial production:** certified provider pool, public-ingress safeguards,
    named on-call and SLO, business terms, complaints/disputes, recovery and
    capacity evidence. No course pilot or payment success substitutes for this.
@@ -219,8 +262,9 @@ not tests that have run.
 
 ## Open institution decisions and references
 
-The institution must name eligibility (including alumni/public access), seller of
-record, funding/credit grant authorities, actual rate card, balance restrictions,
+The institution must approve affiliated/alumni eligibility and proofing (public
+access remains a later decision), seller of record, funding/credit grant
+authorities, actual rate card, balance restrictions,
 refund/expiry/tax policy, payment method, commercial terms, abuse operator, public
 ingress owner, protected data classes, support tier, recovery objectives and
 capacity reservation. Those are not safely inherited from the Common framework.

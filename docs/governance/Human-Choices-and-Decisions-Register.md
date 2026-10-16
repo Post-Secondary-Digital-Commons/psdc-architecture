@@ -164,6 +164,20 @@ Decision states:
 | CLD-019 | IaC tools and module policy | OpenTofu + Ansible; OSI-licensed providers/modules preferred | Infrastructure team + legal | Accepted by ADR-0017; concrete backend before reproducible environment |
 | CLD-020 | Search service | OpenSearch only when PostgreSQL search is insufficient | Data architecture | Before adding search cluster |
 
+### Self-service cloud product decisions
+
+The founder accepted CLD-021 through CLD-024 on 2026-10-16 as common product
+direction. They do not approve an institutional paid offer, account onboarding,
+retention period or production deployment. Proposed ADR-0036 elaborates the
+product model; each institution must still approve its local implementation.
+
+| ID | Human choice | Accepted project default | Decision authority | Gate |
+|---|---|---|---|---|
+| CLD-021 | Pilot account population | Institution-affiliated people and alumni may be eligible without course enrollment; unaffiliated public registration is a later decision | Founder for common product; institution identity owner for activation | Institution eligibility and proofing approval before pilot |
+| CLD-022 | Graduation and grants | Graduates retain an accessible alumni cloud account and allowed personal projects; no automatic new alumni grant | Founder for common product; institution sponsor for local grants | Sponsorship, ownership and account-transition policy before pilot |
+| CLD-023 | Paid-usage consent | A project consumes purchased service balance only after its authorized payer explicitly opts in to paid use under a stated rate card and spending ceiling; purchasing balance alone is not consent | Founder for common product; institution finance/legal for activation | Paid pilot and versioned funding contract |
+| CLD-024 | Funding exhaustion | Pause billable services when no permitted funding remains while preserving account sign-in, usage/billing, support and eligible data-export access; no silent charge or immediate account deletion | Founder for common product; institution service and retention owners for activation | Service-specific safe stop, preservation terms and recovery test before pilot |
+
 ### 4.1 Accepted networking implementation profile
 
 The common architecture now selects safe defaults for every formerly open networking
