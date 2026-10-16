@@ -6,7 +6,7 @@
 > Owner: PSDC Cloud, Product and Economics Working Groups
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-16
-> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-027
+> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-030
 > Date: 2026-10-15
 > Decision owner: PSDC founder for product direction; each institution for commercial activation
 
@@ -90,6 +90,16 @@ explicit finance, legal, privacy, security, procurement and institutional approv
     invoiced continuity with a hard spending cap. This requires institution
     finance/legal approval, risk controls and explicit customer terms; it does
     not override the cap or guarantee uninterrupted service.
+14. Personal-to-business transition creates a **new approved business project**
+    and migrates only authorized data and resources after classification,
+    ownership, funding and policy checks. The personal project is not promoted
+    in place or given commercial privileges by changing a label.
+15. Closing a paid cloud account starts reconciliation and refund or other
+    settlement of unused purchased balance under institution-approved terms.
+    Closure cannot silently forfeit, transfer or erase a customer liability.
+16. The first paid pilot remains private. Public internet-facing applications
+    and ingress wait for the distinct commercial-production gate and its
+    security, abuse, network, support and recovery evidence.
 
 ## Consequences and review gates
 

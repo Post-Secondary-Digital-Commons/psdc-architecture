@@ -6,7 +6,7 @@
 > Owner: PSDC Cloud and Product Working Groups
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-16
-> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-027; proposed ADR-0036
+> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-030; proposed ADR-0036
 
 ## Purpose and users
 
@@ -90,10 +90,11 @@ display a successful creation merely because a backend request was queued.
 | Function developer | Publishes an approved artifact and connects HTTP, schedule, queue or object trigger; sees invocation logs and cost | Unapproved image, forbidden egress, missing budget or duplicate event cannot bypass admission or double charge |
 | School sponsor | Records a written ownership/sponsorship agreement, assigns restricted grant credits, and resolves control under that agreement when a member graduates | A restricted academic grant cannot silently pay for commercial use; graduation alone transfers no project control |
 | Purchased capacity | Authorized user requests a top-up and receives balance only after verified payment or approved invoice; separately opts the project into paid usage | Failed/duplicate/charged-back payment does not mint spendable balance; buying balance alone does not permit paid consumption |
-| Business operator | Applies for commercial profile, accepts terms, configures controlled ingress and receives the approved support/SLO | Payment alone does not make a sandbox production-certified or authorize protected data |
+| Business operator | Applies for a new approved business project, migrates allowed data, accepts terms and later configures controlled ingress under the commercial-production gate | Payment alone does not promote a personal project, certify production or authorize protected data |
 | Graduating user | Keeps an accessible alumni account and allowed personal projects, resolves any school sponsorship, and can export eligible data | No automatic new grant; graduation alone does not close the account or delete data |
 | Exhausted funding | Receives warnings, sees services paused and retains console, usage/billing, support and eligible export access | No silent use of purchased balance, automatic card charge or immediate deletion; resume only after permitted funding and checks |
 | Business continuity | Approved business owner separately elects capped automatic top-ups or invoiced continuity under approved terms | Payment failure, invoice exposure or reached cap cannot silently create unlimited debt or bypass safe stop |
+| Paid account closure | Owner exports eligible data and requests account closure; finance reconciles usage and refunds or otherwise settles unused purchased balance under approved terms | Liability is not forfeited, transferred or erased merely because sign-in closes |
 
 ## Service and implementation architecture
 
@@ -138,7 +139,8 @@ standalone-operation review before adoption.
 - Default to a private project and no public endpoint. Public ingress requires
   explicit project and institution approval, DNS/TLS, abuse contact, rate limits,
   DDoS ownership and egress policy. Commercial hosting requires a separately
-  certified production pool and support owner.
+  certified production pool and support owner. The first paid pilot stays private:
+  paying for capacity does not expose an app to the public Internet.
 - Student code is untrusted even when signed. Admission checks artifact digest,
   publisher, vulnerability/license policy, requested privileges, data class,
   secrets, egress and budget. Basic hosts do not promise host-operator memory
@@ -226,6 +228,26 @@ it is not an unconditional replay of old leases. A business service requiring
 continuity must opt into a separately approved funding and support arrangement;
 payment alone does not confer production assurance.
 
+### Business transition and paid account closure
+
+A personal project cannot be relabeled as commercial. The owner applies for a new
+business project. After institution approval, a migration plan inventories data,
+services, secrets, grants and dependencies; classifies what may move; establishes
+new project roles, funding, quotas and terms; copies or re-creates allowed resources;
+verifies data integrity and access; then performs a controlled cutover. The old
+personal project remains separately governed until its resources and balance are
+resolved. A failed migration must not confer business ingress or silently delete
+the source. Cross-project copy is not a grant of cross-project standing access.
+
+Paid account closure first stops new spending authority and reconciles outstanding
+holds, measured usage, refunds, disputes and chargebacks. Finance then refunds or
+otherwise settles unused purchased balance under published institution-approved
+terms and records the disposition. Grant credits and purchased balance are not
+interchangeable, so a grant is not assumed refundable. The platform must not erase
+the balance or close the financial record merely because console sign-in ends.
+The customer retains the agreed statement, dispute and data-export routes during
+the closure window; privacy and legal-hold rules govern eventual record deletion.
+
 ## Failure, recovery and operations
 
 | Failure | Customer-visible behavior | Authority and recovery |
@@ -239,7 +261,8 @@ payment alone does not confer production assurance.
 | Project funding exhausted | Warn at thresholds; pause billable compute, functions, writes and public serving according to service-specific safe-stop procedures | Keep account, console, usage/billing, support and eligible export access; preserve eligible personal data for at least 30 days, with advance notices and no automatic deletion |
 | Graduation | Transition student to alumni status; preserve accessible account and allowed personal projects | End or reassign school sponsorship under its agreement; no automatic alumni grant |
 | Business continuity payment/cap failure | Notify payer and prepare service-specific safe stop; never exceed a hard cap silently | Reconcile pending top-up or invoice, preserve eligible export, and resume only after authorized funding and policy recheck |
-| Account closure | Clear ownership, export, disposition and balance/refund status | Institution retention authority and finance, not course enrollment alone |
+| Personal-to-business migration failure | Keep source project under its existing policy; report failed copy or validation without activating commercial rights | Reconcile target holds, clean partial resources and retry only after fresh approval |
+| Account closure | Clear ownership, export, disposition and unused purchased-balance settlement status | Institution retention authority and finance, not course enrollment alone |
 
 Each service requires a named owner, documented support hours, SLO, measured
 capacity, backup/restore and incident runbook before production advertisement.
@@ -260,10 +283,13 @@ must remain usable during partner outages.
    daily reconciliation, explicit project-scoped paid-usage opt-in, support and
    negative financial fixtures. Optional capped automatic top-up and invoiced
    continuity need their own consent, exposure limits and failure fixtures.
-   Feature gate off until all institutional approvals are recorded.
+   Apps remain private; public internet-facing ingress is denied. Feature gate
+   off until all institutional approvals are recorded.
 4. **Commercial production:** certified provider pool, public-ingress safeguards,
    named on-call and SLO, business terms, complaints/disputes, recovery and
-   capacity evidence. No course pilot or payment success substitutes for this.
+   capacity evidence. Public ingress may activate no earlier than this gate for
+   separately approved eligible project profiles, including business projects.
+   No course pilot or payment success substitutes for this.
 5. **Expanded catalog:** VM, block/file, databases, accelerator, federation and
    optional public membership only after their own contracts and site gates.
 
@@ -273,7 +299,9 @@ project and credential isolation; gateway-only data access; accurate usage displ
 backup/restore and export; controlled deletion; independent operation during
 payment/partner outage; a 30-day preservation/export clock with notices, hold and
 resume cases; sponsored-project ownership review; hard-cap denial even with an
-automatic top-up agreement; and clear accessibility tests. These are proposed tests,
+automatic top-up agreement; new-project business migration with rollback;
+unused-balance settlement; paid-pilot public-ingress denial; and clear
+accessibility tests. These are proposed tests,
 not tests that have run.
 
 ## Open institution decisions and references

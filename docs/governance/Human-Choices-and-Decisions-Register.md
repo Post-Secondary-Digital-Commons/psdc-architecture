@@ -166,7 +166,7 @@ Decision states:
 
 ### Self-service cloud product decisions
 
-The founder accepted CLD-021 through CLD-027 on 2026-10-16 as common product
+The founder accepted CLD-021 through CLD-030 on 2026-10-16 as common product
 direction. They do not approve an institutional paid offer, account onboarding,
 legal retention or production deployment. Proposed ADR-0036 elaborates the
 product model; each institution must still approve its local implementation.
@@ -180,6 +180,9 @@ product model; each institution must still approve its local implementation.
 | CLD-025 | Exhausted-project export window | Preserve eligible personal-project data for at least 30 days after funding-exhaustion pause, with advance notices; deletion may be considered afterward but is not automatic and remains subject to approved retention, holds and terms | Founder for common product; institution privacy/records and service owners for activation | Published retention and deletion policy, funded preservation capacity and restore/export test before pilot |
 | CLD-026 | Sponsored-project graduation | Follow a written project ownership and sponsorship agreement; graduation alone does not transfer control to the student or institution | Founder for common product; institution sponsor and project parties for local agreement | Agreement before sponsored project activation; unresolved ownership goes to review without automatic transfer |
 | CLD-027 | Business continuity funding | Approved business projects may separately opt into automatic top-ups or invoiced continuity with a hard spending cap; neither is the default or an unlimited service guarantee | Founder for common product; institution finance/legal and service owner for activation | Paid/commercial pilot terms, credit-risk controls, cap enforcement and outage tests |
+| CLD-028 | Personal-to-business transition | Create a new, approved business project and migrate allowed resources/data; do not turn a personal project into a commercial one in place | Founder for common product; institution commercial and data owners for activation | Migration, data classification, ownership and cutover review before commercial use |
+| CLD-029 | Unused purchased balance at account closure | Refund or otherwise settle remaining purchased balance under institution-approved terms; closure must not silently forfeit or erase the liability | Founder for common product; institution finance/legal for activation | Published terms, reconciliation, dispute and refund procedure before paid pilot |
+| CLD-030 | First paid-pilot ingress | Keep apps private and deny public internet-facing ingress until the separate commercial-production gate passes | Founder for common product; institution network/security and service owners for activation | Public ingress, abuse, DDoS, support and SLO evidence before commercial production |
 
 ### 4.1 Accepted networking implementation profile
 
