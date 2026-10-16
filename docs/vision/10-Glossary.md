@@ -64,6 +64,17 @@ This glossary defines the terms the architecture uses with a specific meaning. W
 | Lease | A fenced, expiring grant of resources for one workload, with a generation number that rejects stale actors ([lease contract](../../contracts/compute/lease.schema.json)) |
 | Usage receipt | Signed measurement of what a lease actually used |
 | IRU | Institutional resource unit: a non-transferable accounting unit, not a public token ([ADR-0029](../architecture/architecture-decision-records/ADR-0029-unified-institutional-resource-metering.md)) |
+| Cloud account | Proposed institution-governed relationship through which an eligible person accesses self-service cloud projects; it is not a course enrollment ([proposal](../product/Self-Service-Cloud-Product-and-Console.md)) |
+| Alumni account | A cloud account whose holder is no longer an active student but remains eligible to sign in and manage allowed projects; alumni status does not itself award a new grant |
+| Cloud project | Proposed institution-owned boundary for a purpose, members, resources, quotas, policy and funding; a person may belong to several projects |
+| Granted service credit | Proposed non-transferable, sponsor-issued spending entitlement with stated use restrictions; it is not customer prepayment |
+| Purchased service balance | Proposed record of customer-prepaid cloud capacity and its refund or dispute obligations; it is not a public token or authorization credential |
+| Paid-usage opt-in | Project-scoped, revocable approval by an authorized payer to consume purchased balance under a stated rate card and spending ceiling; a balance purchase is not an opt-in |
+| Funding-exhausted project | A project with no currently permitted funding for additional billable use; the cloud account remains accessible while billable resources enter a governed paused state |
+| Exhaustion export window | The minimum period after a personal project's funding-exhaustion pause during which eligible data remains available for export; the founder-selected minimum is 30 days, not an automatic deletion date |
+| Business continuity funding | A separately approved, capped automatic-top-up or invoiced arrangement for an approved business project; it is distinct from ordinary project paid-usage opt-in |
+| Business-project migration | Governed transfer or re-creation of allowed data and resources into a new approved business project; it is not an in-place change of a personal project's privileges |
+| Paid service quote | A time-bounded estimate for proposed service use that states both service-credit units and the institution's currency amount under a named rate card; it is not a final usage charge |
 | Settlement batch | A zero-sum set of balance changes over a window, committed to a ledger |
 | Preemption | Ending a running lease so the resource can serve a higher-priority or owner need; distinct from revocation for cause |
 | Drain | Stopping new leases on a resource ahead of eviction or maintenance, with a grace period |

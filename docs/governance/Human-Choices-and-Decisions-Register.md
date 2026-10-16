@@ -6,10 +6,10 @@
 > Status: Accepted
 > Owner: Platform governance
 > Accountable maintainer: RedjiJB until delegation
-> Last reviewed: 2026-09-25
+> Last reviewed: 2026-10-16
 > Governing decisions: ADR-0001 through ADR-0029 and repository governance
 
-> Last updated: 2026-09-25
+> Last updated: 2026-10-16
 > Purpose: Consolidate decisions that cannot be safely inferred or delegated to
 > software, an AI agent, a vendor, or an individual contributor
 
@@ -163,6 +163,29 @@ Decision states:
 | CLD-018 | GitOps engine | Argo CD; Flux is the open exit path | Platform + SRE | Accepted default; exact release before shared environments |
 | CLD-019 | IaC tools and module policy | OpenTofu + Ansible; OSI-licensed providers/modules preferred | Infrastructure team + legal | Accepted by ADR-0017; concrete backend before reproducible environment |
 | CLD-020 | Search service | OpenSearch only when PostgreSQL search is insufficient | Data architecture | Before adding search cluster |
+
+### Self-service cloud product decisions
+
+The founder accepted CLD-021 through CLD-033 on 2026-10-16 as common product
+direction. They do not approve an institutional paid offer, account onboarding,
+legal retention or production deployment. Proposed ADR-0036 elaborates the
+product model; each institution must still approve its local implementation.
+
+| ID | Human choice | Accepted project default | Decision authority | Gate |
+|---|---|---|---|---|
+| CLD-021 | Pilot account population | Institution-affiliated people and alumni may be eligible without course enrollment; unaffiliated public registration is a later decision | Founder for common product; institution identity owner for activation | Institution eligibility and proofing approval before pilot |
+| CLD-022 | Graduation and grants | Graduates retain an accessible alumni cloud account and allowed personal projects; no automatic new alumni grant | Founder for common product; institution sponsor for local grants | Sponsorship, ownership and account-transition policy before pilot |
+| CLD-023 | Paid-usage consent | A project consumes purchased service balance only after its authorized payer explicitly opts in to paid use under a stated rate card and spending ceiling; purchasing balance alone is not consent | Founder for common product; institution finance/legal for activation | Paid pilot and versioned funding contract |
+| CLD-024 | Funding exhaustion | Pause billable services when no permitted funding remains while preserving account sign-in, usage/billing, support and eligible data-export access; no silent charge or immediate account deletion | Founder for common product; institution service and retention owners for activation | Service-specific safe stop, preservation terms and recovery test before pilot |
+| CLD-025 | Exhausted-project export window | Preserve eligible personal-project data for at least 30 days after funding-exhaustion pause, with advance notices; deletion may be considered afterward but is not automatic and remains subject to approved retention, holds and terms | Founder for common product; institution privacy/records and service owners for activation | Published retention and deletion policy, funded preservation capacity and restore/export test before pilot |
+| CLD-026 | Sponsored-project graduation | Follow a written project ownership and sponsorship agreement; graduation alone does not transfer control to the student or institution | Founder for common product; institution sponsor and project parties for local agreement | Agreement before sponsored project activation; unresolved ownership goes to review without automatic transfer |
+| CLD-027 | Business continuity funding | Approved business projects may separately opt into automatic top-ups or invoiced continuity with a hard spending cap; neither is the default or an unlimited service guarantee | Founder for common product; institution finance/legal and service owner for activation | Paid/commercial pilot terms, credit-risk controls, cap enforcement and outage tests |
+| CLD-028 | Personal-to-business transition | Create a new, approved business project and migrate allowed resources/data; do not turn a personal project into a commercial one in place | Founder for common product; institution commercial and data owners for activation | Migration, data classification, ownership and cutover review before commercial use |
+| CLD-029 | Unused purchased balance at account closure | Refund or otherwise settle remaining purchased balance under institution-approved terms; closure must not silently forfeit or erase the liability | Founder for common product; institution finance/legal for activation | Published terms, reconciliation, dispute and refund procedure before paid pilot |
+| CLD-030 | First paid-pilot ingress | Keep apps private and deny public internet-facing ingress until the separate commercial-production gate passes | Founder for common product; institution network/security and service owners for activation | Public ingress, abuse, DDoS, support and SLO evidence before commercial production |
+| CLD-031 | Personal-to-business purchased balance | Settle the personal project's unused purchased balance with its payer under approved terms; business capacity requires a separate purchase under the approved business billing authority, with no automatic balance transfer | Founder for common product; institution finance/legal for activation | Reconciliation and distinct payer records before business migration |
+| CLD-032 | Public ingress after production gate | After the production ingress gate passes, separately approved personal, research and business profiles may publish public apps under profile-specific policy; business status alone is neither required nor sufficient | Founder for common product; institution network/security and service owners for activation | Per-profile ingress, abuse, data and support approval before exposure |
+| CLD-033 | Paid price presentation | Show both service-credit usage and the institution's currency amount before each paid commitment, identifying rate version, estimates versus actuals, applicable charges and cap effect | Founder for common product; institution finance/legal for activation | Published rate card, quote tests and accessible consent UI before paid pilot |
 
 ### 4.1 Accepted networking implementation profile
 

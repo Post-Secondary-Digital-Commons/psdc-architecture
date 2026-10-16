@@ -64,6 +64,8 @@ live in the sibling repositories under the workspace root.
 - [ADR-0032: data-plane gateway and two-axis roadmap](./docs/architecture/architecture-decision-records/ADR-0032-data-plane-gateway-and-two-axis-roadmap.md)
 - [ADR-0033: dual-lane adaptive AI sessions](./docs/architecture/architecture-decision-records/ADR-0033-dual-lane-adaptive-ai-sessions.md)
 - [ADR-0034: governed agent skills and workspace knowledge plane](./docs/architecture/architecture-decision-records/ADR-0034-governed-agent-skills-and-workspace-knowledge-plane.md)
+- [Proposed ADR-0036: self-service cloud and optional paid capacity](./docs/architecture/architecture-decision-records/ADR-0036-self-service-cloud-and-optional-paid-capacity.md)
+- [Proposed self-service cloud product and console](./docs/product/Self-Service-Cloud-Product-and-Console.md)
 - [Dual-lane adaptive session architecture](./docs/ai/Dual-Lane-Adaptive-Session-Architecture.md)
 - [Minimal conversation experience](./docs/product/Minimal-Conversation-Experience.md)
 - [Typing and draft privacy](./docs/governance/Typing-and-Draft-Privacy.md)
