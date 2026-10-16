@@ -6,7 +6,7 @@
 > Owner: PSDC Cloud, Product and Economics Working Groups
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-16
-> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-030
+> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-033
 > Date: 2026-10-15
 > Decision owner: PSDC founder for product direction; each institution for commercial activation
 
@@ -100,6 +100,17 @@ explicit finance, legal, privacy, security, procurement and institutional approv
 16. The first paid pilot remains private. Public internet-facing applications
     and ingress wait for the distinct commercial-production gate and its
     security, abuse, network, support and recovery evidence.
+17. Purchased balance from a personal project does not automatically fund its
+    successor business project. Settle the personal balance with its payer under
+    approved terms; the approved business billing authority makes a separate
+    purchase or funding agreement.
+18. After the production ingress gate, eligible personal, research and business
+    profiles may request public apps. Each needs its own institution-approved
+    ingress, abuse, data and support policy; business status alone is not an
+    authorization to publish.
+19. Before a paid commitment, the console and API present service-credit usage
+    and the corresponding amount in the institution's currency, clearly marking
+    estimate versus actual charge, rate-card version and spending-cap effect.
 
 ## Consequences and review gates
 

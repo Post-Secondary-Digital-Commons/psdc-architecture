@@ -6,7 +6,7 @@
 > Owner: PSDC Cloud and Product Working Groups
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-16
-> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-030; proposed ADR-0036
+> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-033; proposed ADR-0036
 
 ## Purpose and users
 
@@ -71,8 +71,9 @@ the next safe action. Within a project, students can see:
    deployment revisions, health, restart/restore and incident notices.
 4. **Access:** roles, service identities, short-lived scoped credentials, keys and
    secrets. A user can revoke a credential without deleting the project.
-5. **Usage and billing:** grants and purchases shown separately, price estimates,
-   reservations, measured use, receipts, holds, disputed use and exportable history.
+5. **Usage and billing:** grants and purchases shown separately; service-credit
+   units and the institution's currency shown together for paid quotes, usage and
+   statements; reservations, receipts, holds, disputes and exportable history.
 6. **Lifecycle:** suspend, resume, export and delete with retention/hold explanation.
 
 Every core operation needs an equivalent documented API/CLI path. Keyboard access,
@@ -95,6 +96,7 @@ display a successful creation merely because a backend request was queued.
 | Exhausted funding | Receives warnings, sees services paused and retains console, usage/billing, support and eligible export access | No silent use of purchased balance, automatic card charge or immediate deletion; resume only after permitted funding and checks |
 | Business continuity | Approved business owner separately elects capped automatic top-ups or invoiced continuity under approved terms | Payment failure, invoice exposure or reached cap cannot silently create unlimited debt or bypass safe stop |
 | Paid account closure | Owner exports eligible data and requests account closure; finance reconciles usage and refunds or otherwise settles unused purchased balance under approved terms | Liability is not forfeited, transferred or erased merely because sign-in closes |
+| Public personal/research publisher | After the production ingress gate, an eligible project requests public access under its own profile policy | Payment or a business label alone cannot bypass ingress, data, abuse or support checks |
 
 ## Service and implementation architecture
 
@@ -158,7 +160,12 @@ standalone-operation review before adoption.
 ## Funding, quotas and no-surprise spending
 
 The rate card quotes each resource class and distinguishes reserved from consumed
-usage. Before provisioning, atomically check policy, quota and a spending hold.
+usage. Before each paid commitment, present both service-credit usage and an
+amount in the institution's currency, with rate-card version, quote validity,
+applicable charges, estimate-versus-actual status and effect on the hard cap.
+Console approval and API/CLI consent must reference the same quote and payer;
+an internal credit unit is not itself a currency or transferable token. Before
+provisioning, atomically check policy, quota and a spending hold.
 After backend evidence is reconciled, convert the hold to a measured charge and
 release any unused portion. Reservations, retries, duplicate events, missing
 receipts, refunds and disputes must never create double charges or negative
@@ -175,8 +182,7 @@ current rate card and spending ceiling. Buying or holding balance is not opt-in.
 Revocation blocks new paid consumption; any in-flight reservation must follow
 its published cancellation and reconciliation rule. A dispute holds the contested
 amount and prevents an automated provider penalty. No conversion, transfer,
-withdrawal or cash
-redemption follows from the word “credit.”
+withdrawal or cash redemption follows from the word “credit.”
 
 Finance/counsel must decide whether prepaid cloud capacity is treated as a
 prepaid service, gift-card-like instrument or another category in each jurisdiction;
@@ -236,7 +242,10 @@ services, secrets, grants and dependencies; classifies what may move; establishe
 new project roles, funding, quotas and terms; copies or re-creates allowed resources;
 verifies data integrity and access; then performs a controlled cutover. The old
 personal project remains separately governed until its resources and balance are
-resolved. A failed migration must not confer business ingress or silently delete
+resolved. Its unused purchased balance is settled with the personal payer under
+approved terms; it is not carried into the new business project. The approved
+business billing authority makes a separate purchase or funding agreement. A
+failed migration must not confer business ingress or silently delete
 the source. Cross-project copy is not a grant of cross-project standing access.
 
 Paid account closure first stops new spending authority and reconciles outstanding
@@ -288,7 +297,9 @@ must remain usable during partner outages.
 4. **Commercial production:** certified provider pool, public-ingress safeguards,
    named on-call and SLO, business terms, complaints/disputes, recovery and
    capacity evidence. Public ingress may activate no earlier than this gate for
-   separately approved eligible project profiles, including business projects.
+   separately approved personal, research and business project profiles. Each
+   profile needs its own ingress, data, abuse and support policy; being a business
+   is neither necessary nor sufficient for public exposure.
    No course pilot or payment success substitutes for this.
 5. **Expanded catalog:** VM, block/file, databases, accelerator, federation and
    optional public membership only after their own contracts and site gates.
@@ -300,7 +311,9 @@ backup/restore and export; controlled deletion; independent operation during
 payment/partner outage; a 30-day preservation/export clock with notices, hold and
 resume cases; sponsored-project ownership review; hard-cap denial even with an
 automatic top-up agreement; new-project business migration with rollback;
-unused-balance settlement; paid-pilot public-ingress denial; and clear
+unused-balance settlement and separate business purchase; quote display in
+credits and currency; paid-pilot public-ingress denial; per-profile public
+approval after the production gate; and clear
 accessibility tests. These are proposed tests,
 not tests that have run.
 
