@@ -6,7 +6,7 @@
 > Owner: PSDC Cloud and Product Working Groups
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-16
-> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-024; proposed ADR-0036
+> Governing decisions: ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-027; proposed ADR-0036
 
 ## Purpose and users
 
@@ -88,11 +88,12 @@ display a successful creation merely because a backend request was queued.
 | Personal builder | Eligible user signs in, creates a personal project and deploys a small app without a course ID | Ineligible or suspended account cannot create resources; project quota enforced |
 | Object-storage user | Creates a bucket, obtains scoped S3-compatible access through the institution gateway, uploads, versions, retrieves and deletes an allowed object | Unsupported S3 operation returns a documented compatibility error; backend is not directly exposed |
 | Function developer | Publishes an approved artifact and connects HTTP, schedule, queue or object trigger; sees invocation logs and cost | Unapproved image, forbidden egress, missing budget or duplicate event cannot bypass admission or double charge |
-| School sponsor | Assigns restricted grant credits to a project and later withdraws sponsorship under published terms | A restricted academic grant cannot silently pay for commercial use |
+| School sponsor | Records a written ownership/sponsorship agreement, assigns restricted grant credits, and resolves control under that agreement when a member graduates | A restricted academic grant cannot silently pay for commercial use; graduation alone transfers no project control |
 | Purchased capacity | Authorized user requests a top-up and receives balance only after verified payment or approved invoice; separately opts the project into paid usage | Failed/duplicate/charged-back payment does not mint spendable balance; buying balance alone does not permit paid consumption |
 | Business operator | Applies for commercial profile, accepts terms, configures controlled ingress and receives the approved support/SLO | Payment alone does not make a sandbox production-certified or authorize protected data |
 | Graduating user | Keeps an accessible alumni account and allowed personal projects, resolves any school sponsorship, and can export eligible data | No automatic new grant; graduation alone does not close the account or delete data |
 | Exhausted funding | Receives warnings, sees services paused and retains console, usage/billing, support and eligible export access | No silent use of purchased balance, automatic card charge or immediate deletion; resume only after permitted funding and checks |
+| Business continuity | Approved business owner separately elects capped automatic top-ups or invoiced continuity under approved terms | Payment failure, invoice exposure or reached cap cannot silently create unlimited debt or bypass safe stop |
 
 ## Service and implementation architecture
 
@@ -186,26 +187,37 @@ charge or a substitute for these customer obligations.
 
 Account status, project funding state and resource runtime state are separate.
 `student -> alumni` keeps sign-in and allowed personal-project ownership; it does
-not renew a student grant. A school-sponsored project follows its sponsorship and
-data-ownership agreement, not the student's account status alone.
+not renew a student grant. A school-sponsored project follows its written
+ownership and sponsorship agreement, not the student's account status alone.
+The agreement must identify the controlling party and export/disposition rights
+before sponsorship activates. If an agreement is absent or disputed, graduation
+does not transfer control; the project enters a governed ownership review.
 
 For each project, the funding authority evaluates applicable grants first under
 their restrictions. It may draw purchased balance only with an active,
 project-scoped paid-usage opt-in from an authorized payer. The opt-in records the
 accepted rate-card version, spending ceiling, funding order, time and actor. It
 can be revoked; no pre-existing balance or stored payment method implies consent
-to future paid use. Automatic top-up or postpaid invoicing needs a separate,
-explicitly approved agreement and is not the default.
+to future paid use. For an approved business project, an authorized payer may
+separately elect automatic top-ups or invoiced continuity under approved terms,
+a hard spending cap and credit-risk controls. Neither option is a default, and
+reaching the cap or losing payment authority still invokes the safe-stop path.
 
 When permitted funding runs out, reject new billable admissions and transition
 existing resources through service-specific safe-stop steps. A function stops
 accepting billable invocations; a VM or container receives a bounded shutdown;
 public ingress ceases serving if its backing service cannot run safely. Storage
 must enter an institution-funded, bounded preservation/export state rather than
-silently accruing customer charges or being immediately deleted. The institution
-must publish notice intervals, preservation duration, what export includes, what
-may continue running, and the later disposition rule before the pilot. No numeric
-period is assumed by this common proposal.
+silently accruing customer charges or being immediately deleted. For an exhausted
+personal project, eligible data stays available for export for at least **30 days
+from the funding-exhaustion pause**. The owner receives advance exhaustion and
+disposition notices through approved contact channels. After day 30, deletion may
+be considered but is not automatic: institution-approved retention, legal holds,
+disputes and backup controls still govern it. The institution must publish the
+notice schedule, export scope, preservation funding, later disposition process
+and any longer local period before the pilot. A newly funded, successfully
+resumed project leaves the exhaustion-preservation state; a later exhaustion
+starts a new window rather than inheriting a stale deadline.
 
 The console remains usable for status, usage, billing/dispute, support, top-up and
 eligible export. On a valid grant or approved paid funding, resumption rechecks
@@ -224,8 +236,9 @@ payment alone does not confer production assurance.
 | Object backend down | Reads/writes follow declared availability; no false success | Storage Authority repairs/fails over only inside policy and custody rules |
 | Payment provider unavailable | Existing entitled/granted use continues under policy; top-up pending | No unverified credit mint; independent core cloud operation |
 | Ledger unavailable | Accepted resource use continues within approved exposure limits | Queue commitments; reconcile after recovery, no card or content on-chain |
-| Project funding exhausted | Warn at thresholds; pause billable compute, functions, writes and public serving according to service-specific safe-stop procedures | Keep account, console, usage/billing, support and eligible export access; no automatic purchased-balance use or card charge |
+| Project funding exhausted | Warn at thresholds; pause billable compute, functions, writes and public serving according to service-specific safe-stop procedures | Keep account, console, usage/billing, support and eligible export access; preserve eligible personal data for at least 30 days, with advance notices and no automatic deletion |
 | Graduation | Transition student to alumni status; preserve accessible account and allowed personal projects | End or reassign school sponsorship under its agreement; no automatic alumni grant |
+| Business continuity payment/cap failure | Notify payer and prepare service-specific safe stop; never exceed a hard cap silently | Reconcile pending top-up or invoice, preserve eligible export, and resume only after authorized funding and policy recheck |
 | Account closure | Clear ownership, export, disposition and balance/refund status | Institution retention authority and finance, not course enrollment alone |
 
 Each service requires a named owner, documented support hours, SLO, measured
@@ -245,8 +258,9 @@ must remain usable during partner outages.
 3. **Paid pilot:** separate purchased-balance contract, approved seller, terms,
    taxes/refunds/chargeback procedures, payment integration or invoice process,
    daily reconciliation, explicit project-scoped paid-usage opt-in, support and
-   negative financial fixtures. Feature gate off until all institutional approvals
-   are recorded.
+   negative financial fixtures. Optional capped automatic top-up and invoiced
+   continuity need their own consent, exposure limits and failure fixtures.
+   Feature gate off until all institutional approvals are recorded.
 4. **Commercial production:** certified provider pool, public-ingress safeguards,
    named on-call and SLO, business terms, complaints/disputes, recovery and
    capacity evidence. No course pilot or payment success substitutes for this.
@@ -257,7 +271,9 @@ Acceptance evidence must demonstrate account creation without course enrollment;
 separate grant/purchase ledgers; denied overspend; no duplicate charge on retry;
 project and credential isolation; gateway-only data access; accurate usage display;
 backup/restore and export; controlled deletion; independent operation during
-payment/partner outage; and clear accessibility tests. These are proposed tests,
+payment/partner outage; a 30-day preservation/export clock with notices, hold and
+resume cases; sponsored-project ownership review; hard-cap denial even with an
+automatic top-up agreement; and clear accessibility tests. These are proposed tests,
 not tests that have run.
 
 ## Open institution decisions and references
@@ -267,7 +283,9 @@ access remains a later decision), seller of record, funding/credit grant
 authorities, actual rate card, balance restrictions,
 refund/expiry/tax policy, payment method, commercial terms, abuse operator, public
 ingress owner, protected data classes, support tier, recovery objectives and
-capacity reservation. Those are not safely inherited from the Common framework.
+capacity reservation. It must also approve any longer preservation period, notice
+schedule, legal-hold interaction, invoiced-credit exposure and top-up limits.
+Those are not safely inherited from the Common framework.
 
 - [Proposed ADR-0036](../architecture/architecture-decision-records/ADR-0036-self-service-cloud-and-optional-paid-capacity.md)
 - [Accepted IRU model](../architecture/architecture-decision-records/ADR-0029-unified-institutional-resource-metering.md)

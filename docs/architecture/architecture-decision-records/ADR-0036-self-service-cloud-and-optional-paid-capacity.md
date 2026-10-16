@@ -6,7 +6,7 @@
 > Owner: PSDC Cloud, Product and Economics Working Groups
 > Accountable maintainer: RedjiJB until delegation
 > Last reviewed: 2026-10-16
-> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-024
+> Governing decisions: ADR-0010, ADR-0012, ADR-0015, ADR-0029, ADR-0031, ADR-0032, CLD-021 through CLD-027
 > Date: 2026-10-15
 > Decision owner: PSDC founder for product direction; each institution for commercial activation
 
@@ -79,6 +79,17 @@ explicit finance, legal, privacy, security, procurement and institutional approv
     billing review, support, and eligible data export remain available. Resource
     retention, non-billable preservation cost, notice and restart semantics need
     published institution-approved terms before a live pilot.
+11. An exhausted personal project's eligible data remains preserved for export for
+    at least 30 days after the funding-exhaustion pause, with advance notices.
+    After that window, deletion may be considered under approved retention and
+    legal-hold rules; it is never an automatic consequence of the clock alone.
+12. A written ownership and sponsorship agreement governs a school-sponsored
+    project through graduation. Neither the alumnus nor the school receives
+    automatic transfer of control solely because student status changed.
+13. An approved business project may separately opt into automatic top-ups or
+    invoiced continuity with a hard spending cap. This requires institution
+    finance/legal approval, risk controls and explicit customer terms; it does
+    not override the cap or guarantee uninterrupted service.
 
 ## Consequences and review gates
 
@@ -98,6 +109,9 @@ explicit finance, legal, privacy, security, procurement and institutional approv
   keep an allowed personal project without an automatic new grant. Account closure,
   sponsorship changes and funded-service suspension require distinct export and
   disposition workflows.
+- The 30-day export window is a founder-selected product minimum, not a legal
+  retention conclusion. The institution must approve the preservation source,
+  notices, deletion authority, holds and backup treatment before activation.
 
 ## Alternatives
 

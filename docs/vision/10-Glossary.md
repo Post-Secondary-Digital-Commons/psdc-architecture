@@ -71,6 +71,8 @@ This glossary defines the terms the architecture uses with a specific meaning. W
 | Purchased service balance | Proposed record of customer-prepaid cloud capacity and its refund or dispute obligations; it is not a public token or authorization credential |
 | Paid-usage opt-in | Project-scoped, revocable approval by an authorized payer to consume purchased balance under a stated rate card and spending ceiling; a balance purchase is not an opt-in |
 | Funding-exhausted project | A project with no currently permitted funding for additional billable use; the cloud account remains accessible while billable resources enter a governed paused state |
+| Exhaustion export window | The minimum period after a personal project's funding-exhaustion pause during which eligible data remains available for export; the founder-selected minimum is 30 days, not an automatic deletion date |
+| Business continuity funding | A separately approved, capped automatic-top-up or invoiced arrangement for an approved business project; it is distinct from ordinary project paid-usage opt-in |
 | Settlement batch | A zero-sum set of balance changes over a window, committed to a ledger |
 | Preemption | Ending a running lease so the resource can serve a higher-priority or owner need; distinct from revocation for cause |
 | Drain | Stopping new leases on a resource ahead of eviction or maintenance, with a grace period |

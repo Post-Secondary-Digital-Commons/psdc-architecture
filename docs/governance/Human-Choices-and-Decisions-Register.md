@@ -6,10 +6,10 @@
 > Status: Accepted
 > Owner: Platform governance
 > Accountable maintainer: RedjiJB until delegation
-> Last reviewed: 2026-09-25
+> Last reviewed: 2026-10-16
 > Governing decisions: ADR-0001 through ADR-0029 and repository governance
 
-> Last updated: 2026-09-25
+> Last updated: 2026-10-16
 > Purpose: Consolidate decisions that cannot be safely inferred or delegated to
 > software, an AI agent, a vendor, or an individual contributor
 
@@ -166,9 +166,9 @@ Decision states:
 
 ### Self-service cloud product decisions
 
-The founder accepted CLD-021 through CLD-024 on 2026-10-16 as common product
+The founder accepted CLD-021 through CLD-027 on 2026-10-16 as common product
 direction. They do not approve an institutional paid offer, account onboarding,
-retention period or production deployment. Proposed ADR-0036 elaborates the
+legal retention or production deployment. Proposed ADR-0036 elaborates the
 product model; each institution must still approve its local implementation.
 
 | ID | Human choice | Accepted project default | Decision authority | Gate |
@@ -177,6 +177,9 @@ product model; each institution must still approve its local implementation.
 | CLD-022 | Graduation and grants | Graduates retain an accessible alumni cloud account and allowed personal projects; no automatic new alumni grant | Founder for common product; institution sponsor for local grants | Sponsorship, ownership and account-transition policy before pilot |
 | CLD-023 | Paid-usage consent | A project consumes purchased service balance only after its authorized payer explicitly opts in to paid use under a stated rate card and spending ceiling; purchasing balance alone is not consent | Founder for common product; institution finance/legal for activation | Paid pilot and versioned funding contract |
 | CLD-024 | Funding exhaustion | Pause billable services when no permitted funding remains while preserving account sign-in, usage/billing, support and eligible data-export access; no silent charge or immediate account deletion | Founder for common product; institution service and retention owners for activation | Service-specific safe stop, preservation terms and recovery test before pilot |
+| CLD-025 | Exhausted-project export window | Preserve eligible personal-project data for at least 30 days after funding-exhaustion pause, with advance notices; deletion may be considered afterward but is not automatic and remains subject to approved retention, holds and terms | Founder for common product; institution privacy/records and service owners for activation | Published retention and deletion policy, funded preservation capacity and restore/export test before pilot |
+| CLD-026 | Sponsored-project graduation | Follow a written project ownership and sponsorship agreement; graduation alone does not transfer control to the student or institution | Founder for common product; institution sponsor and project parties for local agreement | Agreement before sponsored project activation; unresolved ownership goes to review without automatic transfer |
+| CLD-027 | Business continuity funding | Approved business projects may separately opt into automatic top-ups or invoiced continuity with a hard spending cap; neither is the default or an unlimited service guarantee | Founder for common product; institution finance/legal and service owner for activation | Paid/commercial pilot terms, credit-risk controls, cap enforcement and outage tests |
 
 ### 4.1 Accepted networking implementation profile
 
